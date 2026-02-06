@@ -14,7 +14,7 @@
 
 ## P1 — 中优先级
 
-- [ ] **date_utils.py 单元测试**：为 `date_utils.py` 增加单元测试（如 `get_date_info` 对固定日期的输出、`--yesterday` / `--week-range` 行为），放在 `tests/` 或 `jw-agenda/_common/scripts/tests/`。
+- [x] **date_utils.py 单元测试**：已在 `jw-agenda/tests/test_date_utils.py` 增加 pytest 测试（get_date_info 结构/固定日期/月内周/周起止、CLI 指定日期/--yesterday/--week-range/无效日期 exit）。可通过 `DATE_UTILS_TODAY` 固定「今天」便于测试。
 - [ ] **dedup_todos.py 单元测试**：为 `dedup_todos.py` 增加单元测试（normalize、extract_items、去重结果），与 date_utils 测试同目录。
 - [ ] **CI**：添加 GitHub Actions（或等价 CI）：运行上述 Python 单元测试；可选检查 SKILL.md 含 name/version、conventions 与 SKILL 中路径关键词一致。
 - [ ] **文档：Python 与运行环境**：在 jw-agenda README 或 CONTRIBUTING 中注明 Python 版本（如 3.9+）、已在 Cursor/Claude 下验证的版本或环境，便于用户和贡献者对齐。

@@ -1,5 +1,27 @@
 # 维护说明
 
+## 运行测试
+
+### 测试前需要安装
+
+- **Python 3.9+**（脚本使用 `list[str]` 等类型提示）
+- **pytest**：`pip install pytest`
+
+### 如何运行测试
+
+在仓库根目录或本目录（jw-agenda）下执行：
+
+```bash
+# 从仓库根
+pytest jw-agenda/tests/ -v
+
+# 或进入 jw-agenda 后
+cd jw-agenda
+pytest tests/ -v
+```
+
+测试位于 `jw-agenda/tests/`，当前包含 `test_date_utils.py`（对 `_common/scripts/date_utils.py` 的单元测试）。`conftest.py` 会将 `_common/scripts` 加入 Python 路径，无需额外配置即可导入脚本。
+
 ## 修改约定或脚本后保持 5 个 Skill 一致
 
 约定（conventions）、作息模板（schedule-config.example）和脚本（date_utils.py、dedup_todos.py）的**唯一来源**是 `_common/`。修改 `_common/` 下任何文件后，请执行：

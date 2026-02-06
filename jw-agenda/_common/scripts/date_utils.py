@@ -6,12 +6,22 @@
     python3 date_utils.py 2026-02-05       # 输出指定日期的信息
     python3 date_utils.py --yesterday      # 输出昨天的信息
     python3 date_utils.py --week-range     # 输出本周一至周日的日期范围
+
+测试时可设环境变量 DATE_UTILS_TODAY（ISO 日期）固定「今天」。
 """
 
+import os
 import sys
 from datetime import date, timedelta
 from math import ceil
 import json
+
+
+def _today() -> date:
+    """Current date; overridable for tests via env DATE_UTILS_TODAY (ISO)."""
+    if os.environ.get("DATE_UTILS_TODAY"):
+        return date.fromisoformat(os.environ["DATE_UTILS_TODAY"])
+    return date.today()
 
 
 def get_date_info(d: date) -> dict:
@@ -46,9 +56,9 @@ def main():
     args = sys.argv[1:]
 
     if "--yesterday" in args:
-        target = date.today() - timedelta(days=1)
+        target = _today() - timedelta(days=1)
     elif "--week-range" in args:
-        today = date.today()
+        today = _today()
         monday = today - timedelta(days=today.weekday())
         days = []
         for i in range(7):
@@ -63,7 +73,7 @@ def main():
             print(f"date_utils: 无效日期 '{args[0]}' ({e})", file=sys.stderr)
             sys.exit(1)
     else:
-        target = date.today()
+        target = _today()
 
     info = get_date_info(target)
 
