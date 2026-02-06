@@ -29,6 +29,8 @@
 | 未定日期 / 待办池 | `TODO.md` | `personal/agenda/tasks/TODO.md` |
 | 作息时间配置（可选） | `schedule-config.md` | `personal/agenda/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
 
+**tasks 目录下以 `todo` 开头的文件**（如 `TODO.md`、`todo-readinglist.md`、`todo-xxx.md`）均视为待办/清单。生成周规划或日计划时，应将上述文件中的未勾选项作为可选来源纳入考虑。
+
 **日志中的「今日想法/随口记」**：用户口语化汇报进度时，想法、感受、碎碎念记入该区块，原意保留，便于日后回顾。
 
 ## daily-log 与 daily-todo 的分工
@@ -84,6 +86,7 @@
 | 昨天未完成 + 也在规划中 | `*(从昨天转移)*` |
 | 从其他日期移入 | `*(从 M.D 移入)*` |
 | 来自阅读清单 | `*(来自阅读清单)*` |
+| 来自 tasks 清单（含上述及其他 todo 开头文件） | `*(来自 tasks 清单)*` |
 
 ## 状态标记（daily-todo 更新状态时使用）
 

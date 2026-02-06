@@ -39,6 +39,7 @@ metadata:
 1. **上周总结**（若有）：`personal/agenda/weekly/Week{W-1}-review.md` 中的「转入下周」部分
 2. **上周日志**：`personal/agenda/daily/` 下上周日期范围内的日志，提取「未完成」部分
 3. **上周 todo**：`personal/agenda/daily/todo-{上周各日期}.md` 中未勾选项
+4. **tasks 目录下以 todo 开头的文件**（可选）：如 `personal/agenda/tasks/TODO.md`、`todo-readinglist.md`、`todo-*.md`。其中未勾选项作为「待纳入本周」的候选，在按日分配时酌情纳入（可集中在某几天或按优先级分散）
 
 汇总为延续任务清单。
 
