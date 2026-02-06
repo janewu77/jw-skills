@@ -62,7 +62,7 @@
 
 **周起止日**：默认周一至周日。若某周跨月（如 1.29–2.4），归属于 Week 结束日所在月份。
 
-**推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。
+**推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。**调用 dedup_todos.py 时仅传入约定目录（如 personal/agenda 下）内的路径**，脚本会校验路径位于 workspace 内，避免路径遍历。
 
 ## 临时追加的归属
 
