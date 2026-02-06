@@ -18,4 +18,4 @@ venv/
 # *.zip
 
 jw-agenda/output
-tmp
+_tmp/*
