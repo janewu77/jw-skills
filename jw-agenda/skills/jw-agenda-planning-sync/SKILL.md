@@ -1,9 +1,10 @@
 ---
 name: jw-agenda-planning-sync
 description: "Planning sync: check consistency between daily/weekly/monthly plans, list discrepancies, batch update after user confirmation. Triggers: '同步规划', '检查一致性', 'planning sync', '运行 planning-sync'."
-author: Jing Wu
-version: "0.0.1"
-updated: "2026-02-06"
+metadata:
+  author: Jing Wu
+  version: "0.0.1"
+  updated: "2026-02-06"
 ---
 
 # Planning Sync（规划同步助手）

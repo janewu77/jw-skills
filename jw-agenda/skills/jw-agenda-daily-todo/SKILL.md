@@ -1,9 +1,10 @@
 ---
 name: jw-agenda-daily-todo
 description: "Daily todo manager: generate today's plan, reschedule items, add ad-hoc tasks. Triggers: '生成今天的计划', 'today plan', '把X移到周三', '加一项', '明天要', '运行 daily-todo'. (Marking completion is handled by daily-log.)"
-author: Jing Wu
-version: "0.0.1"
-updated: "2026-02-06"
+metadata:
+  author: Jing Wu
+  version: "0.0.1"
+  updated: "2026-02-06"
 ---
 
 # Daily Todo（处理当天）

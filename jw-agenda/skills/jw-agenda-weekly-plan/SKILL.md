@@ -1,9 +1,10 @@
 ---
 name: jw-agenda-weekly-plan
 description: "Weekly plan generator: create day-by-day breakdown from monthly goals and last week's carry-over. Triggers: '生成本周计划', '周规划', 'weekly plan', '运行 weekly-plan'."
-author: Jing Wu
-version: "0.0.1"
-updated: "2026-02-06"
+metadata:
+  author: Jing Wu
+  version: "0.0.1"
+  updated: "2026-02-06"
 ---
 
 # Weekly Plan（周规划生成器）
