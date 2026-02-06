@@ -116,6 +116,8 @@
 
 ## 安装
 
+在 **Cursor** 上安装时，可参考官方文档：[Agent Skills（含安装方式与 Skill 目录说明）](https://cursor.com/docs/context/skills)。
+
 ### 前提条件
 
 - 支持 Skill 的 AI 工作环境（如 Cursor、Claude Desktop 等）
@@ -203,13 +205,13 @@ cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedul
 
 **第 3 步：安装 Skill**
 
-- **用 zip 安装（推荐，Cursor 等）**：本仓库提供 5 个独立 zip（运行 `./package-skills.sh` 在 `output/` 下生成）。将**每个 zip 解压到 Cursor 的 skills 目录**即可，约定与脚本已内嵌在 zip 内，**无需再复制任何文件到用户目录**：
+- **用 zip 安装（推荐，Cursor 等）**：本仓库提供 5 个独立 zip（运行 `./package-skills.sh` 在 `output/` 下生成）。将**每个 zip 解压到 Cursor 的 skills 目录**（用户级：`~/.cursor/skills/`；项目级：`.cursor/skills/`）即可，约定与脚本已内嵌在 zip 内，**无需再复制任何文件到用户目录**。目录与从 GitHub 安装方式见 [Cursor 官方：Agent Skills](https://cursor.com/docs/context/skills)。
   ```bash
   unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
   unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
   # 其余 3 个 skill 同理
   ```
-- **从源码安装**：将本仓库 `jw-agenda/skills/` 下需要的 skill 目录复制到产品规定的技能目录（如 `~/.cursor/skills/`），具体见各产品文档。
+- **从源码安装**：将本仓库 `jw-agenda/skills/` 下需要的 skill 目录复制到产品规定的技能目录（如 `~/.cursor/skills/`），具体见 [Cursor 官方文档](https://cursor.com/docs/context/skills) 或各产品文档。
 
 **第 4 步：创建月规划（推荐）**
 
@@ -236,7 +238,7 @@ cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedul
 只想安装其中一个？也可以。每个 Skill 的约定与脚本已随包安装，**只需**在 workspace 下具备 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md`。
 
 1. 创建数据目录：`mkdir -p personal/agenda/{monthly,weekly,daily,tasks}`（若尚未创建）。
-2. 按该产品的标准方式，只安装你需要的 skill 目录，具体见 Cursor / Claude 等各产品文档。
+2. 按该产品的标准方式，只安装你需要的 skill 目录；Cursor 见 [官方：Agent Skills](https://cursor.com/docs/context/skills)，其他产品见各自文档。
 3. 缺少其他 Skill 时，该 Skill 会跳过相关数据源并正常工作。
 
 ---
