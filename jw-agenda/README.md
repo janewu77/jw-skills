@@ -127,7 +127,6 @@
 jw-agenda/
 ├── README.md                          ← 本文件
 ├── LICENSE                            ← 许可见仓库根目录 ../LICENSE
-├── pack.sh                            ← 打包脚本（分发给他人前执行，见「分发给他人使用」）
 │
 ├── shared/                            ← 共享基础设施
 │   ├── conventions.md                 ← 核心约定文件（安装到用户数据目录）
@@ -202,7 +201,13 @@ cp jw-agenda/shared/scripts/*.py          personal/agenda/shared/scripts/
 
 **第 3 步：安装 Skill**
 
-按你所用产品的**标准安装方式**安装 Skill（如 Cursor、Claude Desktop 各有各自的安装步骤与技能目录）。将 `jw-agenda/skills/` 下需要的 skill 目录（如 `jw-agenda-daily-todo`）安装到该产品规定的技能目录即可，具体见各产品文档。
+- **用 zip 安装（推荐，Cursor 等）**：若你拿到的是 `jw-agenda-<版本号>.zip`（见本仓库 Releases），**解压到 Cursor 的 skills 目录即可**，例如：
+  ```bash
+  # Cursor 用户级
+  unzip jw-agenda-0.0.1.zip -d ~/.cursor/skills/
+  ```
+  解压后 zip 内的 5 个 skill 目录会出现在 `~/.cursor/skills/` 下，无需再复制。
+- **从源码安装**：将本仓库 `jw-agenda/skills/` 下需要的 skill 目录复制到产品规定的技能目录（如 `~/.cursor/skills/`），具体见各产品文档。
 
 **第 4 步：创建月规划（推荐）**
 
@@ -280,22 +285,13 @@ N = 月内周号，`ceil(day / 7)`。例如 2 月 5 日 → Week 1。
 
 ## 分发给他人使用
 
-提供给他人使用时，**建议提前打好包**，便于分发和版本管理。使用者下载后解压即可按「安装步骤」操作。
-
-**打包方式**：在 `jw-agenda` 的**上级目录**执行（将 `0.0.1` 换成当前版本号）：
+若提供 `jw-agenda-<版本号>.zip` 给他人使用，zip 的**根目录应为 5 个 skill 目录**，使用者解压到 Cursor 的 skills 目录即完成安装，例如：
 
 ```bash
-zip -r jw-agenda-0.0.1.zip jw-agenda -x "*.git*" -x "*__pycache__*" -x "*.DS_Store"
+unzip jw-agenda-0.0.1.zip -d ~/.cursor/skills/
 ```
 
-或在 `jw-agenda` 目录下执行自带的打包脚本（会在上级目录生成 `jw-agenda-<版本号>.zip`）：
-
-```bash
-cd jw-agenda
-./pack.sh 0.0.1
-```
-
-发布时把 `jw-agenda-0.0.1.zip` 提供给对方，对方解压后得到 `jw-agenda/` 文件夹，再按上文「安装步骤」第 1～5 步操作即可。
+**注意**：zip 内只含 5 个 Skill，不含 `shared/`。使用者仍需完成「安装步骤」第 1、2 步（在 workspace 创建 `personal/agenda/shared/` 并从本仓库复制 conventions、schedule-config、scripts）；可从 GitHub 克隆本仓库或下载仓库 zip 获取 `shared/` 内容。
 
 ---
 
