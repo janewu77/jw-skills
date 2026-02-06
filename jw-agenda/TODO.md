@@ -8,7 +8,7 @@
 
 - [x] **dedup_todos 路径安全**：对 `dedup_todos.py` 的传入路径做规范化并限制在 workspace 或 `personal/agenda` 子树内；或在脚本与文档中明确「仅传入约定目录下的路径」，避免路径遍历风险。已实现：脚本校验两路径均在 `WORKSPACE_ROOT`（或 cwd）之下，conventions 中已说明仅传约定目录路径。
 - [ ] **脚本多副本同步**：在 jw-agenda CONTRIBUTING 或 CI 中强化「修改 _common 后必须执行 sync-common-to-skills.sh」的检查（如 CI 检查 _common 与各 skill assets 是否一致），降低多副本不同步风险。
-- [ ] 🆕 **sync-common-to-skills.sh Glob 不安全**：`cp "${COMMON}/scripts/"*.py` 当无 .py 文件时 glob 字面展开，导致静默失败。建议改用 `for file in ...; do [ -f "$file" ] && cp ...; done` 模式。
+- [x] 🆕 **sync-common-to-skills.sh Glob 不安全**：已改为 `for f in ...; do [ -f "$f" ] && cp ...; done` 及 LICENSE 单独复制，避免无 .py 时 glob 字面展开导致静默失败。
 
 ---
 

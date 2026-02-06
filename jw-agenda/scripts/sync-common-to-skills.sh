@@ -15,7 +15,10 @@ for skill_dir in "${SKILLS_DIR}"/*/; do
   mkdir -p "${assets}/scripts"
   cp "${COMMON}/conventions.md" "${assets}/"
   cp "${COMMON}/schedule-config.example.md" "${assets}/"
-  cp "${COMMON}/scripts/"*.py "${COMMON}/scripts/"LICENSE "${assets}/scripts/"
+  for f in "${COMMON}/scripts/"*.py; do
+    [ -f "$f" ] && cp "$f" "${assets}/scripts/"
+  done
+  [ -f "${COMMON}/scripts/LICENSE" ] && cp "${COMMON}/scripts/LICENSE" "${assets}/scripts/"
   echo "Synced: ${name}"
 done
 
