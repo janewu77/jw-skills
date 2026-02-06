@@ -20,7 +20,7 @@ cd jw-agenda
 pytest tests/ -v
 ```
 
-测试位于 `jw-agenda/tests/`，当前包含 `test_date_utils.py`（对 `_common/scripts/date_utils.py` 的单元测试）。`conftest.py` 会将 `_common/scripts` 加入 Python 路径，无需额外配置即可导入脚本。
+测试位于 `jw-agenda/tests/`，当前包含 `test_date_utils.py`（date_utils）、`test_dedup_todos.py`（dedup_todos）。`conftest.py` 会将 `_common/scripts` 加入 Python 路径，无需额外配置即可导入脚本。
 
 ## 修改约定或脚本后保持 5 个 Skill 一致
 
