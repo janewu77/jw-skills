@@ -1,6 +1,6 @@
 # jw-skills 项目改进清单
 
-来源：`_tmp/jw-skills-evaluation-2026-02.md` 与评估报告中的建议。按**项目层级**与**jw-agenda 层级**分列，各层内按优先级排序。完成一项可勾选。
+来源：`_tmp/jw-skills-evaluation-2026-02.md`、`_tmp/jw-skills-evaluation-2026-02-06.md` 与评估报告中的建议。按**项目层级**与**jw-agenda 层级**分列，各层内按优先级排序。完成一项可勾选。标有 🆕 的为 2026-02-06 评估新增。
 
 ---
 
@@ -16,6 +16,7 @@
 
 - [ ] **CHANGELOG**：在仓库根新增 `CHANGELOG.md`，随版本记录变更；可与 Git tag / GitHub Release 对应。
 - [ ] **发布流程与版本号约定**：在根 CONTRIBUTING 或单独文档中说明：Release 附 zip（5 个或 1 个捆绑）、CHANGELOG 摘要；仓库级或 jw-agenda 组级版本号与各 Skill metadata version 的对应关系。
+- [ ] 🆕 **.DS_Store 残留清理**：Git 中已 tracked 5 个 `.DS_Store` 文件（仓库根、_tmp、jw-agenda、output、skills），需执行 `git rm --cached -r '*.DS_Store'` 清理。`.gitignore` 已有规则但在规则生效前已被提交。
 
 ### P2 — 中低优先级
 
@@ -36,10 +37,10 @@
 
 | 优先级 | 引用摘要 |
 |--------|----------|
-| **P0** | dedup_todos 路径安全、脚本多副本同步 |
-| **P1** | date_utils / dedup_todos 单元测试、CI、Python 与运行环境文档、路径假设文档化 |
-| **P2** | 完整示例 workspace、1～2 个完整对话示例、向后兼容策略 |
-| **P3** | 快速开始一键命令（在 jw-agenda README） |
+| **P0** | dedup_todos 路径安全、脚本多副本同步、🆕 sync 脚本 Glob 不安全 |
+| **P1** | date_utils / dedup_todos 单元测试、CI、Python 与运行环境文档、路径假设文档化、🆕 dedup_todos 正则可靠性、🆕 date_utils 输入验证 |
+| **P2** | 完整示例 workspace、1～2 个完整对话示例、向后兼容策略、🆕 weekly-plan 分配策略、🆕 planning-sync 匹配规则、🆕 冲突裁决策略、🆕 package-skills.sh 健壮性 |
+| **P3** | 快速开始一键命令、🆕 重复任务支持、🆕 撤销/回滚机制、🆕 趋势分析、🆕 标签分类 |
 
 ---
 
