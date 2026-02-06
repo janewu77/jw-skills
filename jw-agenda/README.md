@@ -127,55 +127,56 @@
 jw-agenda/
 ├── README.md                          ← 本文件
 ├── LICENSE                            ← 许可见仓库根目录 ../LICENSE
+├── CONTRIBUTING.md                     ← 维护者：修改 _common 后需执行 sync 脚本
 │
-├── shared/                            ← 共享基础设施
-│   ├── conventions.md                 ← 核心约定文件（安装到用户数据目录）
-│   ├── schedule-config.example.md     ← 作息时段配置模板
+├── _common/                           ← 约定与脚本唯一来源（维护用，不发给用户）
+│   ├── conventions.md
+│   ├── schedule-config.example.md
 │   └── scripts/
-│       ├── date_utils.py              ← 日期/周数计算
-│       └── dedup_todos.py             ← Todo 去重
+│       ├── date_utils.py
+│       ├── dedup_todos.py
+│       └── LICENSE
+├── scripts/
+│   └── sync-common-to-skills.sh        ← 将 _common 同步到各 skill 的 assets/
 │
-└── skills/                            ← 5 个可独立安装的 Skill
+└── skills/                            ← 5 个可独立安装的 Skill（安装即用）
     ├── jw-agenda-daily-todo/
     │   ├── SKILL.md
-    │   ├── assets/todo-template.md
+    │   ├── assets/
+    │   │   ├── conventions.md         ← 从 _common 同步
+    │   │   ├── schedule-config.example.md
+    │   │   ├── todo-template.md
+    │   │   └── scripts/
     │   └── references/
-    │       ├── mode-c-reschedule.md
-    │       └── mode-d-adhoc.md
     ├── jw-agenda-daily-log/
     │   ├── SKILL.md
-    │   └── assets/log-template.md
+    │   └── assets/
+    │       ├── conventions.md
+    │       ├── schedule-config.example.md
+    │       ├── log-template.md
+    │       └── scripts/
     ├── jw-agenda-weekly-plan/
-    │   ├── SKILL.md
-    │   └── assets/week-template.md
+    │   └── assets/（同上含 conventions、schedule-config.example、scripts）
     ├── jw-agenda-weekly-review/
-    │   ├── SKILL.md
-    │   └── assets/review-template.md
+    │   └── assets/（同上）
     └── jw-agenda-planning-sync/
-        ├── SKILL.md
-        └── assets/sync-report-template.md
+        └── assets/（同上）
 ```
 
 ### 安装后的用户 Workspace 结构
 
-Skill 按各产品标准安装在对应目录，**不会**出现在用户选择的 workspace 里。用户 workspace 中只有**数据目录**，结构如下：
+Skill 按各产品标准安装在对应目录，**不会**出现在用户选择的 workspace 里。用户 workspace 中只有**数据目录**与**可选的作息配置**，无需再复制约定或脚本：
 
 ```
 <workspace>/
 └── personal/
     └── agenda/
-        ├── shared/
-        │   ├── conventions.md           ← 从 jw-agenda/shared/ 复制
-        │   ├── schedule-config.md       ← 从 .example.md 复制并修改
-        │   └── scripts/                 ← 从 jw-agenda/shared/scripts/ 复制
-        │       ├── date_utils.py
-        │       └── dedup_todos.py
-        │
-        ├── monthly/                     ← 用户手动维护
+        ├── schedule-config.md          ← 可选；仅当要自定义作息时创建（可从任一 Skill 的 assets/schedule-config.example.md 复制后修改）
+        ├── monthly/                   ← 用户手动维护
         │   └── YYYY-MM-plan.md
-        ├── weekly/                      ← 由 Skill 生成
-        ├── daily/                       ← 由 Skill 生成
-        └── tasks/                       ← 可选
+        ├── weekly/                    ← 由 Skill 生成
+        ├── daily/                     ← 由 Skill 生成
+        └── tasks/                     ← 可选
 ```
 
 ### 安装步骤
@@ -186,29 +187,29 @@ Skill 按各产品标准安装在对应目录，**不会**出现在用户选择�
 
 ```bash
 cd <workspace>
-mkdir -p personal/agenda/{shared/scripts,monthly,weekly,daily,tasks}
+mkdir -p personal/agenda/{monthly,weekly,daily,tasks}
 ```
 
-**第 2 步：安装共享基础**
+（若目录不存在，Skill 首次写入时也可按需创建或提示。）
+
+**第 2 步（可选）：自定义作息**
+
+若需要自定义每日时段，从本仓库任一 skill 的 `assets/schedule-config.example.md` 复制到用户工作区并重命名：
 
 ```bash
-cp jw-agenda/shared/conventions.md        personal/agenda/shared/
-cp jw-agenda/shared/schedule-config.example.md  personal/agenda/shared/schedule-config.md
-cp jw-agenda/shared/scripts/*.py          personal/agenda/shared/scripts/
+cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedule-config.md
 ```
 
-然后打开 `personal/agenda/shared/schedule-config.md`，**根据自己的作息修改时间表**。
+然后编辑 `personal/agenda/schedule-config.md` 修改时间表。**不创建该文件时**，daily-todo 会使用 Skill 内嵌的默认模板。
 
 **第 3 步：安装 Skill**
 
-- **用 zip 安装（推荐，Cursor 等）**：若你拿到的是 5 个独立 zip（如 `jw-agenda-daily-log.zip`、`jw-agenda-daily-todo.zip` 等，可由本仓库运行 `./package-skills.sh` 在 `output/` 下生成），将**每个 zip 解压到 Cursor 的 skills 目录**，例如：
+- **用 zip 安装（推荐，Cursor 等）**：本仓库提供 5 个独立 zip（运行 `./package-skills.sh` 在 `output/` 下生成）。将**每个 zip 解压到 Cursor 的 skills 目录**即可，约定与脚本已内嵌在 zip 内，**无需再复制任何文件到用户目录**：
   ```bash
-  # Cursor 用户级，对每个 zip 执行一次
   unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
   unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
   # 其余 3 个 skill 同理
   ```
-  解压后 5 个 skill 目录会出现在 `~/.cursor/skills/` 下。
 - **从源码安装**：将本仓库 `jw-agenda/skills/` 下需要的 skill 目录复制到产品规定的技能目录（如 `~/.cursor/skills/`），具体见各产品文档。
 
 **第 4 步：创建月规划（推荐）**
@@ -233,10 +234,10 @@ cp jw-agenda/shared/scripts/*.py          personal/agenda/shared/scripts/
 
 #### 单独安装某个 Skill
 
-只想安装其中一个？也可以。**每个 Skill 都依赖 `personal/agenda/shared/` 下的 conventions、schedule-config 和 scripts，必须先完成第 1、2 步。**
+只想安装其中一个？也可以。每个 Skill 的约定与脚本已随包安装，**只需**在 workspace 下具备 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md`。
 
-1. **必须先完成上面的第 1、2 步**（创建目录 + 安装共享基础）。
-2. 按该产品的标准方式，只安装你需要的 skill 目录（如 `jw-agenda/skills/jw-agenda-daily-todo`），具体步骤见 Cursor / Claude 等各产品文档。
+1. 创建数据目录：`mkdir -p personal/agenda/{monthly,weekly,daily,tasks}`（若尚未创建）。
+2. 按该产品的标准方式，只安装你需要的 skill 目录，具体见 Cursor / Claude 等各产品文档。
 3. 缺少其他 Skill 时，该 Skill 会跳过相关数据源并正常工作。
 
 ---
@@ -269,44 +270,37 @@ cp jw-agenda/shared/scripts/*.py          personal/agenda/shared/scripts/
 
 N = 月内周号，`ceil(day / 7)`。例如 2 月 5 日 → Week 1。
 
-完整规则见 `shared/conventions.md`。
+完整规则见各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）。
 
 ---
 
 ## 自定义
 
-**作息时段**：编辑 `personal/agenda/shared/schedule-config.md`，增删时间段、调整固定活动（如出门、晚餐时间）。daily-todo 生成今日时间表时按该文件的「时段定义」表逐行生成，固定活动（如出门、晚餐）不会覆盖，仅「（填入当日任务）」的时段会填入具体事项。
+**作息时段**：若你创建了 `personal/agenda/schedule-config.md`，编辑该文件即可增删时间段、调整固定活动（如出门、晚餐时间）。daily-todo 生成今日时间表时优先按该文件的「时段定义」表；不存在则使用 Skill 内嵌的默认模板。
 
-**约定规则**：`personal/agenda/shared/conventions.md` 定义了命名、路径、标记、优先级等所有约定。如需修改（如改变优先级 emoji），直接编辑即可。
+**约定规则**：命名、路径、标记、优先级等定义在各 Skill 的 `assets/conventions.md` 中。用户一般无需修改；若需自定义，可编辑本地已安装 Skill 目录下的该文件，或修改本仓库 `_common/conventions.md` 后重新打包安装。
 
 **月规划格式**：完全自由。建议包含「本月目标」和按 `Week N` 分的小节，便于 weekly-plan 提取。
 
-**共享脚本**：`shared/scripts/date_utils.py` 用于日期与月内周数计算，各 Skill 推荐使用以保持一致。`dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。
+**脚本**：各 Skill 的 `assets/scripts/date_utils.py`、`dedup_todos.py` 已随 Skill 安装，供日期计算与 todo 去重使用。
 
 ---
 
 ## 分发给他人使用
 
-本仓库提供 **5 个独立的 zip**（每个 Skill 一个），由 `package-skills.sh` 在 `jw-agenda/output/` 下生成。分发给他人时，提供这 5 个 zip 即可；使用者将**每个 zip 解压到 Cursor 的 skills 目录**，例如：
-
-```bash
-# 解压单个 skill（对每个 zip 执行一次）
-unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
-unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
-# … 其余 3 个同理
-```
-
-**注意**：zip 内只含对应一个 Skill，不含 `shared/`。使用者仍需完成「安装步骤」第 1、2 步（在 workspace 创建 `personal/agenda/shared/` 并从本仓库复制 conventions、schedule-config、scripts）；可从 GitHub 克隆本仓库或下载仓库 zip 获取 `shared/` 内容。
+本仓库提供 **5 个独立的 zip**（每个 Skill 一个），由 `./package-skills.sh` 在 `jw-agenda/output/` 下生成。分发给他人时，提供这 5 个 zip 即可。使用者将**每个 zip 解压到 Cursor 的 skills 目录**，并在 workspace 下创建 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；**无需再复制约定或脚本**，zip 内已包含。若需自定义作息，可选：从任一 zip 解压后的 skill 的 `assets/schedule-config.example.md` 复制为 `personal/agenda/schedule-config.md` 并修改。
 
 ---
 
 ## 版本与维护
 
-命名与路径以 `shared/conventions.md` 为准：月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。若某 Skill 内路径描述与 conventions 不一致，以 conventions 为准。
-
-**Skill 版本**：各 Skill 的 SKILL.md 中含 `author: Jing Wu`、`version`、`updated`。版本号格式 `0.M.P`：单 skill 更新时第三位 +0.0.1（如 0.0.1→0.0.2）；**配合版本升级**时，所有 skill 的第二位（0.X）对齐升级（如统一升为 0.1.0），便于整组协同发布。
+命名与路径以各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）为准：月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。若某 Skill 内路径描述与 conventions 不一致，以 conventions 为准。
 
 **常见问题**：周规划/周总结找不到？请确认文件名为 `Week{N}-plan.md`、`Week{N}-review.md`（如 Week1-plan.md），不要使用旧版「最终版」「总结」等命名。
+
+**从旧版迁移**：若你曾使用 `personal/agenda/config/`（或 `shared/`）并复制过 conventions/scripts，新版本不再读取该目录。可保留或删除；作息请改为在 `personal/agenda/schedule-config.md` 中配置（可选）。
+
+**Skill 版本**：各 Skill 的 SKILL.md 中含 `author: Jing Wu`、`version`、`updated`。版本号格式 `0.M.P`：单 skill 更新时第三位 +0.0.1（如 0.0.1→0.0.2）；**配合版本升级**时，所有 skill 的第二位（0.X）对齐升级（如统一升为 0.1.0），便于整组协同发布。
 
 ---
 
