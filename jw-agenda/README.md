@@ -1,6 +1,6 @@
 # jw-Agenda
 
-基于 Claude Cowork 的个人日程管理技能组。
+基于 [Agent Skills](https://agentskills.io/home) 的个人日程管理技能组。
 
 用自然语言驱动「月规划 → 周拆解 → 日执行 → 日志记录 → 周回顾」的完整闭环，所有数据以 Markdown 文件存储在本地。
 
@@ -126,7 +126,6 @@
 ```
 jw-agenda/
 ├── README.md                          ← 本文件
-├── LICENSE                            ← 许可见仓库根目录 ../LICENSE
 ├── CONTRIBUTING.md                     ← 维护者：修改 _common 后需执行 sync 脚本
 │
 ├── _common/                           ← 约定与脚本唯一来源（维护用，不发给用户）
@@ -289,18 +288,6 @@ N = 月内周号，`ceil(day / 7)`。例如 2 月 5 日 → Week 1。
 ## 分发给他人使用
 
 本仓库提供 **5 个独立的 zip**（每个 Skill 一个），由 `./package-skills.sh` 在 `jw-agenda/output/` 下生成。分发给他人时，提供这 5 个 zip 即可。使用者将**每个 zip 解压到 Cursor 的 skills 目录**，并在 workspace 下创建 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；**无需再复制约定或脚本**，zip 内已包含。若需自定义作息，可选：从任一 zip 解压后的 skill 的 `assets/schedule-config.example.md` 复制为 `personal/agenda/schedule-config.md` 并修改。
-
----
-
-## 版本与维护
-
-命名与路径以各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）为准：月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。若某 Skill 内路径描述与 conventions 不一致，以 conventions 为准。
-
-**常见问题**：周规划/周总结找不到？请确认文件名为 `Week{N}-plan.md`、`Week{N}-review.md`（如 Week1-plan.md），不要使用旧版「最终版」「总结」等命名。
-
-**从旧版迁移**：若你曾使用 `personal/agenda/config/`（或 `shared/`）并复制过 conventions/scripts，新版本不再读取该目录。可保留或删除；作息请改为在 `personal/agenda/schedule-config.md` 中配置（可选）。
-
-**Skill 版本**：各 Skill 的 SKILL.md 中含 `author: Jing Wu`、`version`、`updated`。版本号格式 `0.M.P`：单 skill 更新时第三位 +0.0.1（如 0.0.1→0.0.2）；**配合版本升级**时，所有 skill 的第二位（0.X）对齐升级（如统一升为 0.1.0），便于整组协同发布。
 
 ---
 
