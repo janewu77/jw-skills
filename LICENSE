@@ -5,5 +5,5 @@ This repository (jw-skills) as a whole is licensed as follows:
 
 See individual directories for details. Applies to all contents of this repository (including subdirectories such as jw-agenda).
 
-- Code (e.g. jw-agenda/shared/scripts/*.py): see LICENSE-CODE (Apache License 2.0).
+- Code (e.g. jw-agenda/_common/scripts/*.py, jw-agenda/skills/*/assets/scripts/*.py): see LICENSE-CODE (Apache License 2.0).
 - Documentation (README, SKILL.md, conventions, templates, and other .md): see LICENSE-DOCS (CC-BY-4.0).
