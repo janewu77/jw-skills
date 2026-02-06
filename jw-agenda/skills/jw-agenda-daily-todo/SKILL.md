@@ -11,17 +11,17 @@ metadata:
 
 管理今日 todo 的全生命周期：生成、调整。
 
-**时间表**：今日时间表用来安排每天要做的事项。按 `personal/agenda/shared/schedule-config.md` 的「时段定义」表逐行生成；固定活动（如出门、晚餐）不覆盖，仅「（填入当日任务）」的时段填入具体事项。
+**时间表**：今日时间表用来安排每天要做的事项。**优先**读取用户工作区的 `personal/agenda/schedule-config.md` 的「时段定义」表；若该文件不存在，则使用本 Skill 的 `assets/schedule-config.example.md`。固定活动（如出门、晚餐）不覆盖，仅「（填入当日任务）」的时段填入具体事项。
 
 **汇报规则**：每次新增或更新 todo 后，**必须告诉用户修改了哪些文件的实际路径**。
 
 ## 安装前提
 
-本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md` 用于自定义作息。约定与脚本已随本 Skill 安装，无需用户另行复制。
 
 ## 约定
 
-开始前读取 `personal/agenda/shared/conventions.md` 获取文件命名、路径、日期规则和来源标记格式。
+开始前读取**本 Skill 的 `assets/conventions.md`** 获取文件命名、路径、日期规则和来源标记格式。
 
 ## 模式选择
 
@@ -41,7 +41,7 @@ metadata:
 
 ### Step 1: 确定日期
 
-计算今天日期（YYYY-MM-DD）、当月、月内周数（推荐使用 `scripts/date_utils.py`）。
+计算今天日期（YYYY-MM-DD）、当月、月内周数（推荐使用本 Skill 的 `assets/scripts/date_utils.py`）。
 
 ### Step 2: 读取来源
 
@@ -66,7 +66,7 @@ metadata:
 
 使用 `assets/todo-template.md` 模板，**必须包含**：
 
-1. **今日时间表**：从 `personal/agenda/shared/schedule-config.md` 读取时段配置，把当日任务填入各时段「安排」列。优先从周规划中「今天」的时段提取；若无，则按优先级合理分配。每个时段写具体事项。
+1. **今日时间表**：优先从 `personal/agenda/schedule-config.md` 读取时段配置；若不存在则从本 Skill 的 `assets/schedule-config.example.md` 读取。把当日任务填入各时段「安排」列。优先从周规划中「今天」的时段提取；若无，则按优先级合理分配。每个时段写具体事项。
 2. **高/中/低优先级**：任务列表，与时间表一致，带来源标记，供逐项勾选。
 
 若文件已存在，仅追加不重复的新条目；时间表若已存在则保留不覆盖。
@@ -108,9 +108,9 @@ metadata:
 ## Resources
 
 - `assets/todo-template.md`：每日 todo 输出模板
+- `assets/conventions.md`：约定
+- `assets/schedule-config.example.md`：默认作息模板（用户可选 `personal/agenda/schedule-config.md` 覆盖）
+- `assets/scripts/date_utils.py`：日期处理工具
+- `assets/scripts/dedup_todos.py`：去重工具
 - `references/mode-c-reschedule.md`：模式 C 调整日程详细流程
 - `references/mode-d-adhoc.md`：模式 D 临时追加详细流程
-- `personal/agenda/shared/conventions.md`：共享约定，安装时从 `jw-agenda/shared/` 复制
-- `personal/agenda/shared/schedule-config.md`：作息时间配置
-- `personal/agenda/shared/scripts/date_utils.py`：日期处理工具
-- `personal/agenda/shared/scripts/dedup_todos.py`：去重工具

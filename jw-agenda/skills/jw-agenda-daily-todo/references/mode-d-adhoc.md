@@ -12,7 +12,7 @@
 
 ## Step 2: 确定目标与写入文件
 
-按时间范围写入对应文件，规则详见 `personal/agenda/shared/conventions.md` 的「临时追加的归属」。
+按时间范围写入对应文件，规则详见**本 Skill 的 `assets/conventions.md`** 的「临时追加的归属」。
 
 ## Step 3: 写入
 

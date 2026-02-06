@@ -18,11 +18,11 @@ metadata:
 
 ## 安装前提
 
-本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md` 用于自定义作息。约定与脚本已随本 Skill 安装，无需用户另行复制。
 
 ## 约定
 
-开始前读取 `personal/agenda/shared/conventions.md` 获取文件命名、路径和日期规则。
+开始前读取**本 Skill 的 `assets/conventions.md`** 获取文件命名、路径和日期规则。
 
 ## 两种用法
 
@@ -37,7 +37,7 @@ metadata:
 
 ### Step 1: 确定日期与数据来源
 
-- **若用户要「总结昨天」**：计算昨天日期（推荐使用 `scripts/date_utils.py`）；读取 `todo-{昨天日期}.md`、`{昨天日期}.md`（若有）；从数据中识别已完成 / 未完成 / 时间分配 / 学习产出。
+- **若用户要「总结昨天」**：计算昨天日期（推荐使用本 Skill 的 `assets/scripts/date_utils.py`）；读取 `todo-{昨天日期}.md`、`{昨天日期}.md`（若有）；从数据中识别已完成 / 未完成 / 时间分配 / 学习产出。
 - **若用户「汇报今天」（口语化）**：计算今天日期；从用户输入中解析完成的事、未完成、时间或顺序、想法/感受/碎碎念。
 
 ### Step 2: 生成日志文件
@@ -76,5 +76,5 @@ metadata:
 ## Resources
 
 - `assets/log-template.md`：日志输出模板
-- `personal/agenda/shared/scripts/date_utils.py`：日期计算脚本
-- `personal/agenda/shared/conventions.md`：共享约定
+- `assets/conventions.md`：约定
+- `assets/scripts/date_utils.py`：日期计算脚本

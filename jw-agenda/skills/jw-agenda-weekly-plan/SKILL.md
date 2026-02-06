@@ -15,17 +15,17 @@ metadata:
 
 ## 安装前提
 
-本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）。约定与脚本已随本 Skill 安装，无需用户另行复制。
 
 ## 约定
 
-开始前读取 `personal/agenda/shared/conventions.md` 获取周数计算规则、文件命名和路径。
+开始前读取**本 Skill 的 `assets/conventions.md`** 获取周数计算规则、文件命名和路径。
 
 ## Workflow
 
 ### Step 1: 确定当前周
 
-使用 `scripts/date_utils.py` 计算：月内周数、本周起止日期（周一至周日）、上周日期范围。
+使用本 Skill 的 `assets/scripts/date_utils.py` 计算：月内周数、本周起止日期（周一至周日）、上周日期范围。
 
 ### Step 2: 读取月规划
 
@@ -81,5 +81,5 @@ metadata:
 ## Resources
 
 - `assets/week-template.md`：周规划输出模板
-- `personal/agenda/shared/conventions.md`：共享约定
-- `personal/agenda/shared/scripts/date_utils.py`：日期计算脚本
+- `assets/conventions.md`：约定
+- `assets/scripts/date_utils.py`：日期计算脚本

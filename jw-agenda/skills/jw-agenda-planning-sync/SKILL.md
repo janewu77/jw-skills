@@ -11,15 +11,15 @@ metadata:
 
 检查日 todo、周规划、月规划之间的一致性，发现偏差后生成同步建议，**仅在用户确认后**批量更新。
 
-建议运行时机见 `personal/agenda/shared/conventions.md` 的「Planning Sync 建议时机」。
+建议运行时机见**本 Skill 的 `assets/conventions.md`** 的「Planning Sync 建议时机」。
 
 ## 安装前提
 
-本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）。约定与脚本已随本 Skill 安装，无需用户另行复制。
 
 ## 约定
 
-开始前读取 `personal/agenda/shared/conventions.md` 获取文件命名、路径和日期规则。
+开始前读取**本 Skill 的 `assets/conventions.md`** 获取文件命名、路径和日期规则。
 
 ## 核心原则
 
@@ -31,7 +31,7 @@ metadata:
 
 ### Step 1: 确定检查范围
 
-使用 `scripts/date_utils.py` 计算日期和周数，然后读取：
+使用本 Skill 的 `assets/scripts/date_utils.py` 计算日期和周数，然后读取：
 
 - **日**：`personal/agenda/daily/todo-{今天日期}.md`（可选：最近 3–7 天的 todo）
 - **周**：`personal/agenda/weekly/Week{W}-plan.md`
@@ -87,5 +87,5 @@ metadata:
 ## Resources
 
 - `assets/sync-report-template.md`：同步报告输出模板
-- `personal/agenda/shared/conventions.md`：共享约定
-- `personal/agenda/shared/scripts/date_utils.py`：日期计算脚本
+- `assets/conventions.md`：约定
+- `assets/scripts/date_utils.py`：日期计算脚本

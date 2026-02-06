@@ -13,17 +13,17 @@ metadata:
 
 ## 安装前提
 
-本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）。约定与脚本已随本 Skill 安装，无需用户另行复制。
 
 ## 约定
 
-开始前读取 `personal/agenda/shared/conventions.md` 获取文件命名、路径和周数规则。
+开始前读取**本 Skill 的 `assets/conventions.md`** 获取文件命名、路径和周数规则。
 
 ## Workflow
 
 ### Step 1: 确定回顾范围
 
-使用 `scripts/date_utils.py` 计算本周/上周的日期范围和月内周数。
+使用本 Skill 的 `assets/scripts/date_utils.py` 计算本周/上周的日期范围和月内周数。
 
 - **默认**：本周（周一至周日）
 - 若用户说「上周回顾」，则使用上周日期范围
@@ -80,5 +80,5 @@ metadata:
 ## Resources
 
 - `assets/review-template.md`：周总结输出模板
-- `personal/agenda/shared/conventions.md`：共享约定
-- `personal/agenda/shared/scripts/date_utils.py`：日期计算脚本
+- `assets/conventions.md`：约定
+- `assets/scripts/date_utils.py`：日期计算脚本
