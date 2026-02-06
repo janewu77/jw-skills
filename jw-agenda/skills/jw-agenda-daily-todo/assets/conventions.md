@@ -22,8 +22,8 @@
 |---------|---------|------|
 | 月规划 | `YYYY-MM-plan.md`（如 `2026-02-plan.md`，2 月即 2026-02） | `2026-02-plan.md` |
 | 周规划 | `Week{N}-plan.md`（N = 月内周号） | `Week1-plan.md` |
-| 日 Todo | `todo-YYYY-MM-DD.md` | `todo-2026-02-05.md` |
-| 日志 | `YYYY-MM-DD.md` | `2026-02-05.md` |
+| 日 Todo | `YYYY-MM-DD-todo.md` | `2026-02-05-todo.md` |
+| 日志 | `YYYY-MM-DD-log.md` | `2026-02-05-log.md` |
 | 周总结 | `Week{N}-review.md`（N = 月内周号，与周规划一致） | `Week1-review.md` |
 | 阅读清单 | `todo-readinglist.md` | `personal/agenda/tasks/todo-readinglist.md` |
 | 未定日期 / 待办池 | `TODO.md` | `personal/agenda/tasks/TODO.md` |
@@ -41,7 +41,7 @@
 |--|-----------|------------|
 | **定位** | 记录&留痕&执行 | 计划，只处理未完成的 |
 | **典型触发** | 「总结昨天」「汇报今天（口语化、带想法）」「我完成了 X」等完成/汇报类 | 「生成今天的计划」「把 X 移到周三」「加一项」等计划与调整类 |
-| **产出** | 日志文件（`YYYY-MM-DD.md`） | Todo 文件（`todo-YYYY-MM-DD.md`）+ 同步周/月规划 |
+| **产出** | 日志文件（`YYYY-MM-DD-log.md`） | Todo 文件（`YYYY-MM-DD-todo.md`）+ 同步周/月规划 |
 | **不做** | 不生成/修改今日计划结构, | 不写日志 |
 
 **选择规则**：凡与「完成进度、汇报今天」相关的，均由 **daily-log** 处理（写日志 + 顺带更新今日 todo 勾选）。成段汇报（「今天做了…还有…感觉…」）→ daily-log；单句更新（「我完成了简历」「作业做完了」等）→ 也由 daily-log。**daily-todo** 只负责「生成今天的计划」「把 X 移到周三」「加一项」等计划生成与日程调整，不负责标记完成。
@@ -71,7 +71,7 @@
 | 时间范围 | 写入文件 |
 |----------|----------|
 | **无法确定日期** / **不是当月会做的事** | `personal/agenda/tasks/TODO.md` |
-| 今天 / 明天 / 本周某天 | `personal/agenda/daily/todo-YYYY-MM-DD.md` |
+| 今天 / 明天 / 本周某天 | `personal/agenda/daily/YYYY-MM-DD-todo.md` |
 | 本周（无具体日） / 下周 / 某周 | `personal/agenda/weekly/Week{W}-plan.md` |
 | 本月 / 以后（更远） | `personal/agenda/monthly/YYYY-MM-plan.md`（或对应周规划） |
 

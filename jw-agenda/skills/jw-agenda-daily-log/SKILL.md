@@ -37,14 +37,14 @@ metadata:
 
 ### Step 1: 确定日期与数据来源
 
-- **若用户要「总结昨天」**：计算昨天日期（推荐使用本 Skill 的 `assets/scripts/date_utils.py`）；读取 `todo-{昨天日期}.md`、`{昨天日期}.md`（若有）；从数据中识别已完成 / 未完成 / 时间分配 / 学习产出。
+- **若用户要「总结昨天」**：计算昨天日期（推荐使用本 Skill 的 `assets/scripts/date_utils.py`）；读取 `{昨天日期}-todo.md`、`{昨天日期}-log.md`（若有）；从数据中识别已完成 / 未完成 / 时间分配 / 学习产出。
 - **若用户「汇报今天」（口语化）**：计算今天日期；从用户输入中解析完成的事、未完成、时间或顺序、想法/感受/碎碎念。
 
 ### Step 2: 生成日志文件
 
 使用 `assets/log-template.md` 模板，填充变量后写入：
 
-**路径**：`personal/agenda/daily/{目标日期}.md`
+**路径**：`personal/agenda/daily/{目标日期}-log.md`
 
 **模板变量**：`{{DATE}}`、`{{COMPLETED_TASKS}}`、`{{TIME_ALLOCATION}}`、`{{LEARNING_OUTPUT}}`、`{{INCOMPLETE_TASKS}}`、`{{SUMMARY}}`、`{{NOTES_AND_THOUGHTS}}`（想法/随口记，无则写「无」）、`{{TIMESTAMP}}`。
 
@@ -52,8 +52,8 @@ metadata:
 
 ### Step 3: 同步今日 Todo 与转移未完成
 
-- **若本次是「汇报今天」**：在 `todo-{今天日期}.md` 中根据完成项勾选 `[x]`；若今日 todo 不存在则只写日志。
-- **若本次是「总结昨天」且有未完成**：在 `todo-{今天日期}.md` 追加未完成项，标记 `*(从昨天转移)*`，跳过已存在条目。
+- **若本次是「汇报今天」**：在 `{今天日期}-todo.md` 中根据完成项勾选 `[x]`；若今日 todo 不存在则只写日志。
+- **若本次是「总结昨天」且有未完成**：在 `{今天日期}-todo.md` 追加未完成项，标记 `*(从昨天转移)*`，跳过已存在条目。
 
 ### Step 4: 汇报
 

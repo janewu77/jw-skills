@@ -33,7 +33,7 @@ metadata:
 
 使用本 Skill 的 `assets/scripts/date_utils.py` 计算日期和周数，然后读取：
 
-- **日**：`personal/agenda/daily/todo-{今天日期}.md`（可选：最近 3–7 天的 todo）
+- **日**：`personal/agenda/daily/{今天日期}-todo.md`（可选：最近 3–7 天的 todo）
 - **周**：`personal/agenda/weekly/Week{W}-plan.md`
 - **月**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md）
 

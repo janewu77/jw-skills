@@ -49,7 +49,7 @@ metadata:
 
 1. **当月规划**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前年月，如 2026-02-plan.md，可用 date_utils 推算），提取本月目标与本周重点
 2. **当周规划**：`personal/agenda/weekly/Week{W}-plan.md`，提取「今天」对应的建议任务
-3. **昨天未完成**：从 `personal/agenda/daily/{昨天日期}.md` 或 `todo-{昨天日期}.md` 中未勾选项
+3. **昨天未完成**：从 `personal/agenda/daily/{昨天日期}-log.md` 或 `{昨天日期}-todo.md` 中未勾选项
 4. **tasks 目录下以 todo 开头的文件**（可选）：如 `personal/agenda/tasks/TODO.md`、`todo-readinglist.md`、`todo-*.md`。读取其中未勾选项，酌情纳入今日计划（如 1–2 项低优先级或按清单性质分配），并标记 `*(来自 tasks 清单)*` 或 `*(来自阅读清单)*`（若来自 todo-readinglist.md）
 
 ### Step 3: 合并、去重、排优先级
@@ -62,7 +62,7 @@ metadata:
 
 ### Step 4: 写入文件
 
-**路径**：`personal/agenda/daily/todo-{今天日期}.md`
+**路径**：`personal/agenda/daily/{今天日期}-todo.md`
 
 使用 `assets/todo-template.md` 模板，**必须包含**：
 

@@ -35,8 +35,8 @@ def get_date_info(d: date) -> dict:
         "week_plan_file": f"Week{month_week}-plan.md",
         "week_review_file": f"Week{month_week}-review.md",
         "month_plan_file": f"{d.year}-{d.month:02d}-plan.md",
-        "todo_file": f"todo-{d.isoformat()}.md",
-        "log_file": f"{d.isoformat()}.md",
+        "todo_file": f"{d.isoformat()}-todo.md",
+        "log_file": f"{d.isoformat()}-log.md",
         "week_monday": monday.isoformat(),
         "week_sunday": sunday.isoformat(),
     }

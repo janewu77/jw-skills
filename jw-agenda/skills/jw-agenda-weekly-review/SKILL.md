@@ -33,8 +33,8 @@ metadata:
 读取本周范围内的所有文件：
 
 **主要来源**：
-- `personal/agenda/daily/{日期}.md`：逐日读取，提取已完成、未完成、时间分配、学习/产出
-- `personal/agenda/daily/todo-{日期}.md`：逐日读取勾选状态，交叉验证日志
+- `personal/agenda/daily/{日期}-log.md`：逐日读取，提取已完成、未完成、时间分配、学习/产出
+- `personal/agenda/daily/{日期}-todo.md`：逐日读取勾选状态，交叉验证日志
 
 **可选来源**：
 - `personal/agenda/weekly/Week{W}-plan.md`：对比计划 vs 实际

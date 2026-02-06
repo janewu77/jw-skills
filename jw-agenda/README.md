@@ -44,7 +44,7 @@
        ▼                     │
 ┌─────────────┐     ┌─────────────┐
 │  日 Todo      │────→│  日志         │
-│ todo-日期.md  │     │  日期.md      │
+│ 日期-todo.md  │     │  日期-log.md  │
 └─────────────┘     └─────────────┘
   daily-todo          daily-log
   (计划与执行)          (记录与留痕)
@@ -266,8 +266,8 @@ cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedul
 | 月规划 | `YYYY-MM-plan.md` | `monthly/` | `2026-02-plan.md` |
 | 周规划 | `Week{N}-plan.md` | `weekly/` | `Week1-plan.md` |
 | 周总结 | `Week{N}-review.md` | `weekly/` | `Week1-review.md` |
-| 日 Todo | `todo-YYYY-MM-DD.md` | `daily/` | `todo-2026-02-06.md` |
-| 日志 | `YYYY-MM-DD.md` | `daily/` | `2026-02-06.md` |
+| 日 Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
+| 日志 | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
 
 N = 月内周号，`ceil(day / 7)`。例如 2 月 5 日 → Week 1。
 
