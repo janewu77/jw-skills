@@ -2,11 +2,11 @@
 
 ## 路径查找
 
-本文件位于用户工作区的 `personal/agenda/config/conventions.md`。所有 Skill 在运行前应在用户选择的文件夹（workspace 根目录）下查找此路径，而非依赖相对路径。
+本约定位于**本 Skill 的 `assets/conventions.md`**。所有 Skill 在运行前应读取此文件（相对于本 Skill 的安装目录），以获取下方约定。用户工作区中仅存放**数据**与**可选的用户作息配置**，见「目录路径」与「文件命名规则」。
 
-## 目录路径
+## 目录路径（用户工作区）
 
-日程计划与完成情况统一放在 `personal/agenda/`，按时间粒度分子目录：
+日程计划与完成情况统一放在用户 workspace 的 `personal/agenda/` 下，按时间粒度分子目录：
 
 | 用途 | 路径 |
 |------|------|
@@ -14,7 +14,7 @@
 | 周规划、周总结 | `personal/agenda/weekly/` |
 | 日 Todo、日日志 | `personal/agenda/daily/` |
 | 其他任务与清单（含阅读清单） | `personal/agenda/tasks/` |
-| 个人配置（作息时间等） | `personal/agenda/config/` |
+| 用户作息配置（可选） | 单文件 `personal/agenda/schedule-config.md`，见下方文件命名。 |
 
 ## 文件命名规则
 
@@ -27,7 +27,7 @@
 | 周总结 | `Week{N}-review.md`（N = 月内周号，与周规划一致） | `Week1-review.md` |
 | 阅读清单 | `todo-readinglist.md` | `personal/agenda/tasks/todo-readinglist.md` |
 | 未定日期 / 待办池 | `TODO.md` | `personal/agenda/tasks/TODO.md` |
-| 作息时间配置 | `schedule-config.md` | `personal/agenda/config/schedule-config.md` |
+| 作息时间配置（可选） | `schedule-config.md` | `personal/agenda/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
 
 **日志中的「今日想法/随口记」**：用户口语化汇报进度时，想法、感受、碎碎念记入该区块，原意保留，便于日后回顾。
 
@@ -60,7 +60,7 @@
 
 **周起止日**：默认周一至周日。若某周跨月（如 1.29–2.4），归属于 Week 结束日所在月份。
 
-**推荐**：使用配置脚本 `config/scripts/date_utils.py` 计算日期和周数，避免手算错误。`config/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。
+**推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。
 
 ## 临时追加的归属
 
