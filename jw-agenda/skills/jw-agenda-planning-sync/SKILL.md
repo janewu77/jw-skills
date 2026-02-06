@@ -1,0 +1,90 @@
+---
+name: jw-agenda-planning-sync
+description: "Planning sync: check consistency between daily/weekly/monthly plans, list discrepancies, batch update after user confirmation. Triggers: '同步规划', '检查一致性', 'planning sync', '运行 planning-sync'."
+author: Jing Wu
+version: "0.0.1"
+updated: "2026-02-06"
+---
+
+# Planning Sync（规划同步助手）
+
+检查日 todo、周规划、月规划之间的一致性，发现偏差后生成同步建议，**仅在用户确认后**批量更新。
+
+建议运行时机见 `personal/agenda/shared/conventions.md` 的「Planning Sync 建议时机」。
+
+## 安装前提
+
+本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+
+## 约定
+
+开始前读取 `personal/agenda/shared/conventions.md` 获取文件命名、路径和日期规则。
+
+## 核心原则
+
+1. **只读分析**：Step 1–4 仅读取和比较，不修改任何文件
+2. **用户确认**：Step 5 必须获得用户明确同意后才执行更新
+3. **最小变更**：只修改有偏差的部分，不做不必要的改动
+
+## Workflow
+
+### Step 1: 确定检查范围
+
+使用 `scripts/date_utils.py` 计算日期和周数，然后读取：
+
+- **日**：`personal/agenda/daily/todo-{今天日期}.md`（可选：最近 3–7 天的 todo）
+- **周**：`personal/agenda/weekly/Week{W}-plan.md`
+- **月**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md）
+
+缺失的层级跳过，向用户说明（见 Error Handling）。
+
+### Step 2: 对比分析
+
+从三个维度检查一致性：
+
+**维度 1 — 任务内容对齐**：日 todo 中的项是否在周/月规划中有对应？反向：周/月规划中「今日/本周」的项是否出现在日 todo 中？
+
+**维度 2 — 完成状态同步**：日 todo 中已完成（`[x]`）的任务，周规划中是否也已标记完成？反向同理。
+
+**维度 3 — 新增/变更追踪**：日执行中新增的任务是否需补入周/月规划？取消/推迟的任务是否需修正？
+
+### Step 3: 偏差分类
+
+| 级别 | 含义 | 示例 |
+|------|------|------|
+| ⚠️ 需行动 | 影响计划执行，建议立即同步 | 日已完成但周未勾选、周有今日任务但日 todo 未包含 |
+| ℹ️ 信息性 | 不影响执行，供参考 | 日 todo 有额外临时任务未在规划中 |
+
+每条偏差附带：涉及的文件路径、具体位置、建议操作。
+
+### Step 4: 生成同步建议
+
+输出结构化的建议清单（使用 `assets/sync-report-template.md` 格式）。
+
+### Step 5: 用户确认与执行
+
+1. 向用户展示建议清单
+2. 询问「是否按以上建议更新？可选择全部执行或指定编号」
+3. **仅对用户同意的条目**执行文件修改
+4. 汇报：更新了哪些文件、改动了哪些内容
+
+## Error Handling
+
+| 情况 | 处理 |
+|------|------|
+| 某层级文件不存在 | 跳过该层级，仅检查可用的层级 |
+| 仅有一个层级存在 | 无法做跨层对比，告知用户并建议先生成缺失的规划 |
+| 无偏差 | 汇报「三层规划一致，无需同步」 |
+| 用户不确认任何建议 | 汇报「未做任何修改」，不执行任何写操作 |
+
+## 与其他 Skill 的配合（可选）
+
+- 检查范围取决于用户数据目录中已有的文件。本 Skill 不依赖其他 Skill，但其他 Skill 产出的文件越多，检查越全面。
+- 若安装了 **daily-todo**：其模式 C 会同步更新周/月规划；本 Skill 做的是事后一致性检查，两者互补。
+- 若安装了 **weekly-plan / weekly-review**：它们产出的规划和总结文件会被纳入检查范围。
+
+## Resources
+
+- `assets/sync-report-template.md`：同步报告输出模板
+- `personal/agenda/shared/conventions.md`：共享约定
+- `personal/agenda/shared/scripts/date_utils.py`：日期计算脚本

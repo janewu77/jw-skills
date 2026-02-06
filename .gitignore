@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Python (if you ever run scripts locally)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Optional: keep zip out of version control if you pack here
+# *.zip

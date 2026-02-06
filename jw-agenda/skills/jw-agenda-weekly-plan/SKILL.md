@@ -1,0 +1,84 @@
+---
+name: jw-agenda-weekly-plan
+description: "Weekly plan generator: create day-by-day breakdown from monthly goals and last week's carry-over. Triggers: '生成本周计划', '周规划', 'weekly plan', '运行 weekly-plan'."
+author: Jing Wu
+version: "0.0.1"
+updated: "2026-02-06"
+---
+
+# Weekly Plan（周规划生成器）
+
+基于月规划目标和上周延续任务，生成本周按天拆解的规划。
+
+**注意**：本 Skill 生成的是规划草稿。用户可在生成后调整每日安排。daily-todo 会读取本文件作为当日计划的来源之一。
+
+## 安装前提
+
+本 Skill 依赖 workspace 下已存在 `personal/agenda/shared/`，且包含 `conventions.md`、`schedule-config.md`（可从 `schedule-config.example.md` 复制）及 `scripts/`（至少 `date_utils.py`）。若未安装，请先按 jw-agenda README 的「第 1、2 步」完成共享基础安装。
+
+## 约定
+
+开始前读取 `personal/agenda/shared/conventions.md` 获取周数计算规则、文件命名和路径。
+
+## Workflow
+
+### Step 1: 确定当前周
+
+使用 `scripts/date_utils.py` 计算：月内周数、本周起止日期（周一至周日）、上周日期范围。
+
+### Step 2: 读取月规划
+
+- **路径**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md，可用 date_utils 推算）
+- **提取**：月规划中 `Week {W}` 对应小节的重点、核心任务、产出目标
+- 若月规划不存在，见 Error Handling
+
+### Step 3: 读取上周延续任务
+
+按优先级读取：
+1. **上周总结**（若有）：`personal/agenda/weekly/Week{W-1}-review.md` 中的「转入下周」部分
+2. **上周日志**：`personal/agenda/daily/` 下上周日期范围内的日志，提取「未完成」部分
+3. **上周 todo**：`personal/agenda/daily/todo-{上周各日期}.md` 中未勾选项
+
+汇总为延续任务清单。
+
+### Step 4: 生成周规划
+
+使用 `assets/week-template.md` 模板结构：
+
+- 将月规划中本周的核心任务按日合理分配
+- 将延续任务并入对应天（优先安排在周初）
+- 每天的任务用 `- [ ] ...` 格式，便于后续 daily-todo 引用
+
+**若 `Week{W}-plan.md` 已存在**：增量更新，保留用户已有的完成状态和备注，不覆盖手动添加的内容。
+
+### Step 5: 写入文件
+
+**路径**：`personal/agenda/weekly/Week{W}-plan.md`
+
+若目录不存在则创建。
+
+### Step 6: 汇报
+
+说明：文件路径、本周重点、延续任务数量。提示可用 daily-todo 生成每日计划。
+
+## Error Handling
+
+| 情况 | 处理 |
+|------|------|
+| 月规划不存在 | 向用户说明，询问是否仅基于上周延续任务生成框架 |
+| 月规划中无当前周小节 | 使用月规划的整体目标作为参考 |
+| 上周日志/总结不存在 | 跳过延续任务，仅基于月规划生成 |
+| 周规划已存在 | 增量更新，保留用户已有内容 |
+| 跨月边界（如 1.29–2.4） | 归属 Week 结束日所在月份，参见 conventions.md |
+
+## 与其他 Skill 的配合（可选）
+
+- **月规划**：由用户维护，本 Skill 只读不写。
+- 若安装了 **daily-todo**：它会读取本 Skill 产出的周规划生成每日 todo。未安装时不影响本 Skill。
+- 若安装了 **weekly-review**：其产出的「转入下周」可作为本 Skill 的延续任务来源。未安装时跳过该数据来源。
+
+## Resources
+
+- `assets/week-template.md`：周规划输出模板
+- `personal/agenda/shared/conventions.md`：共享约定
+- `personal/agenda/shared/scripts/date_utils.py`：日期计算脚本

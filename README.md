@@ -1,0 +1,17 @@
+# jw-skills
+
+A collection of skills for use in Cursor, Claude, and similar environments. Maintained by Jing Wu.
+
+**中文说明** → [README.zh-CN.md](README.zh-CN.md)
+
+---
+
+## Contents
+
+| Skill set | Description |
+|-----------|-------------|
+| [jw-agenda](jw-agenda/) | Personal agenda: monthly plan → weekly breakdown → daily execution → log → weekly review. See [jw-agenda/README.md](jw-agenda/README.md). |
+
+## License
+
+This repository as a whole is licensed under **Apache 2.0 for code** and **CC-BY-4.0 for documentation**. Applies to all contents (including subdirectories such as jw-agenda). See [LICENSE](LICENSE), [LICENSE-CODE](LICENSE-CODE), [LICENSE-DOCS](LICENSE-DOCS).
