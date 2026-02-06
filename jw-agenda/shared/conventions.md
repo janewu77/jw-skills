@@ -26,6 +26,7 @@
 | 日志 | `YYYY-MM-DD.md` | `2026-02-05.md` |
 | 周总结 | `Week{N}-review.md`（N = 月内周号，与周规划一致） | `Week1-review.md` |
 | 阅读清单 | `todo-readinglist.md` | `personal/agenda/tasks/todo-readinglist.md` |
+| 未定日期 / 待办池 | `TODO.md` | `personal/agenda/tasks/TODO.md` |
 | 作息时间配置 | `schedule-config.md` | `personal/agenda/shared/schedule-config.md` |
 
 **日志中的「今日想法/随口记」**：用户口语化汇报进度时，想法、感受、碎碎念记入该区块，原意保留，便于日后回顾。
@@ -83,6 +84,15 @@
 | 昨天未完成 + 也在规划中 | `*(从昨天转移)*` |
 | 从其他日期移入 | `*(从 M.D 移入)*` |
 | 来自阅读清单 | `*(来自阅读清单)*` |
+
+## 状态标记（daily-todo 更新状态时使用）
+
+| 状态 | 在 todo 条目上的写法 |
+|------|----------------------|
+| 已完成 | `- [x] 事项内容` |
+| 取消 | `- [x] 事项内容（取消）` |
+| 推迟（无目标日） | `- [ ] 事项内容（推迟）` 或备注中说明 |
+| 推迟（有目标日） | 移至目标日，并标记 `*(从 M.D 移入)*` |
 
 ## 优先级标识
 

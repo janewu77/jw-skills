@@ -57,7 +57,11 @@ def main():
         print(json.dumps({"week_range": days}, ensure_ascii=False, indent=2))
         return
     elif args and not args[0].startswith("--"):
-        target = date.fromisoformat(args[0])
+        try:
+            target = date.fromisoformat(args[0])
+        except ValueError as e:
+            print(f"date_utils: 无效日期 '{args[0]}' ({e})", file=sys.stderr)
+            sys.exit(1)
     else:
         target = date.today()
 

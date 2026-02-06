@@ -4,10 +4,13 @@
 用法：
     python3 dedup_todos.py existing.md new_items.txt
 
-    existing.md  - 已有的 todo 文件
+    existing.md  - 已有的 todo 文件（不存在时视为空，不报错）
     new_items.txt - 待追加的条目（每行一条，可带来源标记）
 
 输出：仅输出不在 existing.md 中的新条目（已去重），每行一条。
+
+文件缺失：若 existing.md 不存在，视为无已有条目；若 new_items.txt 不存在，
+则向 stderr 输出错误信息并 exit(1)。
 """
 
 import re
@@ -44,7 +47,7 @@ def extract_items(filepath: str) -> list[str]:
 
 def main():
     if len(sys.argv) < 3:
-        print("用法: python3 dedup_todos.py existing.md new_items.txt")
+        print("用法: python3 dedup_todos.py existing.md new_items.txt", file=sys.stderr)
         sys.exit(1)
 
     existing_file = sys.argv[1]
@@ -52,8 +55,12 @@ def main():
 
     existing_normalized = set(extract_items(existing_file))
 
-    with open(new_file, "r", encoding="utf-8") as f:
-        new_lines = f.readlines()
+    try:
+        with open(new_file, "r", encoding="utf-8") as f:
+            new_lines = f.readlines()
+    except FileNotFoundError:
+        print(f"dedup_todos: 文件不存在: {new_file}", file=sys.stderr)
+        sys.exit(1)
 
     for line in new_lines:
         line = line.strip()

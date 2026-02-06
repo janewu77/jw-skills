@@ -119,7 +119,7 @@
 ### 前提条件
 
 - 支持 Skill 的 AI 工作环境（如 Cursor、Claude Desktop 等）
-- 一个用于存放日程数据的文件夹（下文称 workspace）
+- 一个用于存放日程数据的文件夹（下文称 workspace）。**请确保在 Cursor/Claude 中打开的 workspace 根目录即为包含 `personal/agenda/` 的目录**，否则 Skill 无法找到约定路径。
 
 ### 产品目录结构
 
@@ -201,12 +201,14 @@ cp jw-agenda/shared/scripts/*.py          personal/agenda/shared/scripts/
 
 **第 3 步：安装 Skill**
 
-- **用 zip 安装（推荐，Cursor 等）**：若你拿到的是 `jw-agenda-<版本号>.zip`（见本仓库 Releases），**解压到 Cursor 的 skills 目录即可**，例如：
+- **用 zip 安装（推荐，Cursor 等）**：若你拿到的是 5 个独立 zip（如 `jw-agenda-daily-log.zip`、`jw-agenda-daily-todo.zip` 等，可由本仓库运行 `./package-skills.sh` 在 `output/` 下生成），将**每个 zip 解压到 Cursor 的 skills 目录**，例如：
   ```bash
-  # Cursor 用户级
-  unzip jw-agenda-0.0.1.zip -d ~/.cursor/skills/
+  # Cursor 用户级，对每个 zip 执行一次
+  unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
+  unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
+  # 其余 3 个 skill 同理
   ```
-  解压后 zip 内的 5 个 skill 目录会出现在 `~/.cursor/skills/` 下，无需再复制。
+  解压后 5 个 skill 目录会出现在 `~/.cursor/skills/` 下。
 - **从源码安装**：将本仓库 `jw-agenda/skills/` 下需要的 skill 目录复制到产品规定的技能目录（如 `~/.cursor/skills/`），具体见各产品文档。
 
 **第 4 步：创建月规划（推荐）**
@@ -227,7 +229,7 @@ cp jw-agenda/shared/scripts/*.py          personal/agenda/shared/scripts/
 - 重点：…
 ```
 
-**第 5 步：在所用产品中选择/打开你的 workspace 文件夹，开始使用。**
+**第 5 步：在所用产品中选择/打开你的 workspace 文件夹（即包含 `personal/agenda/` 的根目录），开始使用。**
 
 #### 单独安装某个 Skill
 
@@ -285,13 +287,16 @@ N = 月内周号，`ceil(day / 7)`。例如 2 月 5 日 → Week 1。
 
 ## 分发给他人使用
 
-若提供 `jw-agenda-<版本号>.zip` 给他人使用，zip 的**根目录应为 5 个 skill 目录**，使用者解压到 Cursor 的 skills 目录即完成安装，例如：
+本仓库提供 **5 个独立的 zip**（每个 Skill 一个），由 `package-skills.sh` 在 `jw-agenda/output/` 下生成。分发给他人时，提供这 5 个 zip 即可；使用者将**每个 zip 解压到 Cursor 的 skills 目录**，例如：
 
 ```bash
-unzip jw-agenda-0.0.1.zip -d ~/.cursor/skills/
+# 解压单个 skill（对每个 zip 执行一次）
+unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
+unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
+# … 其余 3 个同理
 ```
 
-**注意**：zip 内只含 5 个 Skill，不含 `shared/`。使用者仍需完成「安装步骤」第 1、2 步（在 workspace 创建 `personal/agenda/shared/` 并从本仓库复制 conventions、schedule-config、scripts）；可从 GitHub 克隆本仓库或下载仓库 zip 获取 `shared/` 内容。
+**注意**：zip 内只含对应一个 Skill，不含 `shared/`。使用者仍需完成「安装步骤」第 1、2 步（在 workspace 创建 `personal/agenda/shared/` 并从本仓库复制 conventions、schedule-config、scripts）；可从 GitHub 克隆本仓库或下载仓库 zip 获取 `shared/` 内容。
 
 ---
 
