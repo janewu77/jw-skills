@@ -25,7 +25,7 @@ metadata:
 
 ### Step 1: 确定当前周
 
-使用本 Skill 的 `assets/scripts/date_utils.py` 计算：月内周数、本周起止日期（周一至周日）、上周日期范围。
+使用本 Skill 的 `assets/scripts/date_utils.py` 计算：年内周数（1–52）、本周起止日期（周一至周日）、上周日期范围。
 
 ### Step 2: 读取月规划
 

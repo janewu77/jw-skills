@@ -21,10 +21,10 @@
 | 文件类型 | 命名格式 | 示例 |
 |---------|---------|------|
 | 月规划 | `YYYY-MM-plan.md`（如 `2026-02-plan.md`，2 月即 2026-02） | `2026-02-plan.md` |
-| 周规划 | `Week{N}-plan.md`（N = 月内周号） | `Week1-plan.md` |
+| 周规划 | `Week{N}-plan.md`（N = 年内周号，1–52） | `Week6-plan.md` |
 | 日 Todo | `YYYY-MM-DD-todo.md` | `2026-02-05-todo.md` |
 | 日志 | `YYYY-MM-DD-log.md` | `2026-02-05-log.md` |
-| 周总结 | `Week{N}-review.md`（N = 月内周号，与周规划一致） | `Week1-review.md` |
+| 周总结 | `Week{N}-review.md`（N = 年内周号，与周规划一致） | `Week6-review.md` |
 | 阅读清单 | `todo-readinglist.md` | `personal/agenda/tasks/todo-readinglist.md` |
 | 未定日期 / 待办池 | `TODO.md` | `personal/agenda/tasks/TODO.md` |
 | 作息时间配置（可选） | `schedule-config.md` | `personal/agenda/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
@@ -48,19 +48,11 @@
 
 ## 周数计算规则
 
-**统一使用月内周**：`Week = ceil(day / 7)`
+**周起止**：周一至周日。
 
-| 日期范围 | 周数 |
-|---------|------|
-| 1 日 ~ 7 日 | Week 1 |
-| 8 日 ~ 14 日 | Week 2 |
-| 15 日 ~ 21 日 | Week 3 |
-| 22 日 ~ 28 日 | Week 4 |
-| 29 日 ~ 31 日 | Week 5 |
+**周数**：该周在**当年**内的第几周（ISO 周），通常一年 52 周，少数年份有 53 周。使用 Python `date.isocalendar()` 的 `iso_week`（1–52 或 53）。
 
-**计算示例**：2026-02-05 → 5 日 → ceil(5/7) = Week 1 → 周规划 `Week1-plan.md`，周总结 `Week1-review.md`。
-
-**周起止日**：默认周一至周日。若某周跨月（如 1.29–2.4），归属于 Week 结束日所在月份。
+**计算示例**：2026-02-05（周四）所在周为 2026 年第 6 周 → 周规划 `Week6-plan.md`，周总结 `Week6-review.md`。
 
 **推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。**调用 dedup_todos.py 时仅传入约定目录（如 personal/agenda 下）内的路径**，脚本会校验路径位于 workspace 内，避免路径遍历。
 

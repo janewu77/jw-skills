@@ -269,7 +269,7 @@ cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedul
 | 日 Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
 | 日志 | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
 
-N = 月内周号，`ceil(day / 7)`。例如 2 月 5 日 → Week 1。
+N = 年内周号（ISO 周，1–52）。例如 2026-02-05 所在周 → Week 6。
 
 完整规则见各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）。
 

@@ -31,59 +31,43 @@ class TestGetDateInfo:
         info = get_date_info(d)
         want = {
             "date", "date_cn", "weekday", "month", "day",
-            "month_week", "month_week_label", "week_plan_file", "week_review_file",
+            "year_week", "year_week_label", "week_plan_file", "week_review_file",
             "month_plan_file", "todo_file", "log_file",
             "week_monday", "week_sunday",
         }
         assert set(info.keys()) == want
 
     def test_fixed_date_2026_02_05(self):
-        """2026-02-05 is Thursday, Week 1 (day 5), week Mon 02-02 to Sun 02-08."""
+        """2026-02-05 is Thursday, year week 6, week Mon 02-02 to Sun 02-08."""
         info = get_date_info(date(2026, 2, 5))
         assert info["date"] == "2026-02-05"
         assert info["date_cn"] == "2026年2月5日"
         assert info["weekday"] == "周四"
         assert info["month"] == 2
         assert info["day"] == 5
-        assert info["month_week"] == 1
-        assert info["month_week_label"] == "Week1"
-        assert info["week_plan_file"] == "Week1-plan.md"
-        assert info["week_review_file"] == "Week1-review.md"
+        assert info["year_week"] == 6
+        assert info["year_week_label"] == "Week6"
+        assert info["week_plan_file"] == "Week6-plan.md"
+        assert info["week_review_file"] == "Week6-review.md"
         assert info["month_plan_file"] == "2026-02-plan.md"
         assert info["todo_file"] == "2026-02-05-todo.md"
         assert info["log_file"] == "2026-02-05-log.md"
         assert info["week_monday"] == "2026-02-02"
         assert info["week_sunday"] == "2026-02-08"
 
-    def test_month_week_day_1_to_7(self):
-        """Days 1–7 → Week1."""
-        for day in range(1, 8):
-            info = get_date_info(date(2026, 2, day))
-            assert info["month_week"] == 1, f"day {day}"
+    def test_year_week_range(self):
+        """year_week is ISO week of year, typically 1–52, sometimes 53."""
+        info = get_date_info(date(2026, 2, 5))
+        assert 1 <= info["year_week"] <= 53
+        info_jan = get_date_info(date(2026, 1, 5))
+        assert 1 <= info_jan["year_week"] <= 53
 
-    def test_month_week_day_8_to_14(self):
-        """Days 8–14 → Week2."""
-        for day in range(8, 15):
-            info = get_date_info(date(2026, 2, day))
-            assert info["month_week"] == 2, f"day {day}"
-
-    def test_month_week_day_15_to_21(self):
-        """Days 15–21 → Week3."""
-        for day in range(15, 22):
-            info = get_date_info(date(2026, 2, day))
-            assert info["month_week"] == 3, f"day {day}"
-
-    def test_month_week_day_22_to_28(self):
-        """Days 22–28 → Week4."""
-        for day in range(22, 29):
-            info = get_date_info(date(2026, 2, day))
-            assert info["month_week"] == 4, f"day {day}"
-
-    def test_month_week_feb_29_leap_year(self):
-        """2026-02-29 doesn't exist; 2024-02-29 → Week5."""
+    def test_year_week_feb_29_leap_year(self):
+        """2024-02-29 (leap year) has a valid year_week (ISO week 9)."""
         info = get_date_info(date(2024, 2, 29))
-        assert info["month_week"] == 5
-        assert info["month_week_label"] == "Week5"
+        assert info["year_week"] == 9
+        assert info["year_week_label"] == "Week9"
+        assert info["week_review_file"] == "Week9-review.md"
 
     def test_week_monday_sunday(self):
         """week_monday/week_sunday are Mon–Sun of the ISO week."""

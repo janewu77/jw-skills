@@ -23,7 +23,7 @@ metadata:
 
 ### Step 1: 确定回顾范围
 
-使用本 Skill 的 `assets/scripts/date_utils.py` 计算本周/上周的日期范围和月内周数。
+使用本 Skill 的 `assets/scripts/date_utils.py` 计算本周/上周的日期范围和年内周数（1–52）。
 
 - **默认**：本周（周一至周日）
 - 若用户说「上周回顾」，则使用上周日期范围
@@ -53,7 +53,7 @@ metadata:
 
 使用 `assets/review-template.md` 模板，填充后写入：
 
-**路径**：`personal/agenda/weekly/Week{W}-review.md`（W = 月内周数，与周规划命名一致）
+**路径**：`personal/agenda/weekly/Week{W}-review.md`（W = 年内周数，1–52，与周规划命名一致）
 
 **内容**：整体概览（完成率、主要成就）、分类统计、未完成/待处理、**转入下周**清单。
 

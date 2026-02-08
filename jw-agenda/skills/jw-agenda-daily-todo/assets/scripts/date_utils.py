@@ -13,7 +13,6 @@
 import os
 import sys
 from datetime import date, timedelta
-from math import ceil
 import json
 
 
@@ -25,12 +24,11 @@ def _today() -> date:
 
 
 def get_date_info(d: date) -> dict:
-    """计算给定日期的所有相关信息。"""
-    month_week = ceil(d.day / 7)  # 月内周 = ceil(day/7)
+    """计算给定日期的所有相关信息。周：周一至周日；周数为年内第几周（ISO 周，通常 1–52）。"""
     iso_year, iso_week, iso_weekday = d.isocalendar()
     weekday_cn = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
 
-    # 本周一和本周日
+    # 本周一和本周日（周一=0，周日=6）
     monday = d - timedelta(days=d.weekday())
     sunday = monday + timedelta(days=6)
 
@@ -40,10 +38,10 @@ def get_date_info(d: date) -> dict:
         "weekday": weekday_cn[d.weekday()],
         "month": d.month,
         "day": d.day,
-        "month_week": month_week,
-        "month_week_label": f"Week{month_week}",
-        "week_plan_file": f"Week{month_week}-plan.md",
-        "week_review_file": f"Week{month_week}-review.md",
+        "year_week": iso_week,
+        "year_week_label": f"Week{iso_week}",
+        "week_plan_file": f"Week{iso_week}-plan.md",
+        "week_review_file": f"Week{iso_week}-review.md",
         "month_plan_file": f"{d.year}-{d.month:02d}-plan.md",
         "todo_file": f"{d.isoformat()}-todo.md",
         "log_file": f"{d.isoformat()}-log.md",

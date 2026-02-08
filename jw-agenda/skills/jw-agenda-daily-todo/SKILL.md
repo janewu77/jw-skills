@@ -41,7 +41,7 @@ metadata:
 
 ### Step 1: 确定日期
 
-计算今天日期（YYYY-MM-DD）、当月、月内周数（推荐使用本 Skill 的 `assets/scripts/date_utils.py`）。
+计算今天日期（YYYY-MM-DD）、当月、年内周数（推荐使用本 Skill 的 `assets/scripts/date_utils.py`）。
 
 ### Step 2: 读取来源
 
