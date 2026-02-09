@@ -4,6 +4,8 @@
 
 用自然语言驱动「月规划 → 周拆解 → 日执行 → 日志记录 → 周回顾」的完整闭环，所有数据以 Markdown 文件存储在本地。
 
+**语言**：本文档为中文版。英文版见 [README.md](README.md)。
+
 **License**：本仓库整体采用「代码 Apache 2.0、文档 CC-BY-4.0」。许可见仓库根目录 [LICENSE](../LICENSE)，[LICENSE-CODE](../LICENSE-CODE)，[LICENSE-DOCS](../LICENSE-DOCS)。
 
 ---
@@ -243,6 +245,44 @@ cp <path-to-any-skill>/assets/schedule-config.example.md jw-agenda-data/schedule
 1. 创建数据目录：`mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}`（若使用默认路径且尚未创建）；若使用自定义路径，先配置 `.jw-agenda.json` 或 `jw-agenda.json` 再创建对应子目录。
 2. 按该产品的标准方式，只安装你需要的 skill 目录；Cursor 见 [官方：Agent Skills](https://cursor.com/docs/context/skills)，其他产品见各自文档。
 3. 缺少其他 Skill 时，该 Skill 会跳过相关数据源并正常工作。
+
+---
+
+## 示例
+
+### 快速开始：使用示例工作区
+
+我们提供两个版本的示例工作区（英文和中文）。复制一个即可开始：
+
+**英文版：**
+```bash
+cp -r jw-agenda/examples/sample-workspace jw-agenda-data
+```
+
+**中文版：**
+```bash
+cp -r jw-agenda/examples/sample-workspace-zh jw-agenda-data
+```
+
+每个版本都包含示例文件：
+- 月规划 (`monthly/2026-02-plan.md`)
+- 周规划 (`weekly/Week6-plan.md`)
+- 日待办 (`daily/2026-02-05-todo.md`)
+- 日日志 (`daily/2026-02-05-log.md`)
+- 周总结 (`weekly/Week6-review.md`)
+
+详见 [examples/README.md](examples/README.md)。
+
+### 对话示例
+
+- **英文**：参见 [examples/conversations.md](examples/conversations.md) 了解完整示例，包括：
+  - 如何生成周规划
+  - 如何汇报日常进度
+  - 如何添加临时任务
+  - 如何生成周总结
+  - 如何同步规划以保持一致性
+
+- **中文**：参见 [examples/conversations.zh-CN.md](examples/conversations.zh-CN.md) 了解完整示例
 
 ---
 

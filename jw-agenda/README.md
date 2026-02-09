@@ -227,6 +227,44 @@ You can install only one Skill. Each Skill ships with its conventions and script
 
 ---
 
+## Examples
+
+### Quick Start with Sample Workspace
+
+We provide two versions of sample workspaces (English and Chinese). Copy one to get started:
+
+**English version:**
+```bash
+cp -r jw-agenda/examples/sample-workspace jw-agenda-data
+```
+
+**Chinese version (中文版):**
+```bash
+cp -r jw-agenda/examples/sample-workspace-zh jw-agenda-data
+```
+
+Each includes sample files for:
+- Monthly plan (`monthly/2026-02-plan.md`)
+- Weekly plan (`weekly/Week6-plan.md`)
+- Daily todo (`daily/2026-02-05-todo.md`)
+- Daily log (`daily/2026-02-05-log.md`)
+- Weekly review (`weekly/Week6-review.md`)
+
+See [examples/README.md](examples/README.md) for details.
+
+### Conversation Examples
+
+- **English**: See [examples/conversations.md](examples/conversations.md) for complete examples showing:
+  - How to generate weekly plans
+  - How to report daily progress
+  - How to add ad-hoc tasks
+  - How to generate weekly reviews
+  - How to sync plans for consistency
+
+- **Chinese (中文)**: 参见 [examples/conversations.zh-CN.md](examples/conversations.zh-CN.md) 了解完整示例
+
+---
+
 ## Trigger cheat sheet
 
 | Goal | Say |
