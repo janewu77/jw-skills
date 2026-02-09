@@ -107,13 +107,45 @@ class TestMainCLI:
         assert days[6]["date"] == "2026-02-08"  # Sunday
         assert days[6]["weekday"] == "周日"
 
+    def test_main_iso_format(self):
+        """ISO format YYYY-MM-DD works (existing test)."""
+        out = _capture_stdout(["2026-02-05"])
+        data = json.loads(out)
+        assert data["date"] == "2026-02-05"
+
+    def test_main_slash_format(self):
+        """YYYY/MM/DD format is accepted."""
+        out = _capture_stdout(["2026/02/05"])
+        data = json.loads(out)
+        assert data["date"] == "2026-02-05"
+
+    def test_main_dot_format(self):
+        """YYYY.MM.DD format is accepted."""
+        out = _capture_stdout(["2026.02.05"])
+        data = json.loads(out)
+        assert data["date"] == "2026-02-05"
+
     def test_main_invalid_date_exits_nonzero(self):
-        """Invalid date string → stderr message and exit(1)."""
+        """Invalid date string → friendly error message and exit(1)."""
         from io import StringIO
         err = StringIO()
-        with patch.object(sys, "argv", ["date_utils.py", "2026/02/05"]):
+        with patch.object(sys, "argv", ["date_utils.py", "invalid-date"]):
             with patch.object(sys, "stderr", err):
                 with pytest.raises(SystemExit) as exc:
                     main()
         assert exc.value.code == 1
-        assert "无效日期" in err.getvalue() or "invalid" in err.getvalue().lower()
+        error_msg = err.getvalue()
+        assert "Invalid date format" in error_msg or "无效日期" in error_msg
+        assert "Accepted formats" in error_msg or "格式" in error_msg
+
+    def test_main_invalid_date_shows_formats(self):
+        """Error message lists accepted formats."""
+        from io import StringIO
+        err = StringIO()
+        with patch.object(sys, "argv", ["date_utils.py", "2026-13-45"]):
+            with patch.object(sys, "stderr", err):
+                with pytest.raises(SystemExit):
+                    main()
+        error_msg = err.getvalue()
+        # Should mention at least one format
+        assert "YYYY-MM-DD" in error_msg or "2026-02-05" in error_msg

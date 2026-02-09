@@ -12,7 +12,7 @@
 
 import os
 import sys
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 import json
 
 
@@ -21,6 +21,36 @@ def _today() -> date:
     if os.environ.get("DATE_UTILS_TODAY"):
         return date.fromisoformat(os.environ["DATE_UTILS_TODAY"])
     return date.today()
+
+
+def _parse_date(date_str: str) -> date:
+    """Parse date string in multiple formats.
+    
+    Supported formats:
+    - YYYY-MM-DD (ISO format, primary)
+    - YYYY/MM/DD (common alternative)
+    - YYYY.MM.DD (alternative)
+    
+    Raises ValueError with friendly error message if parsing fails.
+    """
+    formats = [
+        "%Y-%m-%d",  # ISO format: 2026-02-05
+        "%Y/%m/%d",  # Alternative: 2026/02/05
+        "%Y.%m.%d",  # Alternative: 2026.02.05
+    ]
+    
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str, fmt).date()
+        except ValueError:
+            continue
+    
+    # If all formats failed, provide helpful error message
+    raise ValueError(
+        f"Invalid date format: '{date_str}'. "
+        f"Accepted formats: YYYY-MM-DD (e.g., 2026-02-05), "
+        f"YYYY/MM/DD (e.g., 2026/02/05), or YYYY.MM.DD (e.g., 2026.02.05)."
+    )
 
 
 def get_date_info(d: date) -> dict:
@@ -66,9 +96,9 @@ def main():
         return
     elif args and not args[0].startswith("--"):
         try:
-            target = date.fromisoformat(args[0])
+            target = _parse_date(args[0])
         except ValueError as e:
-            print(f"date_utils: 无效日期 '{args[0]}' ({e})", file=sys.stderr)
+            print(f"date_utils: {e}", file=sys.stderr)
             sys.exit(1)
     else:
         target = _today()
