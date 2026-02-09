@@ -28,7 +28,6 @@
 
 - [x] **完整示例 workspace**：在 jw-agenda 下提供 `examples/` 或 `sample-workspace/`，包含至少一份月规划、周规划、日 todo 示例，README 可引用为「复制即用」。已实现：`examples/sample-workspace/`（英文）和 `examples/sample-workspace-zh/`（中文），包含完整的月/周/日示例文件。
 - [x] **1～2 个完整对话示例**：在 jw-agenda 文档中补充 1～2 个从用户话到产出的完整对话示例（或链接到示例），便于新用户理解用法。已实现：`examples/conversations.md`（英文）和 `examples/conversations.zh-CN.md`（中文），包含 6 个完整对话示例。
-- [ ] **向后兼容策略**：在 jw-agenda 的 conventions 或 CONTRIBUTING 中说明约定变更时的 breaking change 与迁移方式（如文件命名、路径变更时如何迁移旧数据）。
 - [ ] 🆕 **weekly-plan SKILL.md 分配策略**：当前 Step 4 仅说「合理分配」，缺乏具体准则（按优先级？按时间可用性？按领域均衡？）。建议在 SKILL.md 中细化分配逻辑。
 - [ ] 🆕 **planning-sync SKILL.md 匹配规则**：Step 2 的「内容对齐」检查未明确匹配方式（精确匹配 / 关键词匹配 / 模糊匹配），建议文档化具体比对策略。
 - [ ] 🆕 **冲突裁决策略**：当多数据源出现矛盾时（如 daily-log 记录完成但 weekly-plan 仍显示进行中），缺乏优先级裁决规则。建议在 conventions 或 planning-sync 中定义冲突处理原则。
