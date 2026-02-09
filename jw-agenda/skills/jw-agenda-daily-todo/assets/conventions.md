@@ -62,7 +62,7 @@
 | 本周（无具体日） / 下周 / 某周 | `{agendaRoot}/weekly/Week{W}-plan.md`,  `{agendaRoot}/monthly/YYYY-MM-plan.md` |
 | 本月 / 以后（更远） | `{agendaRoot}/monthly/YYYY-MM-plan.md` |
 
-详见 jw-agenda-daily-todo 的「模式 D：临时追加」（`references/mode-d-adhoc.md`）。
+详见 jw-agenda-daily-todo 的「添加/移动任务」模式（`references/mode-add-or-move.md`）。
 
 ## 来源标记
 
@@ -74,12 +74,14 @@
 | 从其他日期移入 | `*(从 M.D 移入)*` |
 | 来自阅读清单 | `*(来自阅读清单)*` |
 | 来自 tasks 清单（含上述及其他 todo 开头文件） | `*(来自 tasks 清单)*` |
+| 临时追加（通过 daily-todo 添加/移动任务模式添加） | `*(临时追加)*` |
 
 ## 状态标记（daily-todo 更新状态时使用）
 
 | 状态 | 在 todo 条目上的写法 |
 |------|----------------------|
 | 已完成 | `- [x] 事项内容` |
+| 进行中 | `- [ ] 事项内容（进行中）` |
 | 取消 | `- [x] 事项内容（取消）` |
 | 推迟（无目标日） | `- [ ] 事项内容（推迟）` 或备注中说明 |
 | 推迟（有目标日） | 移至目标日，并标记 `*(从 M.D 移入)*` |
@@ -94,7 +96,7 @@
 
 ## Planning Sync 建议时机
 
-`jw-agenda-planning-sync` 是事后一致性检查工具，建议在以下时机运行：每周中期（如周三）检查本周执行与规划的偏差；每周末生成周总结前运行一次，确保数据干净；大量调整日程后（如连续使用 daily-todo 模式 C/D）运行一次。
+`jw-agenda-planning-sync` 是事后一致性检查工具，建议在以下时机运行：每周中期（如周三）检查本周执行与规划的偏差；每周末生成周总结前运行一次，确保数据干净；大量调整日程后（如连续使用 daily-todo 添加/移动任务模式）运行一次。
 
 ## 错误处理默认策略
 

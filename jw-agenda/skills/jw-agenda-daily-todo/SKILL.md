@@ -32,8 +32,7 @@ metadata:
 | 「生成今天的计划」「today plan」 | 模式 A：生成（见下方） |
 | 「今天完成得怎么样」「还剩哪些」 | 模式 B1：查询进度（见下方） |
 | 「Y 不做了」「取消」「推迟」等 | 模式 B2：更新状态（见下方） |
-| 「把 X 移到周三」「推迟到下周」 | 模式 C：调整日程 → 读取 `references/mode-c-reschedule.md` |
-| 「加一项」「明天要」「本月要」「以后要」等 | 模式 D：临时追加 → 读取 `references/mode-d-adhoc.md` |
+| 「把 X 移到周三」「推迟到下周」「加一项」「明天要」「本月要」等 | 模式：添加/移动任务 → 读取 `references/mode-add-or-move.md` |
 
 ---
 
@@ -56,7 +55,7 @@ metadata:
 
 **幂等性检查**：若今日 todo 已存在，读取现有条目，归一化比较（忽略勾选状态、来源标记、前后空格），已存在的条目不再追加。
 
-**去重规则**：三个来源中内容相同或高度相似的事项只保留一条。若某条既在昨天未完成又在规划中，以 `*(从昨天转移)*` 标记。
+**去重规则**：从上述来源（月规划、周规划、昨天未完成、tasks 清单）中内容相同或高度相似的事项只保留一条。若某条既在昨天未完成又在规划中，以 `*(从昨天转移)*` 标记。
 
 **来源标记与优先级**：按 `conventions.md` 中的来源标记和优先级标识规则执行。
 
@@ -112,5 +111,4 @@ metadata:
 - `assets/schedule-config.example.md`：默认作息模板（用户可选 jw-agenda 根目录下的 `schedule-config.md` 覆盖）
 - `assets/scripts/date_utils.py`：日期处理工具
 - `assets/scripts/dedup_todos.py`：去重工具
-- `references/mode-c-reschedule.md`：模式 C 调整日程详细流程
-- `references/mode-d-adhoc.md`：模式 D 临时追加详细流程
+- `references/mode-add-or-move.md`：添加/移动任务详细流程
