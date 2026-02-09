@@ -349,6 +349,10 @@ cd jw-agenda
 
 改进计划与已知问题见 [TODO.md](TODO.md)。
 
+## 安全
+
+漏洞报告相关信息见 [SECURITY.md](../../SECURITY.md) 或 [SECURITY.zh-CN.md](../../SECURITY.zh-CN.md)。
+
 ## License
 
 本仓库整体许可：代码 Apache 2.0，文档 CC-BY-4.0。许可见仓库根目录 [LICENSE](../LICENSE) | [LICENSE-CODE](../LICENSE-CODE) | [LICENSE-DOCS](../LICENSE-DOCS)。

@@ -328,6 +328,10 @@ Output goes to `jw-agenda/output/`. Run when you need to ship or release (e.g. n
 
 See [TODO.md](TODO.md) for planned improvements and known issues.
 
+## Security
+
+See [SECURITY.md](../../SECURITY.md) for information about reporting security vulnerabilities.
+
 ## License
 
 Code: Apache 2.0. Documentation: CC-BY-4.0. See [LICENSE](../LICENSE) | [LICENSE-CODE](../LICENSE-CODE) | [LICENSE-DOCS](../LICENSE-DOCS).

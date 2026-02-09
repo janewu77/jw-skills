@@ -160,3 +160,7 @@ pytest tests/ -v
 ./scripts/sync-common-to-skills.sh   # if you changed _common/
 ./scripts/check-common-sync.sh
 ```
+
+## Security
+
+If you discover a security vulnerability, please report it privately. See [SECURITY.md](../../SECURITY.md) for details.

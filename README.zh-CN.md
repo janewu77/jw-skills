@@ -16,6 +16,10 @@
 
 改进计划与已知问题见 [TODO.md](TODO.md)。
 
+## 安全
+
+漏洞报告相关信息见 [SECURITY.md](SECURITY.md) 或 [SECURITY.zh-CN.md](SECURITY.zh-CN.md)。
+
 ## License
 
 本仓库整体采用：**代码 Apache 2.0，文档 CC-BY-4.0**。适用于仓库内全部内容（含 jw-agenda 等子目录）。详见 [LICENSE](LICENSE)、[LICENSE-CODE](LICENSE-CODE)、[LICENSE-DOCS](LICENSE-DOCS)。
