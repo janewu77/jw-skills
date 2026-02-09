@@ -41,8 +41,9 @@ def normalize(text: str) -> str:
     text = text.strip()
     # 去掉 markdown checkbox
     text = re.sub(r"^-\s*\[[ x]\]\s*", "", text)
-    # 去掉来源标记
-    text = re.sub(r"\*\(.*?\)\*", "", text)
+    # 去掉来源标记：匹配完整的 *(...)* 格式，使用 [^)]+ 确保匹配完整的标记
+    # 这样可以正确处理多个标记和任务名中包含星号的情况
+    text = re.sub(r"\*\([^)]+\)\*", "", text)
     # 去掉备注标记
     text = re.sub(r"（.*?）", "", text)
     # 去掉前后空格和标点

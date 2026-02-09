@@ -37,6 +37,30 @@ class TestNormalize:
     def test_combined(self):
         assert normalize("- [x] 投递简历 *(来自规划)*（推迟）") == "投递简历"
 
+    def test_multiple_markers_on_same_line(self):
+        """Handle multiple source markers on the same line."""
+        # This should strip all markers correctly
+        result = normalize("- [ ] 任务 *(来自规划)* *(从昨天转移)*")
+        assert result == "任务"
+        # Test with different marker combinations
+        assert normalize("- [ ] 项 *(from plan)* *(carried)*") == "项"
+
+    def test_task_name_with_asterisk(self):
+        """Task names containing asterisks should not be affected by marker removal."""
+        # Task name has asterisk but not in marker format
+        assert normalize("- [ ] 重要*任务") == "重要*任务"
+        # Task name with asterisk followed by valid marker
+        assert normalize("- [ ] 重要*任务 *(来自规划)*") == "重要*任务"
+        # Multiple asterisks in task name
+        assert normalize("- [ ] 任务*1*2 *(来自规划)*") == "任务*1*2"
+
+    def test_task_name_with_parentheses(self):
+        """Task names containing parentheses should not be affected by marker removal."""
+        # Parentheses in task name (not marker format)
+        assert normalize("- [ ] 任务(重要)") == "任务(重要)"
+        # Parentheses in task name with marker
+        assert normalize("- [ ] 任务(重要) *(来自规划)*") == "任务(重要)"
+
 
 class TestExtractItems:
     """Tests for extract_items(filepath)."""
