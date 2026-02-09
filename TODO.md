@@ -24,7 +24,7 @@
 
 ### P3 — 可选
 
-- [ ] **CODE_OF_CONDUCT**：在仓库根添加行为准则（如 Contributor Covenant），明确投诉与处理方式。
+- [x] **CODE_OF_CONDUCT**：已在仓库根添加 Contributor Covenant 2.1 行为准则，明确投诉方式（通过 GitHub Security Policy 或联系维护者）和处理流程。
 - [ ] **Issue / PR 模板**：添加 `.github/ISSUE_TEMPLATE/`、`.github/PULL_REQUEST_TEMPLATE.md`，规范贡献者提 issue/PR。
 - [ ] **徽章**：在根 README 顶部增加徽章（如 license、Python version、version），提升信息密度。
 - [ ] **跨平台说明**：在根 CONTRIBUTING 或 README 中注明：sync/package 脚本需 bash（Windows 建议 WSL 或 Git Bash）；Python 脚本可在 Windows 单独运行。
