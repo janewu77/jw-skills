@@ -1,8 +1,10 @@
 # 📅 jw-Agenda
 
-Personal agenda skill set based on [Agent Skills](https://agentskills.io/home).
+**Plan and execute without leaving your editor.**
 
-Drive the full loop **📅 monthly plan → 📊 weekly breakdown → ✅ daily execution → 📝 log → 📈 weekly review** with natural language; all data is stored locally as Markdown files.
+Personal agenda skill set based on [Agent Skills](https://agentskills.io/home). Drive the full loop **📅 monthly plan → 📊 weekly breakdown → ✅ daily execution → 📝 log → 📈 weekly review** with natural language—manage your life where you actually work. All data is stored locally as Markdown files.
+
+**Why jw-agenda?** No more switching to a calendar or to-do app: you stay in the editor and talk to the assistant. It picks the right skill and keeps your workspace in sync.
 
 **🌐 Language**: This document is the authoritative version in English. For a Chinese version, see [README.zh-CN.md](README.zh-CN.md).
 
@@ -25,6 +27,12 @@ You talk; the assistant picks the right Skill:
 | "Summarize yesterday" | 📖 Reads yesterday's Todo → 📝 generates log → ➡️ moves incomplete to today |
 | "Sync plans" | 🔍 Checks daily/weekly/monthly consistency → 📋 lists discrepancies → ✨ fixes after confirmation |
 | "Weekly summary" | 📊 Aggregates this week's logs → 📈 completion rate and time allocation → 📄 weekly report |
+
+### Core benefits
+
+- **Local-first:** All data stays in your local Markdown files—no cloud, full control.
+- **Modular:** Five distinct skills covering the full productivity cycle; each is installable on its own.
+- **AI-native:** Designed for the "talk to AI" workflow—say what you want in plain language and the assistant picks the right skill.
 
 ---
 
@@ -370,6 +378,12 @@ See [TODO.md](TODO.md) for planned improvements and known issues.
 ## 🔒 Security
 
 See [SECURITY.md](../../SECURITY.md) for information about reporting security vulnerabilities.
+
+## Community and feedback
+
+This project is part of a **#BuildInPublic** journey. If you use Cursor or Claude and value a distraction-free, Markdown-based workflow, feedback is welcome. Contributions are welcome—see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
 
 ## License
 

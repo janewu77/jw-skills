@@ -13,18 +13,20 @@ A collection of skills for use in Cursor, Claude, and similar environments. Main
 
 ## ⭐ Featured: jw-agenda
 
-**📋 Plan, execute, and review your personal agenda with natural language.** jw-agenda is a complete skill set that automates your workflow from monthly planning through daily execution to weekly review—all through simple conversations with your AI assistant. Your data stays local in Markdown files, giving you full control and privacy.
+**Plan and execute without leaving your editor.**
+
+jw-agenda is a set of 5 Agent Skills that close the loop from planning to execution to review—all through natural language. Manage your life where you actually work; the assistant picks the right skill and keeps your workspace in sync. All data stays in local Markdown files.
 
 **🔄 The complete loop**: 📅 Monthly plan → 📊 Weekly breakdown → ✅ Daily execution → 📝 Log → 📈 Weekly review
 
 Simply say things like:
-- 💬 "Generate this week's plan" → Creates a day-by-day breakdown from your monthly goals
-- 💬 "Generate today's plan" → Builds your daily todo with schedule from weekly plan and yesterday's incomplete tasks
-- 💬 "I finished the resume update" → Logs your progress and updates checkboxes automatically
-- 💬 "Move applications to Wednesday" → Reschedules tasks and syncs your plans
-- 💬 "Weekly summary" → Aggregates logs, calculates completion rates, and identifies carry-over items
+- 💬 "Generate this week's plan" → Breaks down monthly goals into a day-by-day plan
+- 💬 "Generate today's plan" → Builds today's todo from weekly plan and yesterday's incomplete
+- 💬 "I finished the resume update" → Logs progress and updates checkboxes automatically
+- 💬 "Move applications to Wednesday" → Reschedules and syncs across plan files
+- 💬 "Weekly summary" → Aggregates logs, completion rate, and carry-over items
 
-All 5 skills work together seamlessly 🤝, but you can install only what you need—each skill is independent and gracefully handles missing dependencies.
+**Core benefits:** Local-first (no cloud, full control) · Modular (5 skills, install any subset) · AI-native (talk in plain language, assistant picks the right skill)
 
 ---
 
@@ -83,6 +85,12 @@ See [TODO.md](TODO.md) for planned improvements and known issues.
 ## 🔒 Security
 
 See [SECURITY.md](SECURITY.md) for information about reporting security vulnerabilities.
+
+## Community and feedback
+
+This project is part of a **#BuildInPublic** journey. If you use Cursor or Claude and value a distraction-free, Markdown-based workflow, feedback is welcome. ❤️Contributions are welcome—see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+---
 
 ## License
 
