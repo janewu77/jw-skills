@@ -108,15 +108,23 @@ git push
 
 推送后，检查 GitHub Actions 确保 CI 检查通过：
 
-1. **通过 GitHub 网页界面**：
-   - 访问：`https://github.com/janewu77/jw-skills/actions`
-   - 找到最新的 "Check Common Sync" workflow 运行记录（workflow: `jw-agenda-check-sync.yml`）
-   - 确认显示 ✅（绿色对勾）
-   - 如果推送到 `main`/`dev` 时未同步，workflow 会自动同步并创建提交
+1. **通过本地脚本**（推荐；需安装 [GitHub CLI](https://cli.github.com/) 和 `jq`）：
+   ```bash
+   cd jw-agenda
+   ./scripts/check-workflow-status.sh
+   ```
+   脚本会检查 `jw-agenda-check-sync` 与 `jw-agenda-test` 两个 workflow；若有失败会以错误码退出并打印 actions 链接。
 
-2. **通过 GitHub CLI**（如果已安装）：
+2. **通过 GitHub 网页界面**：
+   - 访问：`https://github.com/janewu77/jw-skills/actions`
+   - 找到最新的 "Check Common Sync" 与 "Run Tests" 运行记录
+   - 确认显示 ✅（绿色对勾）
+   - 如果推送到 `main`/`dev` 时未同步，check-sync workflow 会自动同步并创建提交
+
+3. **通过 GitHub CLI**（手动）：
    ```bash
    gh run list --workflow=jw-agenda-check-sync.yml --limit 5
+   gh run list --workflow=jw-agenda-test.yml --limit 5
    gh run view <run-id>  # 查看特定运行的详情
    ```
 
@@ -135,6 +143,9 @@ git push
 
 # 提交前再次验证
 ./scripts/check-common-sync.sh
+
+# 推送后：本地检查 GitHub Actions 状态（需 gh + jq）
+./scripts/check-workflow-status.sh
 ```
 
 ## 打包（zip）

@@ -106,17 +106,25 @@ git push
 
 #### Step 6: After pushing — Verify CI status
 
-After pushing, check GitHub Actions to ensure the CI check passed:
+After pushing, check GitHub Actions to ensure the CI checks passed:
 
-1. **Via GitHub web UI**:
+1. **Via local script** (recommended; requires [GitHub CLI](https://cli.github.com/) and `jq`):
+   ```bash
+   cd jw-agenda
+   ./scripts/check-workflow-status.sh
+   ```
+   The script checks both `jw-agenda-check-sync` and `jw-agenda-test`. If any workflow failed, it exits with an error and prints the actions URL.
+
+2. **Via GitHub web UI**:
    - Go to: `https://github.com/janewu77/jw-skills/actions`
-   - Find the latest workflow run for "Check Common Sync" (workflow: `jw-agenda-check-sync.yml`)
-   - Verify it shows ✅ (green checkmark)
-   - If you pushed to `main`/`dev` without syncing, the workflow will auto-sync and create a commit
+   - Find the latest workflow runs for "Check Common Sync" and "Run Tests"
+   - Verify they show ✅ (green checkmark)
+   - If you pushed to `main`/`dev` without syncing, the check-sync workflow will auto-sync and create a commit
 
-2. **Via GitHub CLI** (if installed):
+3. **Via GitHub CLI** (manual):
    ```bash
    gh run list --workflow=jw-agenda-check-sync.yml --limit 5
+   gh run list --workflow=jw-agenda-test.yml --limit 5
    gh run view <run-id>  # View details of a specific run
    ```
 
@@ -135,6 +143,9 @@ After pushing, check GitHub Actions to ensure the CI check passed:
 
 # Verify again before committing
 ./scripts/check-common-sync.sh
+
+# After pushing: check GitHub Actions status locally (requires gh + jq)
+./scripts/check-workflow-status.sh
 ```
 
 ## Packaging (zips)
