@@ -23,6 +23,16 @@ pytest jw-agenda/tests/ -v   # or: cd jw-agenda && pytest tests/ -v
 
 When you modify files in `_common/` (e.g., `conventions.md`, `schedule-config.example.md`, or scripts), follow this workflow:
 
+#### Step 0: Pull latest changes
+
+Always start by pulling the latest code to avoid conflicts, especially since auto-sync may have updated files:
+
+```bash
+git pull origin dev  # or main, depending on your branch
+```
+
+This ensures you're working with the most recent version, including any auto-synced changes from GitHub Actions.
+
 #### Step 1: Before committing — Check sync status
 
 First, verify if there are any existing sync issues:
@@ -128,6 +138,7 @@ Output: one zip per skill under `output/`.
 ## Before you commit
 
 ```bash
+git pull origin dev  # Pull latest changes first (or main, depending on branch)
 pytest tests/ -v
 ./scripts/sync-common-to-skills.sh   # if you changed _common/
 ./scripts/check-common-sync.sh

@@ -23,6 +23,16 @@ pytest jw-agenda/tests/ -v   # 或：cd jw-agenda && pytest tests/ -v
 
 当你修改 `_common/` 下的文件（如 `conventions.md`、`schedule-config.example.md` 或脚本文件）时，请遵循以下流程：
 
+#### 步骤 0：拉取最新代码
+
+始终先拉取最新代码以避免冲突，特别是因为自动同步可能已更新了文件：
+
+```bash
+git pull origin dev  # 或 main，取决于你的分支
+```
+
+这确保你使用的是最新版本，包括 GitHub Actions 自动同步的任何更改。
+
 #### 步骤 1：提交前 — 检查同步状态
 
 首先，检查是否存在已有的同步问题：
@@ -128,6 +138,7 @@ git push
 ## 递交前
 
 ```bash
+git pull origin dev  # 先拉取最新更改（或 main，取决于分支）
 pytest tests/ -v
 ./scripts/sync-common-to-skills.sh   # 若改过 _common/
 ./scripts/check-common-sync.sh
