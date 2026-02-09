@@ -19,8 +19,8 @@
 - [x] **CI**：添加 GitHub Actions（或等价 CI）：运行上述 Python 单元测试；可选检查 SKILL.md 含 name/version、conventions 与 SKILL 中路径关键词一致。已实现：`.github/workflows/jw-agenda-test.yml` 运行 pytest 测试，支持 Python 3.9-3.12。
 - [x] **文档：Python 与运行环境**：在 jw-agenda README 或 CONTRIBUTING 中注明 Python 版本（如 3.9+）、已在 Cursor/Claude 下验证的版本或环境，便于用户和贡献者对齐。已在 README 中添加 Python 3.9+ 要求和测试环境说明。
 - [x] **路径假设文档化**：jw-agenda 根目录可配置（默认 jw-agenda-data），已在 README 与 conventions 中说明 workspace 根、`.jw-agenda.json` 配置及默认行为，减少用户困惑。
-- [ ] 🆕 **dedup_todos.py 正则可靠性**：`re.sub(r"\*\(.*?\)\*", ...)` 非贪婪匹配在多标记同行时可能异常；未处理任务名本身含星号的情况。建议增加转义处理或改用更精确的匹配模式。
-- [ ] 🆕 **date_utils.py 输入验证**：当前仅接受 ISO 格式（`date.fromisoformat()`），非 ISO 输入（如 "2026/02/05"）报错不清晰。建议增加友好的错误提示或格式转换。
+- [x] 🆕 **dedup_todos.py 正则可靠性**：`re.sub(r"\*\(.*?\)\*", ...)` 非贪婪匹配在多标记同行时可能异常；未处理任务名本身含星号的情况。建议增加转义处理或改用更精确的匹配模式。已修复：改用 `r"\*\([^)]+\)\*"` 模式，正确处理多标记和任务名中的星号，并添加了相应测试用例。
+- [x] 🆕 **date_utils.py 输入验证**：当前仅接受 ISO 格式（`date.fromisoformat()`），非 ISO 输入（如 "2026/02/05"）报错不清晰。建议增加友好的错误提示或格式转换。已实现：支持 YYYY-MM-DD、YYYY/MM/DD、YYYY.MM.DD 三种格式，并提供友好的错误消息，包含所有支持的格式示例。
 
 ---
 
