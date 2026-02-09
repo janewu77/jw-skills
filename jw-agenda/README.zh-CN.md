@@ -1,118 +1,118 @@
-# jw-Agenda
+# 📅 jw-Agenda
 
 基于 [Agent Skills](https://agentskills.io/home) 的个人日程管理技能组。
 
-用自然语言驱动「月规划 → 周拆解 → 日执行 → 日志记录 → 周回顾」的完整闭环，所有数据以 Markdown 文件存储在本地。
+用自然语言驱动「📅 月规划 → 📊 周拆解 → ✅ 日执行 → 📝 日志记录 → 📈 周回顾」的完整闭环，所有数据以 Markdown 文件存储在本地。
 
-**语言**：本文档为中文版。英文版见 [README.md](README.md)。
+**🌐 语言**：本文档为中文版。英文版见 [README.md](README.md)。
 
-**License**：本仓库整体采用「代码 Apache 2.0、文档 CC-BY-4.0」。许可见仓库根目录 [LICENSE](../LICENSE)，[LICENSE-CODE](../LICENSE-CODE)，[LICENSE-DOCS](../LICENSE-DOCS)。
+**📜 License**：本仓库整体采用「代码 Apache 2.0、文档 CC-BY-4.0」。许可见仓库根目录 [LICENSE](../LICENSE)，[LICENSE-CODE](../LICENSE-CODE)，[LICENSE-DOCS](../LICENSE-DOCS)。
 
 ---
 
-## 功能概览
+## 🎯 功能概览
 
 你只需要对话，Claude 会自动选择合适的 Skill 来执行：
 
-| 你说… | Claude 做… |
+| 💬 你说… | ⚡ Claude 做… |
 |--------|-----------|
-| 「生成本周计划」 | 读取月规划 + 上周未完成 → 按天拆解出周计划 |
-| 「生成今天的计划」 | 读取周规划 + 昨天未完成 → 生成带时间表的今日 Todo |
-| 「我完成了简历修改」 | daily-log 写日志并勾选今日 Todo 对应项 |
-| 「把投递移到周三」 | 从今日移除 → 加入周三 → 同步周规划 |
-| 「加一项：下周约导师」 | 写入下周的规划文件 |
-| 「今天做了 XX，还有 YY 没做完，感觉有点累」 | 解析口语化汇报 → 生成日志 → 同步勾选 |
-| 「总结昨天」 | 读取昨天 Todo → 生成日志 → 未完成转移到今天 |
-| 「同步规划」 | 检查日/周/月三层一致性 → 列出偏差 → 确认后修正 |
-| 「周总结」 | 汇总本周日志 → 统计完成率和时间分配 → 生成周报 |
+| 「生成本周计划」 | 📖 读取月规划 + 上周未完成 → 📊 按天拆解出周计划 |
+| 「生成今天的计划」 | 📖 读取周规划 + 昨天未完成 → ✅ 生成带时间表的今日 Todo |
+| 「我完成了简历修改」 | 📝 daily-log 写日志并 ✅ 勾选今日 Todo 对应项 |
+| 「把投递移到周三」 | 🔄 从今日移除 → ➕ 加入周三 → 🔗 同步周规划 |
+| 「加一项：下周约导师」 | ➕ 写入下周的规划文件 |
+| 「今天做了 XX，还有 YY 没做完，感觉有点累」 | 🧠 解析口语化汇报 → 📝 生成日志 → ✅ 同步勾选 |
+| 「总结昨天」 | 📖 读取昨天 Todo → 📝 生成日志 → ➡️ 未完成转移到今天 |
+| 「同步规划」 | 🔍 检查日/周/月三层一致性 → 📋 列出偏差 → ✨ 确认后修正 |
+| 「周总结」 | 📊 汇总本周日志 → 📈 统计完成率和时间分配 → 📄 生成周报 |
 
 ---
 
-## 工作流程
+## 🔄 工作流程
 
 ```
 ┌─────────────┐
-│  月规划       │  ← 用户手动维护（本月目标、每周重点）
+│ 📅 月规划     │  ← 👤 用户手动维护（本月目标、每周重点）
 │ YYYY-MM-plan │
 └──────┬──────┘
-       │ weekly-plan 读取本周目标
+       │ 📊 weekly-plan 读取本周目标
        ▼
 ┌─────────────┐     ┌─────────────┐
-│  周规划       │────→│  周总结       │
+│ 📊 周规划     │────→│ 📈 周总结     │
 │ Week{N}-plan │     │ Week{N}-review  │
 └──────┬──────┘     └──────▲──────┘
-       │ daily-todo          │ weekly-review
+       │ ✅ daily-todo      │ 📈 weekly-review
        │ 读取当日任务          │ 汇总本周日志
        ▼                     │
 ┌─────────────┐     ┌─────────────┐
-│  日 Todo      │────→│  日志         │
+│ ✅ 日 Todo    │────→│ 📝 日志       │
 │ 日期-todo.md  │     │  日期-log.md  │
 └─────────────┘     └─────────────┘
-  daily-todo          daily-log
+  ✅ daily-todo       📝 daily-log
   (计划与执行)          (记录与留痕)
 
-        ↕ planning-sync（检查三层一致性）
+        ↕ 🔄 planning-sync（检查三层一致性）
 ```
 
-**一天的节奏**：早上「生成今天的计划」→ 白天「我完成了 X」→ 晚上「今天做了…感觉…」
+**🌅 一天的节奏**：早上「生成今天的计划」→ 白天「我完成了 X」→ 晚上「今天做了…感觉…」
 
-**一周的节奏**：周一「生成本周计划」→ 周中「同步规划」→ 周末「周总结」
+**📅 一周的节奏**：周一「生成本周计划」→ 周中「同步规划」→ 周末「周总结」
 
 ---
 
-## Skill 目录
+## 🛠️ Skill 目录
 
-本技能组包含 5 个 Skill，**每个可独立安装**。安装多个时它们会自动配合，但彼此不依赖——缺少任何一个，其余仍可正常工作。
+本技能组包含 5 个 Skill，**每个可独立安装**。安装多个时它们会自动配合 🤝，但彼此不依赖——缺少任何一个，其余仍可正常工作。
 
-### jw-agenda-daily-todo — 每日 Todo 管理
+### ✅ jw-agenda-daily-todo — 每日 Todo 管理
 
 管理今日 todo 的计划与调整：生成计划、调整日程、临时加项。**不负责标记完成**（「我完成了 X」由 daily-log 处理）。
 
-**功能**：从月/周规划和昨天未完成自动生成带时间表的今日 Todo；取消/推迟事项、将事项移到其他日期并同步规划文件；临时追加事项到当天/本周/本月/以后。可查询当日进度（还剩哪些、完成得怎么样）。
+**✨ 功能**：从月/周规划和昨天未完成自动生成带时间表的今日 Todo；取消/推迟事项、将事项移到其他日期并同步规划文件；临时追加事项到当天/本周/本月/以后。可查询当日进度（还剩哪些、完成得怎么样）。
 
-**触发词**：「生成今天的计划」「把 X 移到周三」「加一项」「明天要」「以后要」「Y 不做了」「今天完成得怎么样」
+**💬 触发词**：「生成今天的计划」「把 X 移到周三」「加一项」「明天要」「以后要」「Y 不做了」「今天完成得怎么样」
 
-**配合**：若安装了 daily-log，会识别其写入的「从昨天转移」项避免重复。若安装了 weekly-plan，会读取周规划作为当日计划来源。
+**🔗 配合**：若安装了 daily-log，会识别其写入的「从昨天转移」项避免重复。若安装了 weekly-plan，会读取周规划作为当日计划来源。
 
-### jw-agenda-daily-log — 日志与汇报
+### 📝 jw-agenda-daily-log — 日志与汇报
 
 将口语化的进度汇报整理成结构化日志，保留想法和碎碎念。
 
-**功能**：总结昨天的工作生成日志；接受今天的口语化汇报（可以很随意、带想法）解析后生成日志；未完成事项自动转移到今日 Todo。
+**✨ 功能**：总结昨天的工作生成日志；接受今天的口语化汇报（可以很随意、带想法）解析后生成日志；未完成事项自动转移到今日 Todo。
 
-**触发词**：「总结昨天」「汇报今天」「记录一下今天」「今天大概做了…」「我完成了 X」「作业做完了」
+**💬 触发词**：「总结昨天」「汇报今天」「记录一下今天」「今天大概做了…」「我完成了 X」「作业做完了」
 
-**配合**：若安装了 daily-todo，汇报今天时会顺带更新今日 Todo 的勾选。
+**🔗 配合**：若安装了 daily-todo，汇报今天时会顺带更新今日 Todo 的勾选。
 
-### jw-agenda-weekly-plan — 周规划生成
+### 📊 jw-agenda-weekly-plan — 周规划生成
 
 从月规划拆解出按天的周计划。
 
-**功能**：读取月规划中本周的目标和重点；合并上周未完成的延续任务；按天分配生成周规划文件。
+**✨ 功能**：读取月规划中本周的目标和重点；合并上周未完成的延续任务；按天分配生成周规划文件。
 
-**触发词**：「生成本周计划」「周规划」「weekly plan」
+**💬 触发词**：「生成本周计划」「周规划」「weekly plan」
 
-**配合**：若安装了 weekly-review，会读取上周总结中的「转入下周」作为延续任务来源。
+**🔗 配合**：若安装了 weekly-review，会读取上周总结中的「转入下周」作为延续任务来源。
 
-### jw-agenda-weekly-review — 周回顾
+### 📈 jw-agenda-weekly-review — 周回顾
 
 汇总一周的日志和 Todo，生成统计报告。
 
-**功能**：汇总本周所有日志；统计完成率（按优先级分类）和时间分配；识别并列出需要转入下周的事项。
+**✨ 功能**：汇总本周所有日志；统计完成率（按优先级分类）和时间分配；识别并列出需要转入下周的事项。
 
-**触发词**：「周总结」「本周回顾」「weekly review」
+**💬 触发词**：「周总结」「本周回顾」「weekly review」
 
-**配合**：若安装了 weekly-plan，会对比周规划 vs 实际执行。产出的「转入下周」列表可供 weekly-plan 下周读取。
+**🔗 配合**：若安装了 weekly-plan，会对比周规划 vs 实际执行。产出的「转入下周」列表可供 weekly-plan 下周读取。
 
-### jw-agenda-planning-sync — 规划同步检查
+### 🔄 jw-agenda-planning-sync — 规划同步检查
 
 事后一致性检查，确保日/周/月三层规划不矛盾。
 
-**功能**：对比日 Todo、周规划、月规划的任务内容和完成状态；将偏差分为「需行动」和「信息性」两级；展示建议清单，仅在用户确认后才执行修改。
+**✨ 功能**：对比日 Todo、周规划、月规划的任务内容和完成状态；将偏差分为「需行动」和「信息性」两级；展示建议清单，仅在用户确认后才执行修改。
 
-**触发词**：「同步规划」「检查一致性」「planning sync」
+**💬 触发词**：「同步规划」「检查一致性」「planning sync」
 
-**配合**：检查范围取决于已安装的 Skill 产出了哪些文件。即使只安装了 daily-todo 和 weekly-plan，也能进行日-周两层对比。
+**🔗 配合**：检查范围取决于已安装的 Skill 产出了哪些文件。即使只安装了 daily-todo 和 weekly-plan，也能进行日-周两层对比。
 
 ---
 
@@ -120,20 +120,20 @@
 
 在 **Cursor** 上安装时，可参考官方文档：[Agent Skills（含安装方式与 Skill 目录说明）](https://cursor.com/docs/context/skills)。
 
-### 前提条件
+### 📋 前提条件
 
-- 支持 Skill 的 AI 工作环境（如 Cursor、Claude Desktop 等）
-- **Python 3.9+**（技能使用的脚本需要；已在 Python 3.9、3.10、3.11、3.12 上测试）
-- 一个用于存放日程数据的文件夹（下文称 workspace）。**请打开你的 workspace 根目录**；jw-agenda 数据默认在用户工作目录下的 `jw-agenda-data/`，也可通过 `.jw-agenda.json` 或 `jw-agenda.json` 配置其他路径（见下方「配置 jw-agenda 根目录」）。
+- ✅ 支持 Skill 的 AI 工作环境（如 Cursor、Claude Desktop 等）
+- 🐍 **Python 3.9+**（技能使用的脚本需要；已在 Python 3.9、3.10、3.11、3.12 上测试）
+- 📁 一个用于存放日程数据的文件夹（下文称 workspace）。**请打开你的 workspace 根目录**；jw-agenda 数据默认在用户工作目录下的 `jw-agenda-data/`，也可通过 `.jw-agenda.json` 或 `jw-agenda.json` 配置其他路径（见下方「配置 jw-agenda 根目录」）。
 
-**测试环境**：
-- Cursor（最新版本）
-- Claude Desktop（最新版本）
-- Python 3.9、3.10、3.11、3.12 在 Linux、macOS、Windows（WSL/Git Bash）上
+**✅ 测试环境**：
+- 💻 Cursor（最新版本）
+- 🤖 Claude Desktop（最新版本）
+- 🐍 Python 3.9、3.10、3.11、3.12 在 Linux、macOS、Windows（WSL/Git Bash）上
 
-### 快速开始（一键安装）
+### ⚡ 快速开始（一键安装）
 
-**Cursor 用户**：在你的 workspace 根目录运行以下命令，创建数据目录并安装全部 5 个 Skill：
+**Cursor 用户**：在你的 workspace 根目录运行以下命令，创建数据目录并安装全部 5 个 Skill。**预打包 zip** 可在 [Releases](https://github.com/janewu77/jw-skills/releases) 下载：
 
 ```bash
 # 第 1 步：创建数据目录
@@ -239,7 +239,7 @@ cp <path-to-any-skill>/assets/schedule-config.example.md jw-agenda-data/schedule
 
 **第 3 步：安装 Skill**
 
-- **用 zip 安装（推荐，Cursor 等）**：本仓库提供 5 个独立 zip（运行 `./package-skills.sh` 在 `output/` 下生成）。将**每个 zip 解压到 Cursor 的 skills 目录**（用户级：`~/.cursor/skills/`；项目级：`.cursor/skills/`）即可，约定与脚本已内嵌在 zip 内，**无需再复制任何文件到用户目录**。目录与从 GitHub 安装方式见 [Cursor 官方：Agent Skills](https://cursor.com/docs/context/skills)。
+- **📦 用 zip 安装（推荐，Cursor 等）**：从 [Releases](https://github.com/janewu77/jw-skills/releases) 下载 5 个独立 zip（或运行 `./package-skills.sh` 在 `output/` 下生成）。将**每个 zip 解压到 Cursor 的 skills 目录**（用户级：`~/.cursor/skills/`；项目级：`.cursor/skills/`）即可，约定与脚本已内嵌在 zip 内，**无需再复制任何文件到用户目录**。目录与从 GitHub 安装方式见 [Cursor 官方：Agent Skills](https://cursor.com/docs/context/skills)。
   ```bash
   unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
   unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
@@ -277,9 +277,9 @@ cp <path-to-any-skill>/assets/schedule-config.example.md jw-agenda-data/schedule
 
 ---
 
-## 示例
+## 📚 示例
 
-### 快速开始：使用示例工作区
+### 🎯 快速开始：使用示例工作区
 
 我们提供两个版本的示例工作区（英文和中文）。复制一个即可开始：
 
@@ -294,52 +294,52 @@ cp -r jw-agenda/examples/sample-workspace-zh jw-agenda-data
 ```
 
 每个版本都包含示例文件：
-- 月规划 (`monthly/2026-02-plan.md`)
-- 周规划 (`weekly/Week6-plan.md`)
-- 日待办 (`daily/2026-02-05-todo.md`)
-- 日日志 (`daily/2026-02-05-log.md`)
-- 周总结 (`weekly/Week6-review.md`)
+- 📅 月规划 (`monthly/2026-02-plan.md`)
+- 📊 周规划 (`weekly/Week6-plan.md`)
+- ✅ 日待办 (`daily/2026-02-05-todo.md`)
+- 📝 日日志 (`daily/2026-02-05-log.md`)
+- 📈 周总结 (`weekly/Week6-review.md`)
 
 详见 [examples/README.md](examples/README.md)。
 
-### 对话示例
+### 💬 对话示例
 
-- **英文**：参见 [examples/conversations.md](examples/conversations.md) 了解完整示例，包括：
-  - 如何生成周规划
-  - 如何汇报日常进度
-  - 如何添加临时任务
-  - 如何生成周总结
-  - 如何同步规划以保持一致性
+- **🇬🇧 英文**：参见 [examples/conversations.md](examples/conversations.md) 了解完整示例，包括：
+  - 📊 如何生成周规划
+  - 📝 如何汇报日常进度
+  - ➕ 如何添加临时任务
+  - 📈 如何生成周总结
+  - 🔄 如何同步规划以保持一致性
 
-- **中文**：参见 [examples/conversations.zh-CN.md](examples/conversations.zh-CN.md) 了解完整示例
+- **🇨🇳 中文**：参见 [examples/conversations.zh-CN.md](examples/conversations.zh-CN.md) 了解完整示例
 
 ---
 
-## 触发词速查
+## 📖 触发词速查
 
-| 想做什么 | 说什么 |
+| 🎯 想做什么 | 💬 说什么 |
 |----------|--------|
-| 生成本周规划 | 「生成本周计划」/「周规划」/「weekly plan」 |
-| 生成今日 Todo | 「生成今天的计划」/「today plan」 |
-| 汇报进度写日志 | 「今天做了 XXX，还有 YYY 没做完，感觉…」 |
-| 总结昨天 | 「总结昨天」/「整理昨天的日志」 |
-| 标记完成（写日志+勾选） | 「我完成了 XXX」/「作业做完了」/「记录一下今天」 |
-| 调整日程 | 「把 XXX 移到周三」/「推迟到下周」 |
-| 临时加项 | 「加一项 XXX」/「明天要 YYY」/「以后要 ZZZ」 |
-| 检查一致性 | 「同步规划」/「检查一致性」/「planning sync」 |
-| 周总结 | 「周总结」/「本周回顾」/「weekly review」 |
+| 📊 生成本周规划 | 「生成本周计划」/「周规划」/「weekly plan」 |
+| ✅ 生成今日 Todo | 「生成今天的计划」/「today plan」 |
+| 📝 汇报进度写日志 | 「今天做了 XXX，还有 YYY 没做完，感觉…」 |
+| 📝 总结昨天 | 「总结昨天」/「整理昨天的日志」 |
+| ✅ 标记完成（写日志+勾选） | 「我完成了 XXX」/「作业做完了」/「记录一下今天」 |
+| 🔄 调整日程 | 「把 XXX 移到周三」/「推迟到下周」 |
+| ➕ 临时加项 | 「加一项 XXX」/「明天要 YYY」/「以后要 ZZZ」 |
+| 🔍 检查一致性 | 「同步规划」/「检查一致性」/「planning sync」 |
+| 📈 周总结 | 「周总结」/「本周回顾」/「weekly review」 |
 
 ---
 
-## 文件命名规则
+## 📝 文件命名规则
 
-| 类型 | 格式 | 目录 | 示例 |
+| 📄 类型 | 📋 格式 | 📁 目录 | 💡 示例 |
 |------|------|------|------|
-| 月规划 | `YYYY-MM-plan.md` | `monthly/` | `2026-02-plan.md` |
-| 周规划 | `Week{N}-plan.md` | `weekly/` | `Week1-plan.md` |
-| 周总结 | `Week{N}-review.md` | `weekly/` | `Week1-review.md` |
-| 日 Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
-| 日志 | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
+| 📅 月规划 | `YYYY-MM-plan.md` | `monthly/` | `2026-02-plan.md` |
+| 📊 周规划 | `Week{N}-plan.md` | `weekly/` | `Week1-plan.md` |
+| 📈 周总结 | `Week{N}-review.md` | `weekly/` | `Week1-review.md` |
+| ✅ 日 Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
+| 📝 日志 | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
 
 N = ISO 周号（1–52）。例如 2026-02-05 → Week 6。
 
@@ -347,19 +347,19 @@ N = ISO 周号（1–52）。例如 2026-02-05 → Week 6。
 
 ---
 
-## 自定义
+## ⚙️ 自定义
 
-**作息时段**：若你在 jw-agenda 根目录（默认 `jw-agenda-data`）下创建了 `schedule-config.md`，编辑该文件即可增删时间段、调整固定活动（如出门、晚餐时间）。daily-todo 生成今日时间表时优先按该文件的「时段定义」表；不存在则使用 Skill 内嵌的默认模板。
+**⏰ 作息时段**：若你在 jw-agenda 根目录（默认 `jw-agenda-data`）下创建了 `schedule-config.md`，编辑该文件即可增删时间段、调整固定活动（如出门、晚餐时间）。daily-todo 生成今日时间表时优先按该文件的「时段定义」表；不存在则使用 Skill 内嵌的默认模板。
 
-**约定规则**：命名、路径、标记、优先级等定义在各 Skill 的 `assets/conventions.md` 中。用户一般无需修改；若需自定义，可编辑本地已安装 Skill 目录下的该文件，或修改本仓库 `_common/conventions.md` 后重新打包安装。
+**📋 约定规则**：命名、路径、标记、优先级等定义在各 Skill 的 `assets/conventions.md` 中。用户一般无需修改；若需自定义，可编辑本地已安装 Skill 目录下的该文件，或修改本仓库 `_common/conventions.md` 后重新打包安装。
 
-**月规划格式**：完全自由。建议包含「本月目标」和按 `Week N` 分的小节，便于 weekly-plan 提取。
+**📅 月规划格式**：完全自由。建议包含「本月目标」和按 `Week N` 分的小节，便于 weekly-plan 提取。
 
-**脚本**：各 Skill 的 `assets/scripts/date_utils.py`、`dedup_todos.py` 已随 Skill 安装，供日期计算与 todo 去重使用。这些脚本需要 **Python 3.9+** 才能运行。
+**🐍 脚本**：各 Skill 的 `assets/scripts/date_utils.py`、`dedup_todos.py` 已随 Skill 安装，供日期计算与 todo 去重使用。这些脚本需要 **Python 3.9+** 才能运行。
 
-### 贡献者指南
+### 👥 贡献者指南
 
-**Python 环境**：需要 Python 3.9+。运行测试需要安装 pytest：
+**🐍 Python 环境**：需要 Python 3.9+。运行测试需要安装 pytest：
 ```bash
 pip install pytest
 pytest jw-agenda/tests/ -v
@@ -369,11 +369,11 @@ pytest jw-agenda/tests/ -v
 
 ---
 
-## 分发给他人使用
+## 📦 分发给他人使用
 
-本仓库提供 **5 个独立的 zip**（每个 Skill 一个），用于分发给他人安装。
+本仓库提供 **5 个独立的 zip**（每个 Skill 一个），用于分发给他人安装。下载地址：[Releases](https://github.com/janewu77/jw-skills/releases)
 
-**如何生成 zip**：在 **jw-agenda 目录下**执行：
+**🔨 如何生成 zip**：在 **jw-agenda 目录下**执行：
 
 ```bash
 cd jw-agenda
@@ -384,11 +384,11 @@ cd jw-agenda
 
 ---
 
-## 开发
+## 🛠️ 开发
 
 改进计划与已知问题见 [TODO.md](TODO.md)。
 
-## 安全
+## 🔒 安全
 
 漏洞报告相关信息见 [SECURITY.md](../../SECURITY.md) 或 [SECURITY.zh-CN.md](../../SECURITY.zh-CN.md)。
 

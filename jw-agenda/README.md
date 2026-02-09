@@ -1,139 +1,139 @@
-# jw-Agenda
+# 📅 jw-Agenda
 
 Personal agenda skill set based on [Agent Skills](https://agentskills.io/home).
 
-Drive the full loop **monthly plan → weekly breakdown → daily execution → log → weekly review** with natural language; all data is stored locally as Markdown files.
+Drive the full loop **📅 monthly plan → 📊 weekly breakdown → ✅ daily execution → 📝 log → 📈 weekly review** with natural language; all data is stored locally as Markdown files.
 
-**Language**: This document is the authoritative version in English. For a Chinese version, see [README.zh-CN.md](README.zh-CN.md).
+**🌐 Language**: This document is the authoritative version in English. For a Chinese version, see [README.zh-CN.md](README.zh-CN.md).
 
-**License**: This repository uses **Apache 2.0 for code** and **CC-BY-4.0 for documentation**. See [LICENSE](../LICENSE), [LICENSE-CODE](../LICENSE-CODE), [LICENSE-DOCS](../LICENSE-DOCS).
+**📜 License**: This repository uses **Apache 2.0 for code** and **CC-BY-4.0 for documentation**. See [LICENSE](../LICENSE), [LICENSE-CODE](../LICENSE-CODE), [LICENSE-DOCS](../LICENSE-DOCS).
 
 ---
 
-## Overview
+## 🎯 Overview
 
 You talk; the assistant picks the right Skill:
 
-| You say… | It does… |
+| 💬 You say… | ⚡ It does… |
 |----------|----------|
-| "Generate this week's plan" | Reads monthly plan + last week's incomplete → breaks down into a weekly plan by day |
-| "Generate today's plan" | Reads weekly plan + yesterday's incomplete → generates today's Todo with schedule |
-| "I finished the resume update" | daily-log writes the log and checks the corresponding today Todo |
-| "Move applications to Wednesday" | Removes from today → adds to Wednesday → syncs weekly plan |
-| "Add: meet advisor next week" | Writes to next week's plan file |
-| "Today I did XX, still have YY left, feeling tired" | Parses casual report → generates log → syncs checkboxes |
-| "Summarize yesterday" | Reads yesterday's Todo → generates log → moves incomplete to today |
-| "Sync plans" | Checks daily/weekly/monthly consistency → lists discrepancies → fixes after confirmation |
-| "Weekly summary" | Aggregates this week's logs → completion rate and time allocation → weekly report |
+| "Generate this week's plan" | 📖 Reads monthly plan + last week's incomplete → 📊 breaks down into a weekly plan by day |
+| "Generate today's plan" | 📖 Reads weekly plan + yesterday's incomplete → ✅ generates today's Todo with schedule |
+| "I finished the resume update" | 📝 daily-log writes the log and ✅ checks the corresponding today Todo |
+| "Move applications to Wednesday" | 🔄 Removes from today → ➕ adds to Wednesday → 🔗 syncs weekly plan |
+| "Add: meet advisor next week" | ➕ Writes to next week's plan file |
+| "Today I did XX, still have YY left, feeling tired" | 🧠 Parses casual report → 📝 generates log → ✅ syncs checkboxes |
+| "Summarize yesterday" | 📖 Reads yesterday's Todo → 📝 generates log → ➡️ moves incomplete to today |
+| "Sync plans" | 🔍 Checks daily/weekly/monthly consistency → 📋 lists discrepancies → ✨ fixes after confirmation |
+| "Weekly summary" | 📊 Aggregates this week's logs → 📈 completion rate and time allocation → 📄 weekly report |
 
 ---
 
-## Workflow
+## 🔄 Workflow
 
 ```
 ┌─────────────┐
-│ Monthly     │  ← User maintains (goals, weekly focus)
+│ 📅 Monthly  │  ← 👤 User maintains (goals, weekly focus)
 │ YYYY-MM-plan│
 └──────┬──────┘
-       │ weekly-plan reads this week's goals
+       │ 📊 weekly-plan reads this week's goals
        ▼
 ┌─────────────┐     ┌─────────────┐
-│ Weekly      │────→│ Weekly      │
-│ Week{N}-plan│     │ Week{N}-review
+│ 📊 Weekly    │────→│ 📈 Weekly   │
+│ Week{N}-plan │     │ Week{N}-review
 └──────┬──────┘     └──────▲──────┘
-       │ daily-todo        │ weekly-review
+       │ ✅ daily-todo      │ 📈 weekly-review
        │ reads daily tasks │ aggregates logs
        ▼                   │
 ┌─────────────┐     ┌─────────────┐
-│ Daily Todo  │────→│ Log         │
+│ ✅ Daily Todo│────→│ 📝 Log      │
 │ date-todo   │     │ date-log    │
 └─────────────┘     └─────────────┘
-  daily-todo          daily-log
-  (plan & execute)    (record)
+  ✅ daily-todo       📝 daily-log
+  (plan & execute)   (record)
 
-        ↕ planning-sync (check three layers)
+        ↕ 🔄 planning-sync (check three layers)
 ```
 
-**Daily**: Morning "generate today's plan" → during day "I finished X" → evening "today I did… feeling…"
+**🌅 Daily**: Morning "generate today's plan" → during day "I finished X" → evening "today I did… feeling…"
 
-**Weekly**: Monday "generate this week's plan" → mid-week "sync plans" → weekend "weekly summary"
+**📅 Weekly**: Monday "generate this week's plan" → mid-week "sync plans" → weekend "weekly summary"
 
 ---
 
-## Skills
+## 🛠️ Skills
 
-This set has **5 Skills**, each **installable on its own**. With multiple installed they work together but do not depend on each other—missing one does not break the others.
+This set has **5 Skills**, each **installable on its own**. With multiple installed they work together 🤝 but do not depend on each other—missing one does not break the others.
 
-### jw-agenda-daily-todo — Daily Todo
+### ✅ jw-agenda-daily-todo — Daily Todo
 
 Manages today's todo: generate plan, reschedule, add ad-hoc items. **Does not mark completion** ("I finished X" is handled by daily-log).
 
-**Features**: Generate today's Todo with schedule from monthly/weekly plan and yesterday's incomplete; cancel/postpone, move items to other days and sync plan files; add ad-hoc items for today/this week/this month/later; query today's progress.
+**✨ Features**: Generate today's Todo with schedule from monthly/weekly plan and yesterday's incomplete; cancel/postpone, move items to other days and sync plan files; add ad-hoc items for today/this week/this month/later; query today's progress.
 
-**Triggers**: "Generate today's plan", "Move X to Wednesday", "Add one", "Tomorrow I need", "Later I need", "Drop Y", "How's today going"
+**💬 Triggers**: "Generate today's plan", "Move X to Wednesday", "Add one", "Tomorrow I need", "Later I need", "Drop Y", "How's today going"
 
-**With others**: If daily-log is installed, recognizes "carried from yesterday" to avoid duplicates. If weekly-plan is installed, uses weekly plan as source for today.
+**🔗 With others**: If daily-log is installed, recognizes "carried from yesterday" to avoid duplicates. If weekly-plan is installed, uses weekly plan as source for today.
 
-### jw-agenda-daily-log — Log and report
+### 📝 jw-agenda-daily-log — Log and report
 
 Turns casual progress reports into structured logs and keeps notes and thoughts.
 
-**Features**: Summarize yesterday into a log; accept today's casual report (can be informal, with thoughts) and generate log; move incomplete to today's Todo.
+**✨ Features**: Summarize yesterday into a log; accept today's casual report (can be informal, with thoughts) and generate log; move incomplete to today's Todo.
 
-**Triggers**: "Summarize yesterday", "Report today", "Log today", "Today I did…", "I finished X", "Homework done"
+**💬 Triggers**: "Summarize yesterday", "Report today", "Log today", "Today I did…", "I finished X", "Homework done"
 
-**With others**: If daily-todo is installed, today's report also updates today's Todo checkboxes.
+**🔗 With others**: If daily-todo is installed, today's report also updates today's Todo checkboxes.
 
-### jw-agenda-weekly-plan — Weekly plan
+### 📊 jw-agenda-weekly-plan — Weekly plan
 
 Breaks down the monthly plan into a day-by-day weekly plan.
 
-**Features**: Read this week's goals from the monthly plan; merge last week's carry-over; assign by day and write the weekly plan file.
+**✨ Features**: Read this week's goals from the monthly plan; merge last week's carry-over; assign by day and write the weekly plan file.
 
-**Triggers**: "Generate this week's plan", "Weekly plan", "weekly plan"
+**💬 Triggers**: "Generate this week's plan", "Weekly plan", "weekly plan"
 
-**With others**: If weekly-review is installed, reads "carry to next week" from last week's review as carry-over source.
+**🔗 With others**: If weekly-review is installed, reads "carry to next week" from last week's review as carry-over source.
 
-### jw-agenda-weekly-review — Weekly review
+### 📈 jw-agenda-weekly-review — Weekly review
 
 Aggregates the week's logs and Todo into a summary and stats.
 
-**Features**: Aggregate all logs for the week; completion rate (by priority) and time allocation; list items to carry to next week.
+**✨ Features**: Aggregate all logs for the week; completion rate (by priority) and time allocation; list items to carry to next week.
 
-**Triggers**: "Weekly summary", "This week review", "weekly review"
+**💬 Triggers**: "Weekly summary", "This week review", "weekly review"
 
-**With others**: If weekly-plan is installed, compares weekly plan vs actual. The "carry to next week" list can be read by weekly-plan next week.
+**🔗 With others**: If weekly-plan is installed, compares weekly plan vs actual. The "carry to next week" list can be read by weekly-plan next week.
 
-### jw-agenda-planning-sync — Plan consistency check
+### 🔄 jw-agenda-planning-sync — Plan consistency check
 
 Checks that daily, weekly, and monthly plans are consistent.
 
-**Features**: Compare daily Todo, weekly plan, monthly plan for task content and completion; classify discrepancies as "action needed" or "informational"; show suggested changes and apply only after user confirmation.
+**✨ Features**: Compare daily Todo, weekly plan, monthly plan for task content and completion; classify discrepancies as "action needed" or "informational"; show suggested changes and apply only after user confirmation.
 
-**Triggers**: "Sync plans", "Check consistency", "planning sync"
+**💬 Triggers**: "Sync plans", "Check consistency", "planning sync"
 
-**With others**: Scope depends on which Skills produced which files. With only daily-todo and weekly-plan, can still compare daily vs weekly.
+**🔗 With others**: Scope depends on which Skills produced which files. With only daily-todo and weekly-plan, can still compare daily vs weekly.
 
 ---
 
-## Installation
+## 🚀 Installation
 
 For **Cursor**, see [Agent Skills (install and skill directory)](https://cursor.com/docs/context/skills).
 
-### Prerequisites
+### 📋 Prerequisites
 
-- An AI environment that supports Skills (e.g. Cursor, Claude Desktop).
-- **Python 3.9+** (required for scripts used by skills; tested on Python 3.9, 3.10, 3.11, 3.12)
-- A folder for agenda data (the **workspace**). **Open your workspace root**; jw-agenda data defaults to `jw-agenda-data/` under that root, or another path via `.jw-agenda.json` or `jw-agenda.json` (see "Configure jw-agenda root" below).
+- ✅ An AI environment that supports Skills (e.g. Cursor, Claude Desktop).
+- 🐍 **Python 3.9+** (required for scripts used by skills; tested on Python 3.9, 3.10, 3.11, 3.12)
+- 📁 A folder for agenda data (the **workspace**). **Open your workspace root**; jw-agenda data defaults to `jw-agenda-data/` under that root, or another path via `.jw-agenda.json` or `jw-agenda.json` (see "Configure jw-agenda root" below).
 
-**Tested environments**:
-- Cursor (latest versions)
-- Claude Desktop (latest versions)
-- Python 3.9, 3.10, 3.11, 3.12 on Linux, macOS, Windows (WSL/Git Bash)
+**✅ Tested environments**:
+- 💻 Cursor (latest versions)
+- 🤖 Claude Desktop (latest versions)
+- 🐍 Python 3.9, 3.10, 3.11, 3.12 on Linux, macOS, Windows (WSL/Git Bash)
 
-### Quick Start (One-Command Setup)
+### ⚡ Quick Start (One-Command Setup)
 
-**For Cursor users**: Run this in your workspace root to create the data directory and install all 5 Skills from zip files:
+**For Cursor users**: Run this in your workspace root to create the data directory and install all 5 Skills from zip files. **Pre-built zips** are available in [Releases](https://github.com/janewu77/jw-skills/releases):
 
 ```bash
 # Step 1: Create data directory
@@ -218,7 +218,7 @@ Edit the file. **Without it**, daily-todo uses the built-in default template.
 
 **Step 3: Install Skills**
 
-- **Zip install (recommended)**: This repo provides 5 zips (run `./package-skills.sh` in `jw-agenda/` to generate under `output/`). **Unzip each into Cursor's skills directory** (user: `~/.cursor/skills/`; project: `.cursor/skills/`). Conventions and scripts are inside the zip; no extra copy to user dir. See [Cursor: Agent Skills](https://cursor.com/docs/context/skills).
+- **📦 Zip install (recommended)**: Download the 5 skill zips from [Releases](https://github.com/janewu77/jw-skills/releases) (or run `./package-skills.sh` in `jw-agenda/` to generate under `output/`). **Unzip each into Cursor's skills directory** (user: `~/.cursor/skills/`; project: `.cursor/skills/`). Conventions and scripts are inside the zip; no extra copy to user dir. See [Cursor: Agent Skills](https://cursor.com/docs/context/skills).
   ```bash
   unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
   unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
@@ -256,9 +256,9 @@ You can install only one Skill. Each Skill ships with its conventions and script
 
 ---
 
-## Examples
+## 📚 Examples
 
-### Quick Start with Sample Workspace
+### 🎯 Quick Start with Sample Workspace
 
 We provide two versions of sample workspaces (English and Chinese). Copy one to get started:
 
@@ -273,52 +273,52 @@ cp -r jw-agenda/examples/sample-workspace-zh jw-agenda-data
 ```
 
 Each includes sample files for:
-- Monthly plan (`monthly/2026-02-plan.md`)
-- Weekly plan (`weekly/Week6-plan.md`)
-- Daily todo (`daily/2026-02-05-todo.md`)
-- Daily log (`daily/2026-02-05-log.md`)
-- Weekly review (`weekly/Week6-review.md`)
+- 📅 Monthly plan (`monthly/2026-02-plan.md`)
+- 📊 Weekly plan (`weekly/Week6-plan.md`)
+- ✅ Daily todo (`daily/2026-02-05-todo.md`)
+- 📝 Daily log (`daily/2026-02-05-log.md`)
+- 📈 Weekly review (`weekly/Week6-review.md`)
 
 See [examples/README.md](examples/README.md) for details.
 
-### Conversation Examples
+### 💬 Conversation Examples
 
-- **English**: See [examples/conversations.md](examples/conversations.md) for complete examples showing:
-  - How to generate weekly plans
-  - How to report daily progress
-  - How to add ad-hoc tasks
-  - How to generate weekly reviews
-  - How to sync plans for consistency
+- **🇬🇧 English**: See [examples/conversations.md](examples/conversations.md) for complete examples showing:
+  - 📊 How to generate weekly plans
+  - 📝 How to report daily progress
+  - ➕ How to add ad-hoc tasks
+  - 📈 How to generate weekly reviews
+  - 🔄 How to sync plans for consistency
 
-- **Chinese (中文)**: 参见 [examples/conversations.zh-CN.md](examples/conversations.zh-CN.md) 了解完整示例
+- **🇨🇳 Chinese (中文)**: 参见 [examples/conversations.zh-CN.md](examples/conversations.zh-CN.md) 了解完整示例
 
 ---
 
-## Trigger cheat sheet
+## 📖 Trigger cheat sheet
 
-| Goal | Say |
+| 🎯 Goal | 💬 Say |
 |------|-----|
-| Generate weekly plan | "Generate this week's plan" / "Weekly plan" / "weekly plan" |
-| Generate today's Todo | "Generate today's plan" / "today plan" |
-| Report progress, write log | "Today I did XXX, still YYY left, feeling…" |
-| Summarize yesterday | "Summarize yesterday" / "Log yesterday" |
-| Mark done (log + checkbox) | "I finished XXX" / "Homework done" / "Log today" |
-| Reschedule | "Move XXX to Wednesday" / "Postpone to next week" |
-| Add ad-hoc | "Add one: XXX" / "Tomorrow: YYY" / "Later: ZZZ" |
-| Check consistency | "Sync plans" / "Check consistency" / "planning sync" |
-| Weekly summary | "Weekly summary" / "This week review" / "weekly review" |
+| 📊 Generate weekly plan | "Generate this week's plan" / "Weekly plan" / "weekly plan" |
+| ✅ Generate today's Todo | "Generate today's plan" / "today plan" |
+| 📝 Report progress, write log | "Today I did XXX, still YYY left, feeling…" |
+| 📝 Summarize yesterday | "Summarize yesterday" / "Log yesterday" |
+| ✅ Mark done (log + checkbox) | "I finished XXX" / "Homework done" / "Log today" |
+| 🔄 Reschedule | "Move XXX to Wednesday" / "Postpone to next week" |
+| ➕ Add ad-hoc | "Add one: XXX" / "Tomorrow: YYY" / "Later: ZZZ" |
+| 🔍 Check consistency | "Sync plans" / "Check consistency" / "planning sync" |
+| 📈 Weekly summary | "Weekly summary" / "This week review" / "weekly review" |
 
 ---
 
-## File naming
+## 📝 File naming
 
-| Type | Format | Dir | Example |
+| 📄 Type | 📋 Format | 📁 Dir | 💡 Example |
 |------|--------|-----|---------|
-| Monthly plan | `YYYY-MM-plan.md` | `monthly/` | `2026-02-plan.md` |
-| Weekly plan | `Week{N}-plan.md` | `weekly/` | `Week1-plan.md` |
-| Weekly review | `Week{N}-review.md` | `weekly/` | `Week1-review.md` |
-| Daily Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
-| Log | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
+| 📅 Monthly plan | `YYYY-MM-plan.md` | `monthly/` | `2026-02-plan.md` |
+| 📊 Weekly plan | `Week{N}-plan.md` | `weekly/` | `Week1-plan.md` |
+| 📈 Weekly review | `Week{N}-review.md` | `weekly/` | `Week1-review.md` |
+| ✅ Daily Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
+| 📝 Log | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
 
 N = ISO week number (1–52). E.g. 2026-02-05 → Week 6.
 
@@ -326,19 +326,19 @@ Full rules: each Skill's `assets/conventions.md` (or this repo's `_common/conven
 
 ---
 
-## Customization
+## ⚙️ Customization
 
-**Schedule**: If you create `schedule-config.md` in the jw-agenda root (default `jw-agenda-data`), edit it to add/remove time slots and fixed activities. daily-todo uses it for the daily schedule; without it, the Skill's default template is used.
+**⏰ Schedule**: If you create `schedule-config.md` in the jw-agenda root (default `jw-agenda-data`), edit it to add/remove time slots and fixed activities. daily-todo uses it for the daily schedule; without it, the Skill's default template is used.
 
-**Conventions**: Naming, paths, markers, priorities are in each Skill's `assets/conventions.md`. Users usually don't change them; to customize, edit the file in your installed skill dir, or change `_common/conventions.md` in this repo and re-package.
+**📋 Conventions**: Naming, paths, markers, priorities are in each Skill's `assets/conventions.md`. Users usually don't change them; to customize, edit the file in your installed skill dir, or change `_common/conventions.md` in this repo and re-package.
 
-**Monthly plan format**: Free-form. Including "this month's goals" and `Week N` sections helps weekly-plan.
+**📅 Monthly plan format**: Free-form. Including "this month's goals" and `Week N` sections helps weekly-plan.
 
-**Scripts**: Each Skill's `assets/scripts/date_utils.py` and `dedup_todos.py` are installed with the Skill for date math and todo dedup. These require **Python 3.9+** to run.
+**🐍 Scripts**: Each Skill's `assets/scripts/date_utils.py` and `dedup_todos.py` are installed with the Skill for date math and todo dedup. These require **Python 3.9+** to run.
 
-### For Contributors
+### 👥 For Contributors
 
-**Python environment**: Python 3.9+ is required. For running tests, install pytest:
+**🐍 Python environment**: Python 3.9+ is required. For running tests, install pytest:
 ```bash
 pip install pytest
 pytest jw-agenda/tests/ -v
@@ -348,11 +348,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ---
 
-## Distributing
+## 📦 Distributing
 
-This repo provides **5 separate zips** (one per Skill) for distribution.
+This repo provides **5 separate zips** (one per Skill) for distribution. Download from [Releases](https://github.com/janewu77/jw-skills/releases).
 
-**Build zips**: In the **jw-agenda directory**:
+**🔨 Build zips**: In the **jw-agenda directory**:
 
 ```bash
 cd jw-agenda
@@ -363,11 +363,11 @@ Output goes to `jw-agenda/output/`. Run when you need to ship or release (e.g. n
 
 ---
 
-## Development
+## 🛠️ Development
 
 See [TODO.md](TODO.md) for planned improvements and known issues.
 
-## Security
+## 🔒 Security
 
 See [SECURITY.md](../../SECURITY.md) for information about reporting security vulnerabilities.
 
