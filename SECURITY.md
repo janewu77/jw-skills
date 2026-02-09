@@ -17,7 +17,7 @@ If you discover a security vulnerability, please report it privately. **Do not**
 
 ### How to Report
 
-1. **Email**: Send details to [conchwu@hotmail.com] (replace with actual contact email)
+1. **Email**: Send details to [conchwu@hotmail.com] 
 2. **Include**:
    - Description of the vulnerability
    - Steps to reproduce
