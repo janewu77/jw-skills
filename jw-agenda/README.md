@@ -123,7 +123,13 @@ For **Cursor**, see [Agent Skills (install and skill directory)](https://cursor.
 ### Prerequisites
 
 - An AI environment that supports Skills (e.g. Cursor, Claude Desktop).
+- **Python 3.9+** (required for scripts used by skills; tested on Python 3.9, 3.10, 3.11, 3.12)
 - A folder for agenda data (the **workspace**). **Open your workspace root**; jw-agenda data defaults to `jw-agenda-data/` under that root, or another path via `.jw-agenda.json` or `jw-agenda.json` (see "Configure jw-agenda root" below).
+
+**Tested environments**:
+- Cursor (latest versions)
+- Claude Desktop (latest versions)
+- Python 3.9, 3.10, 3.11, 3.12 on Linux, macOS, Windows (WSL/Git Bash)
 
 ### Repo layout (jw-agenda)
 
@@ -305,7 +311,17 @@ Full rules: each Skill's `assets/conventions.md` (or this repo's `_common/conven
 
 **Monthly plan format**: Free-form. Including "this month's goals" and `Week N` sections helps weekly-plan.
 
-**Scripts**: Each Skill's `assets/scripts/date_utils.py` and `dedup_todos.py` are installed with the Skill for date math and todo dedup.
+**Scripts**: Each Skill's `assets/scripts/date_utils.py` and `dedup_todos.py` are installed with the Skill for date math and todo dedup. These require **Python 3.9+** to run.
+
+### For Contributors
+
+**Python environment**: Python 3.9+ is required. For running tests, install pytest:
+```bash
+pip install pytest
+pytest jw-agenda/tests/ -v
+```
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ---
 

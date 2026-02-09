@@ -123,7 +123,13 @@
 ### 前提条件
 
 - 支持 Skill 的 AI 工作环境（如 Cursor、Claude Desktop 等）
+- **Python 3.9+**（技能使用的脚本需要；已在 Python 3.9、3.10、3.11、3.12 上测试）
 - 一个用于存放日程数据的文件夹（下文称 workspace）。**请打开你的 workspace 根目录**；jw-agenda 数据默认在用户工作目录下的 `jw-agenda-data/`，也可通过 `.jw-agenda.json` 或 `jw-agenda.json` 配置其他路径（见下方「配置 jw-agenda 根目录」）。
+
+**测试环境**：
+- Cursor（最新版本）
+- Claude Desktop（最新版本）
+- Python 3.9、3.10、3.11、3.12 在 Linux、macOS、Windows（WSL/Git Bash）上
 
 ### 产品目录结构
 
@@ -312,7 +318,7 @@ cp -r jw-agenda/examples/sample-workspace-zh jw-agenda-data
 | 日 Todo | `YYYY-MM-DD-todo.md` | `daily/` | `2026-02-06-todo.md` |
 | 日志 | `YYYY-MM-DD-log.md` | `daily/` | `2026-02-06-log.md` |
 
-N = 年内周号（ISO 周，1–52）。例如 2026-02-05 所在周 → Week 6。
+N = ISO 周号（1–52）。例如 2026-02-05 → Week 6。
 
 完整规则见各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）。
 
@@ -326,7 +332,17 @@ N = 年内周号（ISO 周，1–52）。例如 2026-02-05 所在周 → Week 6�
 
 **月规划格式**：完全自由。建议包含「本月目标」和按 `Week N` 分的小节，便于 weekly-plan 提取。
 
-**脚本**：各 Skill 的 `assets/scripts/date_utils.py`、`dedup_todos.py` 已随 Skill 安装，供日期计算与 todo 去重使用。
+**脚本**：各 Skill 的 `assets/scripts/date_utils.py`、`dedup_todos.py` 已随 Skill 安装，供日期计算与 todo 去重使用。这些脚本需要 **Python 3.9+** 才能运行。
+
+### 贡献者指南
+
+**Python 环境**：需要 Python 3.9+。运行测试需要安装 pytest：
+```bash
+pip install pytest
+pytest jw-agenda/tests/ -v
+```
+
+开发指南详见 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ---
 

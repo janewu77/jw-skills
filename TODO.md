@@ -14,7 +14,7 @@
 
 ### P1 — 中优先级
 
-- [ ] **CHANGELOG**：在仓库根新增 `CHANGELOG.md`，随版本记录变更；可与 Git tag / GitHub Release 对应。
+- [x] **CHANGELOG**：在仓库根新增 `CHANGELOG.md`，随版本记录变更；可与 Git tag / GitHub Release 对应。已创建 `CHANGELOG.md`，记录版本历史和功能。
 - [ ] **发布流程与版本号约定**：在根 CONTRIBUTING 或单独文档中说明：Release 附 zip（5 个或 1 个捆绑）、CHANGELOG 摘要；仓库级或 jw-agenda 组级版本号与各 Skill metadata version 的对应关系。
 - [x] 🆕 **.DS_Store 残留清理**：已执行清理（`git ls-files | grep '\.DS_Store$' | xargs git rm --cached`）。当前无被跟踪的 `.DS_Store`，`.gitignore` 已有规则可防再次误提交。
 

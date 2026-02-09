@@ -3,7 +3,7 @@ name: jw-agenda-daily-log
 description: "Daily log generator: summarize yesterday or accept today's progress (casual or single-sentence), generate dated log file, update today's todo checkboxes, transfer incomplete to today. Triggers: '整理昨天的日志', '总结昨天', '汇报今天', '记录一下今天', '我完成了 X', '作业做完了', 'daily log', '运行 daily-log'."
 metadata:
   author: Jing Wu
-  version: "0.0.2"
+  version: "0.1.0"
   updated: "2026-02-09"
 ---
 
