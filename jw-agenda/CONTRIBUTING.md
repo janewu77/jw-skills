@@ -1,63 +1,46 @@
 # Maintenance
 
-**Language**: This document is the authoritative version in English. For a Chinese version, see [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md).
+**Language**: English is authoritative. 中文见 [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md).
 
 ---
 
 ## Running tests
 
-### Prerequisites
-
-- **Python 3.9+** (scripts use type hints such as `list[str]`)
-- **pytest**: `pip install pytest`
-
-### How to run tests
-
-From the repo root or from this directory (jw-agenda):
+- **Prerequisites**: Python 3.9+, `pip install pytest`
+- **Run** (from repo root or `jw-agenda`):
 
 ```bash
-# From repo root
-pytest jw-agenda/tests/ -v
-
-# Or from jw-agenda
-cd jw-agenda
-pytest tests/ -v
+pytest jw-agenda/tests/ -v   # or: cd jw-agenda && pytest tests/ -v
 ```
 
-Tests live in `jw-agenda/tests/` and currently include `test_date_utils.py` (date_utils) and `test_dedup_todos.py` (dedup_todos). `conftest.py` adds `_common/scripts` to the Python path so scripts can be imported without extra setup.
+## Keeping all 5 Skills in sync
 
-## Keeping all 5 Skills in sync after changing conventions or scripts
-
-The **single source** for conventions, schedule template (`schedule-config.example`), and scripts (`date_utils.py`, `dedup_todos.py`) is `_common/`. After changing any file under `_common/`, run:
+> **⚠️** Source of truth is `_common/`. After changing anything under `_common/`, run `./scripts/sync-common-to-skills.sh` and commit both `_common/` and updated `skills/*/assets/`. CI will fail if out of sync.
 
 ```bash
-./scripts/sync-common-to-skills.sh
+./scripts/sync-common-to-skills.sh   # sync _common → each skill assets/
+./scripts/check-common-sync.sh       # verify (also run in CI)
 ```
 
-The script syncs `_common/` into each skill’s `assets/` (conventions.md, schedule-config.example.md, scripts/). When committing, include both `_common/` and the updated skill `assets/` changes.
+## Packaging (zips)
 
-## Packaging and release (generating zips)
-
-To distribute or release the skill set as zips, run from the **jw-agenda directory**:
+From **jw-agenda** (run sync first if needed):
 
 ```bash
 ./package-skills.sh
 ```
 
-The script produces one zip per skill under `output/`. Before running it, ensure you have run `./scripts/sync-common-to-skills.sh` so each skill’s `assets/` matches `_common/`.
+Output: one zip per skill under `output/`.
 
-## Versioning and maintenance
+## Versioning
 
-- **Naming and paths**: Follow each Skill’s `assets/conventions.md` (or this repo’s `_common/conventions.md`): monthly `YYYY-MM-plan.md`, weekly `Week{N}-plan.md`, weekly review `Week{N}-review.md`. If a Skill’s docs disagree with conventions, conventions win.
-- **Skill version**: Each Skill’s SKILL.md has `author: Jing Wu`, `version`, and `updated`. Version format `0.M.P`: for a single-skill change bump patch (e.g. 0.0.1 → 0.0.2); for a **coordinated release** bump minor for all skills (e.g. 0.1.0) so the set ships together.
+- **Paths**: `assets/conventions.md` — monthly `YYYY-MM-plan.md`, weekly `Week{N}-plan.md`, `Week{N}-review.md`. Conventions win over skill docs.
+- **SKILL.md**: `version` format `0.M.P` — patch for single-skill change; minor for coordinated release (e.g. 0.1.0).
 
 ## Before you commit
 
-From this directory (jw-agenda):
-
 ```bash
 pytest tests/ -v
-./scripts/sync-common-to-skills.sh
+./scripts/sync-common-to-skills.sh   # if you changed _common/
+./scripts/check-common-sync.sh
 ```
-
-Ensure tests pass and `_common/` changes are synced to all skill `assets/` before committing.

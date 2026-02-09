@@ -1,0 +1,52 @@
+name: Check Common Sync
+
+on:
+  pull_request:
+    paths:
+      - 'jw-agenda/_common/**'
+      - 'jw-agenda/skills/**/assets/**'
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - 'jw-agenda/_common/**'
+      - 'jw-agenda/skills/**/assets/**'
+
+jobs:
+  check-sync:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jw-agenda
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check if _common/ has changes
+        id: check_common
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q "^jw-agenda/_common/"; then
+            echo "has_common_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_common_changes=false" >> $GITHUB_OUTPUT
+          fi
+        continue-on-error: true
+      
+      - name: Verify sync status
+        run: |
+          chmod +x ./scripts/check-common-sync.sh
+          ./scripts/check-common-sync.sh
+      
+      - name: Show sync instructions if failed
+        if: failure()
+        run: |
+          echo "::error::Found inconsistencies between _common/ and skill assets/"
+          echo "::error::Please run './scripts/sync-common-to-skills.sh' to sync changes"
+          echo ""
+          echo "To fix this locally:"
+          echo "  cd jw-agenda"
+          echo "  ./scripts/sync-common-to-skills.sh"
+          echo "  git add skills/*/assets/"
+          echo "  git commit --amend --no-edit  # or create a new commit"

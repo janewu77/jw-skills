@@ -1,59 +1,46 @@
 # 维护说明
 
+**语言**：中文版。英文版见 [CONTRIBUTING.md](CONTRIBUTING.md)。
+
+---
+
 ## 运行测试
 
-### 测试前需要安装
-
-- **Python 3.9+**（脚本使用 `list[str]` 等类型提示）
-- **pytest**：`pip install pytest`
-
-### 如何运行测试
-
-在仓库根目录或本目录（jw-agenda）下执行：
+- **环境**：Python 3.9+，`pip install pytest`
+- **执行**（在仓库根或 `jw-agenda` 下）：
 
 ```bash
-# 从仓库根
-pytest jw-agenda/tests/ -v
-
-# 或进入 jw-agenda 后
-cd jw-agenda
-pytest tests/ -v
+pytest jw-agenda/tests/ -v   # 或：cd jw-agenda && pytest tests/ -v
 ```
 
-测试位于 `jw-agenda/tests/`，当前包含 `test_date_utils.py`（date_utils）、`test_dedup_todos.py`（dedup_todos）。`conftest.py` 会将 `_common/scripts` 加入 Python 路径，无需额外配置即可导入脚本。
+## 保持 5 个 Skill 一致
 
-## 修改约定或脚本后保持 5 个 Skill 一致
-
-约定（conventions）、作息模板（schedule-config.example）和脚本（date_utils.py、dedup_todos.py）的**唯一来源**是 `_common/`。修改 `_common/` 下任何文件后，请执行：
+> **⚠️** 唯一来源是 `_common/`。修改 `_common/` 后必须执行 `./scripts/sync-common-to-skills.sh`，并同时提交 `_common/` 与各 skill 的 `assets/`。未同步会导致 CI 失败。
 
 ```bash
-./scripts/sync-common-to-skills.sh
+./scripts/sync-common-to-skills.sh   # 将 _common 同步到各 skill assets/
+./scripts/check-common-sync.sh       # 校验（CI 也会执行）
 ```
 
-脚本会把 `_common/` 的内容同步到每个 skill 的 `assets/`（conventions.md、schedule-config.example.md、scripts/）。提交时请同时包含 `_common/` 与各 skill 的 `assets/` 变更。
+## 打包（zip）
 
-## 打包与发布（生成 zip）
-
-需要以 zip 形式分发或发布技能组时，在 **jw-agenda 目录下**执行：
+在 **jw-agenda** 目录下执行（如需先执行 sync）：
 
 ```bash
 ./package-skills.sh
 ```
 
-脚本会在 `output/` 下为每个 skill 生成一个 zip。执行前请确保已运行 `./scripts/sync-common-to-skills.sh`，使各 skill 的 `assets/` 与 `_common/` 一致。
+输出：`output/` 下每个 skill 一个 zip。
 
-## 版本与维护
+## 版本与命名
 
-- **命名与路径**：以各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）为准：月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。若某 Skill 内路径描述与 conventions 不一致，以 conventions 为准。
-- **Skill 版本**：各 Skill 的 SKILL.md 中含 `author: Jing Wu`、`version`、`updated`。版本号格式 `0.M.P`：单 skill 更新时第三位 +0.0.1（如 0.0.1→0.0.2）；**配合版本升级**时，所有 skill 的第二位（0.X）对齐升级（如统一升为 0.1.0），便于整组协同发布。
+- **路径**：以 `assets/conventions.md` 为准 — 月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。与 conventions 冲突时以 conventions 为准。
+- **SKILL.md**：版本号 `0.M.P` — 单 skill 改 patch；整组发布改 minor（如 0.1.0）。
 
-## 递交前必须执行
-
-在本目录（jw-agenda）下执行：
+## 递交前
 
 ```bash
 pytest tests/ -v
-./scripts/sync-common-to-skills.sh
+./scripts/sync-common-to-skills.sh   # 若改过 _common/
+./scripts/check-common-sync.sh
 ```
-
-确保测试通过且 `_common/` 的变更已同步到所有 skill 的 `assets/` 后再提交。
