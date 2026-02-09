@@ -1,4 +1,4 @@
-name: Check Common Sync
+name: jw-agenda Check Common Sync
 
 on:
   pull_request:

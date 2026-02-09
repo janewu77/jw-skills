@@ -7,10 +7,27 @@
 ## 运行测试
 
 - **环境**：Python 3.9+，`pip install pytest`
-- **执行**（在仓库根或 `jw-agenda` 下）：
+- **本地执行**（在仓库根或 `jw-agenda` 下）：
 
 ```bash
 pytest jw-agenda/tests/ -v   # 或：cd jw-agenda && pytest tests/ -v
+```
+
+### CI 测试
+
+当你推送更改到 `main`/`dev` 或打开修改以下路径的 Pull Request 时，GitHub Actions 会自动运行测试：
+- `jw-agenda/_common/scripts/**`
+- `jw-agenda/skills/**/assets/scripts/**`
+- `jw-agenda/tests/**`
+
+**Workflow**：`jw-agenda-test.yml` 会在 Python 3.9、3.10、3.11 和 3.12 上运行 pytest 测试。
+
+**查看结果**：访问 `https://github.com/janewu77/jw-skills/actions`，查找 "Run Tests" workflow 运行记录。
+
+**最佳实践**：推送前在本地运行测试，及早发现问题：
+```bash
+cd jw-agenda
+pytest tests/ -v
 ```
 
 ## 保持 5 个 Skill 一致
@@ -93,13 +110,13 @@ git push
 
 1. **通过 GitHub 网页界面**：
    - 访问：`https://github.com/janewu77/jw-skills/actions`
-   - 找到最新的 "Check Common Sync" workflow 运行记录
+   - 找到最新的 "Check Common Sync" workflow 运行记录（workflow: `jw-agenda-check-sync.yml`）
    - 确认显示 ✅（绿色对勾）
    - 如果推送到 `main`/`dev` 时未同步，workflow 会自动同步并创建提交
 
 2. **通过 GitHub CLI**（如果已安装）：
    ```bash
-   gh run list --workflow=check-sync.yml --limit 5
+   gh run list --workflow=jw-agenda-check-sync.yml --limit 5
    gh run view <run-id>  # 查看特定运行的详情
    ```
 

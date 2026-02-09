@@ -7,10 +7,27 @@
 ## Running tests
 
 - **Prerequisites**: Python 3.9+, `pip install pytest`
-- **Run** (from repo root or `jw-agenda`):
+- **Run locally** (from repo root or `jw-agenda`):
 
 ```bash
 pytest jw-agenda/tests/ -v   # or: cd jw-agenda && pytest tests/ -v
+```
+
+### CI Testing
+
+GitHub Actions automatically runs tests when you push changes to `main`/`dev` or open a Pull Request that modifies:
+- `jw-agenda/_common/scripts/**`
+- `jw-agenda/skills/**/assets/scripts/**`
+- `jw-agenda/tests/**`
+
+**Workflow**: `jw-agenda-test.yml` runs pytest tests on Python 3.9, 3.10, 3.11, and 3.12.
+
+**Check results**: Go to `https://github.com/janewu77/jw-skills/actions` and look for "Run Tests" workflow runs.
+
+**Best practice**: Run tests locally before pushing to catch issues early:
+```bash
+cd jw-agenda
+pytest tests/ -v
 ```
 
 ## Keeping all 5 Skills in sync
@@ -93,13 +110,13 @@ After pushing, check GitHub Actions to ensure the CI check passed:
 
 1. **Via GitHub web UI**:
    - Go to: `https://github.com/janewu77/jw-skills/actions`
-   - Find the latest workflow run for "Check Common Sync"
+   - Find the latest workflow run for "Check Common Sync" (workflow: `jw-agenda-check-sync.yml`)
    - Verify it shows ✅ (green checkmark)
    - If you pushed to `main`/`dev` without syncing, the workflow will auto-sync and create a commit
 
 2. **Via GitHub CLI** (if installed):
    ```bash
-   gh run list --workflow=check-sync.yml --limit 5
+   gh run list --workflow=jw-agenda-check-sync.yml --limit 5
    gh run view <run-id>  # View details of a specific run
    ```
 

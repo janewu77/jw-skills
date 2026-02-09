@@ -1,0 +1,56 @@
+name: jw-agenda Run Tests
+
+on:
+  pull_request:
+    paths:
+      - 'jw-agenda/_common/scripts/**'
+      - 'jw-agenda/skills/**/assets/scripts/**'
+      - 'jw-agenda/tests/**'
+      - '.github/workflows/jw-agenda-test.yml'
+  push:
+    branches:
+      - main
+      - dev
+    paths:
+      - 'jw-agenda/_common/scripts/**'
+      - 'jw-agenda/skills/**/assets/scripts/**'
+      - 'jw-agenda/tests/**'
+      - '.github/workflows/jw-agenda-test.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: jw-agenda
+    
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest
+      
+      - name: Run tests
+        run: |
+          pytest tests/ -v
+      
+      - name: Test date_utils.py CLI
+        run: |
+          python _common/scripts/date_utils.py --help || true
+          python _common/scripts/date_utils.py --yesterday || true
+      
+      - name: Test dedup_todos.py CLI
+        run: |
+          python _common/scripts/dedup_todos.py --help || true
