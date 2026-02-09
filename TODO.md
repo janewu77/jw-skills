@@ -15,7 +15,7 @@
 ### P1 — 中优先级
 
 - [x] **CHANGELOG**：在仓库根新增 `CHANGELOG.md`，随版本记录变更；可与 Git tag / GitHub Release 对应。已创建 `CHANGELOG.md`，记录版本历史和功能。
-- [ ] **发布流程与版本号约定**：在根 CONTRIBUTING 或单独文档中说明：Release 附 zip（5 个或 1 个捆绑）、CHANGELOG 摘要；仓库级或 jw-agenda 组级版本号与各 Skill metadata version 的对应关系。
+- [x] **发布流程与版本号约定**：已在根 CONTRIBUTING 和 CONTRIBUTING.zh-CN 中添加发布流程与版本号约定章节，说明版本对齐规则、Release 流程和示例命令。
 - [x] 🆕 **.DS_Store 残留清理**：已执行清理（`git ls-files | grep '\.DS_Store$' | xargs git rm --cached`）。当前无被跟踪的 `.DS_Store`，`.gitignore` 已有规则可防再次误提交。
 
 ### P2 — 中低优先级
@@ -33,14 +33,7 @@
 
 ### 子层级引用（jw-agenda）
 
-以下改进属于 **jw-agenda 技能组**，详见 **[jw-agenda/TODO.md](jw-agenda/TODO.md)**：
-
-| 优先级 | 引用摘要 |
-|--------|----------|
-| **P0** | dedup_todos 路径安全、脚本多副本同步、🆕 sync 脚本 Glob 不安全 |
-| **P1** | date_utils / dedup_todos 单元测试、CI、Python 与运行环境文档、路径假设文档化、🆕 dedup_todos 正则可靠性、🆕 date_utils 输入验证 |
-| **P2** | 完整示例 workspace、1～2 个完整对话示例、向后兼容策略、🆕 weekly-plan 分配策略、🆕 planning-sync 匹配规则、🆕 冲突裁决策略、🆕 package-skills.sh 健壮性 |
-| **P3** | 快速开始一键命令、🆕 重复任务支持、🆕 撤销/回滚机制、🆕 趋势分析、🆕 标签分类 |
+**jw-agenda 技能组** 改进，详见 **[jw-agenda/TODO.md](jw-agenda/TODO.md)**：
 
 ---
 

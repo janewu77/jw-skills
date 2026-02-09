@@ -150,6 +150,8 @@ cd jw-agenda && for skill in skills/jw-agenda-*/; do cp -r "$skill" ~/.cursor/sk
 
 **Note**: Replace `~/.cursor/skills/` with `.cursor/skills/` for project-level installation, or adjust the path per your Cursor setup.
 
+**Shell**: These are Bash commands (Linux, macOS, Git Bash, WSL). They do **not** run in Windows **cmd**; use **Git Bash** or **WSL**, or unzip each zip manually into Cursor’s skills directory.
+
 After running the above, open your workspace in Cursor and start using the Skills. See "Install steps" below for details and customization options.
 
 ### Repo layout (jw-agenda)

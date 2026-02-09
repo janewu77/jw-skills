@@ -150,6 +150,8 @@ cd jw-agenda && for skill in skills/jw-agenda-*/; do cp -r "$skill" ~/.cursor/sk
 
 **注意**：如需项目级安装，将 `~/.cursor/skills/` 替换为 `.cursor/skills/`，或根据你的 Cursor 配置调整路径。
 
+**运行环境**：以上为 Bash 命令（Linux、macOS、Git Bash、WSL）。Windows 的 **cmd** 不能直接执行；请在 **Git Bash** 或 **WSL** 中运行，或手动解压每个 zip 到 Cursor 的 skills 目录。
+
 运行上述命令后，在 Cursor 中打开你的 workspace 即可开始使用。详细说明和自定义选项见下方「安装步骤」。
 
 ### 产品目录结构
