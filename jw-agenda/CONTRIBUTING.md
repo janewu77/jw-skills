@@ -1,60 +1,63 @@
-# 维护说明
+# Maintenance
 
-## 运行测试
+**Language**: This document is the authoritative version in English. For a Chinese version, see [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md).
 
-### 测试前需要安装
+---
 
-- **Python 3.9+**（脚本使用 `list[str]` 等类型提示）
-- **pytest**：`pip install pytest`
+## Running tests
 
-### 如何运行测试
+### Prerequisites
 
-在仓库根目录或本目录（jw-agenda）下执行：
+- **Python 3.9+** (scripts use type hints such as `list[str]`)
+- **pytest**: `pip install pytest`
+
+### How to run tests
+
+From the repo root or from this directory (jw-agenda):
 
 ```bash
-# 从仓库根
+# From repo root
 pytest jw-agenda/tests/ -v
 
-# 或进入 jw-agenda 后
+# Or from jw-agenda
 cd jw-agenda
 pytest tests/ -v
 ```
 
-测试位于 `jw-agenda/tests/`，当前包含 `test_date_utils.py`（date_utils）、`test_dedup_todos.py`（dedup_todos）。`conftest.py` 会将 `_common/scripts` 加入 Python 路径，无需额外配置即可导入脚本。
+Tests live in `jw-agenda/tests/` and currently include `test_date_utils.py` (date_utils) and `test_dedup_todos.py` (dedup_todos). `conftest.py` adds `_common/scripts` to the Python path so scripts can be imported without extra setup.
 
-## 修改约定或脚本后保持 5 个 Skill 一致
+## Keeping all 5 Skills in sync after changing conventions or scripts
 
-约定（conventions）、作息模板（schedule-config.example）和脚本（date_utils.py、dedup_todos.py）的**唯一来源**是 `_common/`。修改 `_common/` 下任何文件后，请执行：
+The **single source** for conventions, schedule template (`schedule-config.example`), and scripts (`date_utils.py`, `dedup_todos.py`) is `_common/`. After changing any file under `_common/`, run:
 
 ```bash
 ./scripts/sync-common-to-skills.sh
 ```
 
-脚本会把 `_common/` 的内容同步到每个 skill 的 `assets/`（conventions.md、schedule-config.example.md、scripts/）。提交时请同时包含 `_common/` 与各 skill 的 `assets/` 变更。
+The script syncs `_common/` into each skill’s `assets/` (conventions.md, schedule-config.example.md, scripts/). When committing, include both `_common/` and the updated skill `assets/` changes.
 
-## 打包与发布（生成 zip）
+## Packaging and release (generating zips)
 
-需要以 zip 形式分发或发布技能组时，在 **jw-agenda 目录下**执行：
+To distribute or release the skill set as zips, run from the **jw-agenda directory**:
 
 ```bash
 ./package-skills.sh
 ```
 
-脚本会在 `output/` 下为每个 skill 生成一个 zip。执行前请确保已运行 `./scripts/sync-common-to-skills.sh`，使各 skill 的 `assets/` 与 `_common/` 一致。
+The script produces one zip per skill under `output/`. Before running it, ensure you have run `./scripts/sync-common-to-skills.sh` so each skill’s `assets/` matches `_common/`.
 
-## 版本与维护
+## Versioning and maintenance
 
-- **命名与路径**：以各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）为准：月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。若某 Skill 内路径描述与 conventions 不一致，以 conventions 为准。
-- **Skill 版本**：各 Skill 的 SKILL.md 中含 `author: Jing Wu`、`version`、`updated`。版本号格式 `0.M.P`：单 skill 更新时第三位 +0.0.1（如 0.0.1→0.0.2）；**配合版本升级**时，所有 skill 的第二位（0.X）对齐升级（如统一升为 0.1.0），便于整组协同发布。
+- **Naming and paths**: Follow each Skill’s `assets/conventions.md` (or this repo’s `_common/conventions.md`): monthly `YYYY-MM-plan.md`, weekly `Week{N}-plan.md`, weekly review `Week{N}-review.md`. If a Skill’s docs disagree with conventions, conventions win.
+- **Skill version**: Each Skill’s SKILL.md has `author: Jing Wu`, `version`, and `updated`. Version format `0.M.P`: for a single-skill change bump patch (e.g. 0.0.1 → 0.0.2); for a **coordinated release** bump minor for all skills (e.g. 0.1.0) so the set ships together.
 
-## 递交前必须执行
+## Before you commit
 
-在本目录（jw-agenda）下执行：
+From this directory (jw-agenda):
 
 ```bash
 pytest tests/ -v
 ./scripts/sync-common-to-skills.sh
 ```
 
-确保测试通过且 `_common/` 的变更已同步到所有 skill 的 `assets/` 后再提交。
-
+Ensure tests pass and `_common/` changes are synced to all skill `assets/` before committing.

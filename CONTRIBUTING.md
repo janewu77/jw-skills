@@ -1,15 +1,19 @@
-# 贡献指南
+# Contributing
 
-本仓库包含多个 Agent Skills。提交代码或文档前请留意：
+**Language**: This document is the authoritative version in English. For a Chinese version, see [CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md).
 
-- **仓库级**：许可与规范见本文件及根目录 [LICENSE](LICENSE)、[LICENSE-CODE](LICENSE-CODE)、[LICENSE-DOCS](LICENSE-DOCS)。
-- **提交信息**：Commit message 请使用英文。
-- **各 Skill 特有说明**：若某个 skill 有单独的维护或开发约定，请先阅读该 skill 目录下的 `CONTRIBUTING.md`。
+---
 
-## 各 Skill 的贡献说明
+This repository contains multiple Agent Skills. Before submitting code or documentation, please note:
 
-| Skill | 说明 |
-|-------|------|
-| [jw-agenda](jw-agenda/CONTRIBUTING.md) | 约定与脚本修改后需同步到各子 skill，见其维护说明。 |
+- **Repository-level**: Licenses and norms are in this file and the root [LICENSE](LICENSE), [LICENSE-CODE](LICENSE-CODE), [LICENSE-DOCS](LICENSE-DOCS).
+- **Commit messages**: Use English for commit messages.
+- **Per-skill notes**: If a skill has its own maintenance or development conventions, read that skill’s `CONTRIBUTING.md` first.
 
-将来若有新增 skills 且需要开发者特别注意的事项，可在此表补充并对应到该 skill 的 `CONTRIBUTING.md`。
+## Per-skill contributing
+
+| Skill | Notes |
+|-------|-------|
+| [jw-agenda](jw-agenda/CONTRIBUTING.md) | After changing conventions or scripts, sync to all sub-skills; see its maintenance notes. |
+
+When adding new skills that require special attention from contributors, extend this table and point to each skill’s `CONTRIBUTING.md`.

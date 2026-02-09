@@ -2,7 +2,7 @@
 
 A collection of skills for use in Cursor, Claude, and similar environments. Maintained by Jing Wu.
 
-**中文说明** → [README.zh-CN.md](README.zh-CN.md)
+**Language**: This document is the authoritative version in English. For a Chinese overview, see [README.zh-CN.md](README.zh-CN.md).
 
 ---
 
