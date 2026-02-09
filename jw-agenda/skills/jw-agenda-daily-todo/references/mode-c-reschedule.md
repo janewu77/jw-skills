@@ -17,9 +17,9 @@
 
 ## Step 4: 同步规划文件
 
-- **当周规划**：若目标日在当周，更新 `personal/agenda/weekly/Week{W}-plan.md` 中对应日的任务
-- **当月规划**：若涉及跨周调整，在 `personal/agenda/monthly/YYYY-MM-plan.md` 对应位置体现变更
+- **当周规划**：若目标日在当周，更新 `{agendaRoot}/weekly/Week{W}-plan.md` 中对应日的任务
+- **当月规划**：若涉及跨周调整，在 `{agendaRoot}/monthly/YYYY-MM-plan.md` 对应位置体现变更
 
 ## Step 5: 汇报
 
-说明：从今天移除 → 加入目标日 → 已同步到规划文件。**必须列出所有修改过的文件路径**（如 `personal/agenda/daily/{日期}-todo.md`、周/月规划路径），让用户知道改动落在哪些文件。
+说明：从今天移除 → 加入目标日 → 已同步到规划文件。**必须列出所有修改过的文件路径**（如 `{agendaRoot}/daily/{日期}-todo.md`、周/月规划路径），让用户知道改动落在哪些文件。

@@ -121,7 +121,7 @@
 ### 前提条件
 
 - 支持 Skill 的 AI 工作环境（如 Cursor、Claude Desktop 等）
-- 一个用于存放日程数据的文件夹（下文称 workspace）。**请确保在 Cursor/Claude 中打开的 workspace 根目录即为包含 `personal/agenda/` 的目录**，否则 Skill 无法找到约定路径。
+- 一个用于存放日程数据的文件夹（下文称 workspace）。**请打开你的 workspace 根目录**；jw-agenda 数据默认在用户工作目录下的 `jw-agenda-data/`，也可通过 `.jw-agenda.json` 或 `jw-agenda.json` 配置其他路径（见下方「配置 jw-agenda 根目录」）。
 
 ### 产品目录结构
 
@@ -166,18 +166,17 @@ jw-agenda/
 
 ### 安装后的用户 Workspace 结构
 
-Skill 按各产品标准安装在对应目录，**不会**出现在用户选择的 workspace 里。用户 workspace 中只有**数据目录**与**可选的作息配置**，无需再复制约定或脚本：
+Skill 按各产品标准安装在对应目录，**不会**出现在用户选择的 workspace 里。用户 workspace 中只有**数据目录**与**可选的作息配置**，无需再复制约定或脚本。默认结构如下（若配置了 `agendaRoot`，则下述结构位于你配置的路径下）：
 
 ```
 <workspace>/
-└── personal/
-    └── agenda/
-        ├── schedule-config.md          ← 可选；仅当要自定义作息时创建（可从任一 Skill 的 assets/schedule-config.example.md 复制后修改）
-        ├── monthly/                   ← 用户手动维护
-        │   └── YYYY-MM-plan.md
-        ├── weekly/                    ← 由 Skill 生成
-        ├── daily/                     ← 由 Skill 生成
-        └── tasks/                     ← 可选
+└── jw-agenda-data/                    ← jw-agenda 根目录（默认用户数据目录）
+    ├── schedule-config.md             ← 可选；仅当要自定义作息时创建（可从任一 Skill 的 assets/schedule-config.example.md 复制后修改）
+    ├── monthly/                       ← 用户手动维护
+    │   └── YYYY-MM-plan.md
+    ├── weekly/                        ← 由 Skill 生成
+    ├── daily/                         ← 由 Skill 生成
+    └── tasks/                         ← 可选
 ```
 
 ### 安装步骤
@@ -186,22 +185,26 @@ Skill 按各产品标准安装在对应目录，**不会**出现在用户选择�
 
 **第 1 步：创建用户数据目录**
 
+默认使用用户工作目录下的 **`jw-agenda-data`** 作为 jw-agenda 根目录（存放用户数据）：
+
 ```bash
 cd <workspace>
-mkdir -p personal/agenda/{monthly,weekly,daily,tasks}
+mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
 ```
+
+**（可选）配置 jw-agenda 根目录**：在 workspace 根目录创建 `.jw-agenda.json` 或 `jw-agenda.json`，内容为 `{"agendaRoot":"你的/路径"}`，可指定其他目录（如 `docs/agenda`、`notes/plans`）；然后在该路径下创建 `monthly`、`weekly`、`daily`、`tasks` 子目录。不创建该配置文件时，默认使用 `jw-agenda-data`。
 
 （若目录不存在，Skill 首次写入时也可按需创建或提示。）
 
 **第 2 步（可选）：自定义作息**
 
-若需要自定义每日时段，从本仓库任一 skill 的 `assets/schedule-config.example.md` 复制到用户工作区并重命名：
+若需要自定义每日时段，从本仓库任一 skill 的 `assets/schedule-config.example.md` 复制到 **jw-agenda 根目录**下并重命名为 `schedule-config.md`（默认即 `jw-agenda-data/`）：
 
 ```bash
-cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedule-config.md
+cp <path-to-any-skill>/assets/schedule-config.example.md jw-agenda-data/schedule-config.md
 ```
 
-然后编辑 `personal/agenda/schedule-config.md` 修改时间表。**不创建该文件时**，daily-todo 会使用 Skill 内嵌的默认模板。
+然后编辑该文件修改时间表。**不创建该文件时**，daily-todo 会使用 Skill 内嵌的默认模板。
 
 **第 3 步：安装 Skill**
 
@@ -215,7 +218,7 @@ cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedul
 
 **第 4 步：创建月规划（推荐）**
 
-在 `personal/agenda/monthly/` 下创建当月规划，文件名为 `YYYY-MM-plan.md`（如 `2026-02-plan.md`）。格式自由，建议按周组织：
+在 jw-agenda 根目录下的 `monthly/`（默认即 `jw-agenda-data/monthly/`）创建当月规划，文件名为 `YYYY-MM-plan.md`（如 `2026-02-plan.md`）。格式自由，建议按周组织：
 
 ```markdown
 # 2月完整规划
@@ -231,13 +234,13 @@ cp <path-to-any-skill>/assets/schedule-config.example.md personal/agenda/schedul
 - 重点：…
 ```
 
-**第 5 步：在所用产品中选择/打开你的 workspace 文件夹（即包含 `personal/agenda/` 的根目录），开始使用。**
+**第 5 步：在所用产品中选择/打开你的 workspace 根目录**（jw-agenda 数据默认在 `jw-agenda-data/`，或你配置的路径），开始使用。
 
 #### 单独安装某个 Skill
 
-只想安装其中一个？也可以。每个 Skill 的约定与脚本已随包安装，**只需**在 workspace 下具备 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md`。
+只想安装其中一个？也可以。每个 Skill 的约定与脚本已随包安装，**只需**在 workspace 下具备 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks；可选 jw-agenda 根目录下的 `schedule-config.md`。
 
-1. 创建数据目录：`mkdir -p personal/agenda/{monthly,weekly,daily,tasks}`（若尚未创建）。
+1. 创建数据目录：`mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}`（若使用默认路径且尚未创建）；若使用自定义路径，先配置 `.jw-agenda.json` 或 `jw-agenda.json` 再创建对应子目录。
 2. 按该产品的标准方式，只安装你需要的 skill 目录；Cursor 见 [官方：Agent Skills](https://cursor.com/docs/context/skills)，其他产品见各自文档。
 3. 缺少其他 Skill 时，该 Skill 会跳过相关数据源并正常工作。
 
@@ -277,7 +280,7 @@ N = 年内周号（ISO 周，1–52）。例如 2026-02-05 所在周 → Week 6�
 
 ## 自定义
 
-**作息时段**：若你创建了 `personal/agenda/schedule-config.md`，编辑该文件即可增删时间段、调整固定活动（如出门、晚餐时间）。daily-todo 生成今日时间表时优先按该文件的「时段定义」表；不存在则使用 Skill 内嵌的默认模板。
+**作息时段**：若你在 jw-agenda 根目录（默认 `jw-agenda-data`）下创建了 `schedule-config.md`，编辑该文件即可增删时间段、调整固定活动（如出门、晚餐时间）。daily-todo 生成今日时间表时优先按该文件的「时段定义」表；不存在则使用 Skill 内嵌的默认模板。
 
 **约定规则**：命名、路径、标记、优先级等定义在各 Skill 的 `assets/conventions.md` 中。用户一般无需修改；若需自定义，可编辑本地已安装 Skill 目录下的该文件，或修改本仓库 `_common/conventions.md` 后重新打包安装。
 
@@ -289,7 +292,16 @@ N = 年内周号（ISO 周，1–52）。例如 2026-02-05 所在周 → Week 6�
 
 ## 分发给他人使用
 
-本仓库提供 **5 个独立的 zip**（每个 Skill 一个），由 `./package-skills.sh` 在 `jw-agenda/output/` 下生成。分发给他人时，提供这 5 个 zip 即可。使用者将**每个 zip 解压到 Cursor 的 skills 目录**，并在 workspace 下创建 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；**无需再复制约定或脚本**，zip 内已包含。若需自定义作息，可选：从任一 zip 解压后的 skill 的 `assets/schedule-config.example.md` 复制为 `personal/agenda/schedule-config.md` 并修改。
+本仓库提供 **5 个独立的 zip**（每个 Skill 一个），用于分发给他人安装。
+
+**如何生成 zip**：在 **jw-agenda 目录下**执行：
+
+```bash
+cd jw-agenda
+./package-skills.sh
+```
+
+脚本会把 `skills/` 下每个 skill 打成一个 zip，输出到 `jw-agenda/output/`。**何时执行**：需要把技能组以 zip 形式分发或发布时（例如发布新版本、发给未克隆仓库的用户）执行一次即可。生成后，分发给他人时提供这 5 个 zip 即可。使用者将**每个 zip 解压到 Cursor 的 skills 目录**，并在 workspace 下创建 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 `.jw-agenda.json` 或 `jw-agenda.json` 配置，见上方「配置 jw-agenda 根目录」）及子目录（monthly、weekly、daily、tasks）；**无需再复制约定或脚本**，zip 内已包含。若需自定义作息，可选：从任一 zip 解压后的 skill 的 `assets/schedule-config.example.md` 复制到 jw-agenda 根目录下并重命名为 `schedule-config.md` 后修改。
 
 ---
 

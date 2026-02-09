@@ -3,8 +3,8 @@ name: jw-agenda-weekly-review
 description: "Weekly review: aggregate daily logs, compute completion rate and time allocation, generate summary, list carry-over items. Triggers: '周总结', '本周回顾', 'weekly review', '运行 weekly-review'."
 metadata:
   author: Jing Wu
-  version: "0.0.1"
-  updated: "2026-02-06"
+  version: "0.0.2"
+  updated: "2026-02-09"
 ---
 
 # Weekly Review（周回顾）
@@ -13,7 +13,7 @@ metadata:
 
 ## 安装前提
 
-本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）。约定与脚本已随本 Skill 安装，无需用户另行复制。
+本 Skill 仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks。约定与脚本已随本 Skill 安装，无需用户另行复制。先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -33,11 +33,11 @@ metadata:
 读取本周范围内的所有文件：
 
 **主要来源**：
-- `personal/agenda/daily/{日期}-log.md`：逐日读取，提取已完成、未完成、时间分配、学习/产出
-- `personal/agenda/daily/{日期}-todo.md`：逐日读取勾选状态，交叉验证日志
+- `{agendaRoot}/daily/{日期}-log.md`：逐日读取，提取已完成、未完成、时间分配、学习/产出
+- `{agendaRoot}/daily/{日期}-todo.md`：逐日读取勾选状态，交叉验证日志
 
 **可选来源**：
-- `personal/agenda/weekly/Week{W}-plan.md`：对比计划 vs 实际
+- `{agendaRoot}/weekly/Week{W}-plan.md`：对比计划 vs 实际
 
 记录哪些天有数据、哪些天缺失。
 
@@ -53,7 +53,7 @@ metadata:
 
 使用 `assets/review-template.md` 模板，填充后写入：
 
-**路径**：`personal/agenda/weekly/Week{W}-review.md`（W = 年内周数，1–52，与周规划命名一致）
+**路径**：`{agendaRoot}/weekly/Week{W}-review.md`（W = 年内周数，1–52，与周规划命名一致）
 
 **内容**：整体概览（完成率、主要成就）、分类统计、未完成/待处理、**转入下周**清单。
 

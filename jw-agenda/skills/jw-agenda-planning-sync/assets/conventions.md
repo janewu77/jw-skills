@@ -2,19 +2,25 @@
 
 ## 路径查找
 
-本约定位于**本 Skill 的 `assets/conventions.md`**。所有 Skill 在运行前应读取此文件（相对于本 Skill 的安装目录），以获取下方约定。用户工作区中仅存放**数据**与**可选的用户作息配置**，见「目录路径」与「文件命名规则」。
+本约定位于**本 Skill 的 `assets/conventions.md`**。所有 Skill 在运行前应读取此文件（相对于本 Skill 的安装目录），以获取下方约定。用户工作区中仅存放**数据**与**可选的用户作息配置**，见「jw-agenda 根目录」与「目录路径」、「文件命名规则」。
+
+## jw-agenda 根目录（可配置）
+
+所有日程数据均在「jw-agenda 根目录」下（即用户数据根目录）。**jw-agenda** 为本技能组名称；默认在用户工作目录（workspace）下使用 **`jw-agenda-data`** 存放用户数据。该根目录**优先**从 workspace 根目录的 `.jw-agenda.json`（或 `jw-agenda.json`）中的 `agendaRoot` 读取；若文件不存在或未设置 `agendaRoot`，则使用默认 `jw-agenda-data`。
+
+**约定**：Agent 在执行任何读写前，先确定 workspace 根，再读取该配置得到 jw-agenda 根目录（缺省 `jw-agenda-data`），后续所有路径均为「jw-agenda 根目录」下的相对路径。路径建议使用正斜杠、相对 workspace 根；解析时可做规范化（如去除末尾 `/`、避免 `..`）。
 
 ## 目录路径（用户工作区）
 
-日程计划与完成情况统一放在用户 workspace 的 `personal/agenda/` 下，按时间粒度分子目录：
+`{agendaRoot}` 由上述配置或默认值得到。日程计划与完成情况统一放在 workspace 的 `{agendaRoot}` 目录下，按时间粒度分子目录：
 
 | 用途 | 路径 |
 |------|------|
-| 月规划、月总结 | `personal/agenda/monthly/` |
-| 周规划、周总结 | `personal/agenda/weekly/` |
-| 日 Todo、日日志 | `personal/agenda/daily/` |
-| 其他任务与清单（含阅读清单） | `personal/agenda/tasks/` |
-| 用户作息配置（可选） | 单文件 `personal/agenda/schedule-config.md`，见下方文件命名。 |
+| 月规划、月总结 | `{agendaRoot}/monthly/` |
+| 周规划、周总结 | `{agendaRoot}/weekly/` |
+| 日 Todo、日日志 | `{agendaRoot}/daily/` |
+| 其他任务与清单（含阅读清单、采购清单等） | `{agendaRoot}/tasks/` |
+| 用户作息配置（可选） | 单文件 `{agendaRoot}/schedule-config.md`，见下方文件命名。 |
 
 ## 文件命名规则
 
@@ -25,26 +31,15 @@
 | 日 Todo | `YYYY-MM-DD-todo.md` | `2026-02-05-todo.md` |
 | 日志 | `YYYY-MM-DD-log.md` | `2026-02-05-log.md` |
 | 周总结 | `Week{N}-review.md`（N = 年内周号，与周规划一致） | `Week6-review.md` |
-| 阅读清单 | `todo-readinglist.md` | `personal/agenda/tasks/todo-readinglist.md` |
-| 未定日期 / 待办池 | `TODO.md` | `personal/agenda/tasks/TODO.md` |
-| 作息时间配置（可选） | `schedule-config.md` | `personal/agenda/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
+| 阅读清单 | `todo-readinglist.md` | `{agendaRoot}/tasks/todo-readinglist.md` |
+| 未定日期 / 待办池 | `TODO.md` | `{agendaRoot}/tasks/TODO.md` |
+| 作息时间配置（可选） | `schedule-config.md` | `{agendaRoot}/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
+
+上述示例中的路径均相对于 jw-agenda 根目录；默认 `agendaRoot` 为 `jw-agenda-data`，实际以当前解析到的配置为准。
 
 **tasks 目录下以 `todo` 开头的文件**（如 `TODO.md`、`todo-readinglist.md`、`todo-xxx.md`）均视为待办/清单。生成周规划或日计划时，应将上述文件中的未勾选项作为可选来源纳入考虑。
 
 **日志中的「今日想法/随口记」**：用户口语化汇报进度时，想法、感受、碎碎念记入该区块，原意保留，便于日后回顾。
-
-## daily-log 与 daily-todo 的分工
-
-两个 Skill 有明确分工，唯一重叠点是「更新今日 todo 的勾选」：
-
-| | daily-log | daily-todo |
-|--|-----------|------------|
-| **定位** | 记录&留痕&执行 | 计划，只处理未完成的 |
-| **典型触发** | 「总结昨天」「汇报今天（口语化、带想法）」「我完成了 X」等完成/汇报类 | 「生成今天的计划」「把 X 移到周三」「加一项」等计划与调整类 |
-| **产出** | 日志文件（`YYYY-MM-DD-log.md`） | Todo 文件（`YYYY-MM-DD-todo.md`）+ 同步周/月规划 |
-| **不做** | 不生成/修改今日计划结构, | 不写日志 |
-
-**选择规则**：凡与「完成进度、汇报今天」相关的，均由 **daily-log** 处理（写日志 + 顺带更新今日 todo 勾选）。成段汇报（「今天做了…还有…感觉…」）→ daily-log；单句更新（「我完成了简历」「作业做完了」等）→ 也由 daily-log。**daily-todo** 只负责「生成今天的计划」「把 X 移到周三」「加一项」等计划生成与日程调整，不负责标记完成。
 
 ## 周数计算规则
 
@@ -54,18 +49,18 @@
 
 **计算示例**：2026-02-05（周四）所在周为 2026 年第 6 周 → 周规划 `Week6-plan.md`，周总结 `Week6-review.md`。
 
-**推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。**调用 dedup_todos.py 时仅传入约定目录（如 personal/agenda 下）内的路径**，脚本会校验路径位于 workspace 内，避免路径遍历。
+**推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。**调用 dedup_todos.py 时仅传入 jw-agenda 根目录下的路径**（即已按用户配置解析后的路径），脚本会校验路径位于 workspace 内，避免路径遍历。
 
 ## 临时追加的归属
 
-用户临时想到要加一项时，按时间范围写入对应文件，并**始终向用户汇报写入了哪个文件**：
+用户临时想到要加一项时，按时间范围写入对应文件，并**始终向用户汇报写入了哪些文件**：
 
 | 时间范围 | 写入文件 |
 |----------|----------|
-| **无法确定日期** / **不是当月会做的事** | `personal/agenda/tasks/TODO.md` |
-| 今天 / 明天 / 本周某天 | `personal/agenda/daily/YYYY-MM-DD-todo.md` |
-| 本周（无具体日） / 下周 / 某周 | `personal/agenda/weekly/Week{W}-plan.md` |
-| 本月 / 以后（更远） | `personal/agenda/monthly/YYYY-MM-plan.md`（或对应周规划） |
+| **无法确定日期** / **不是当月会做的事** | `{agendaRoot}/tasks/TODO.md` |
+| 今天 / 明天 / 本周某天 | `{agendaRoot}/daily/YYYY-MM-DD-todo.md` , `{agendaRoot}/weekly/Week{W}-plan.md`,  `{agendaRoot}/monthly/YYYY-MM-plan.md` |
+| 本周（无具体日） / 下周 / 某周 | `{agendaRoot}/weekly/Week{W}-plan.md`,  `{agendaRoot}/monthly/YYYY-MM-plan.md` |
+| 本月 / 以后（更远） | `{agendaRoot}/monthly/YYYY-MM-plan.md` |
 
 详见 jw-agenda-daily-todo 的「模式 D：临时追加」（`references/mode-d-adhoc.md`）。
 

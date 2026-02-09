@@ -3,8 +3,8 @@ name: jw-agenda-planning-sync
 description: "Planning sync: check consistency between daily/weekly/monthly plans, list discrepancies, batch update after user confirmation. Triggers: '同步规划', '检查一致性', 'planning sync', '运行 planning-sync'."
 metadata:
   author: Jing Wu
-  version: "0.0.1"
-  updated: "2026-02-06"
+  version: "0.0.2"
+  updated: "2026-02-09"
 ---
 
 # Planning Sync（规划同步助手）
@@ -15,7 +15,7 @@ metadata:
 
 ## 安装前提
 
-本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）。约定与脚本已随本 Skill 安装，无需用户另行复制。
+本 Skill 仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks。约定与脚本已随本 Skill 安装，无需用户另行复制。先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -33,9 +33,9 @@ metadata:
 
 使用本 Skill 的 `assets/scripts/date_utils.py` 计算日期和周数，然后读取：
 
-- **日**：`personal/agenda/daily/{今天日期}-todo.md`（可选：最近 3–7 天的 todo）
-- **周**：`personal/agenda/weekly/Week{W}-plan.md`
-- **月**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md）
+- **日**：`{agendaRoot}/daily/{今天日期}-todo.md`（可选：最近 3–7 天的 todo）
+- **周**：`{agendaRoot}/weekly/Week{W}-plan.md`
+- **月**：`{agendaRoot}/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md）
 
 缺失的层级跳过，向用户说明（见 Error Handling）。
 

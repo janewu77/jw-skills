@@ -3,8 +3,8 @@ name: jw-agenda-weekly-plan
 description: "Weekly plan generator: create day-by-day breakdown from monthly goals and last week's carry-over. Triggers: '生成本周计划', '周规划', 'weekly plan', '运行 weekly-plan'."
 metadata:
   author: Jing Wu
-  version: "0.0.1"
-  updated: "2026-02-06"
+  version: "0.0.2"
+  updated: "2026-02-09"
 ---
 
 # Weekly Plan（周规划生成器）
@@ -15,7 +15,7 @@ metadata:
 
 ## 安装前提
 
-本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）。约定与脚本已随本 Skill 安装，无需用户另行复制。
+本 Skill 仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks。约定与脚本已随本 Skill 安装，无需用户另行复制。先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -29,17 +29,17 @@ metadata:
 
 ### Step 2: 读取月规划
 
-- **路径**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md，可用 date_utils 推算）
+- **路径**：`{agendaRoot}/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md，可用 date_utils 推算）
 - **提取**：月规划中 `Week {W}` 对应小节的重点、核心任务、产出目标
 - 若月规划不存在，见 Error Handling
 
 ### Step 3: 读取上周延续任务
 
 按优先级读取：
-1. **上周总结**（若有）：`personal/agenda/weekly/Week{W-1}-review.md` 中的「转入下周」部分
-2. **上周日志**：`personal/agenda/daily/` 下上周日期范围内的日志，提取「未完成」部分
-3. **上周 todo**：`personal/agenda/daily/{上周各日期}-todo.md` 中未勾选项
-4. **tasks 目录下以 todo 开头的文件**（可选）：如 `personal/agenda/tasks/TODO.md`、`todo-readinglist.md`、`todo-*.md`。其中未勾选项作为「待纳入本周」的候选，在按日分配时酌情纳入（可集中在某几天或按优先级分散）
+1. **上周总结**（若有）：`{agendaRoot}/weekly/Week{W-1}-review.md` 中的「转入下周」部分
+2. **上周日志**：`{agendaRoot}/daily/` 下上周日期范围内的日志，提取「未完成」部分
+3. **上周 todo**：`{agendaRoot}/daily/{上周各日期}-todo.md` 中未勾选项
+4. **tasks 目录下以 todo 开头的文件**（可选）：如 `{agendaRoot}/tasks/TODO.md`、`todo-readinglist.md`、`todo-*.md`。其中未勾选项作为「待纳入本周」的候选，在按日分配时酌情纳入（可集中在某几天或按优先级分散）
 
 汇总为延续任务清单。
 
@@ -55,7 +55,7 @@ metadata:
 
 ### Step 5: 写入文件
 
-**路径**：`personal/agenda/weekly/Week{W}-plan.md`
+**路径**：`{agendaRoot}/weekly/Week{W}-plan.md`
 
 若目录不存在则创建。
 

@@ -6,7 +6,7 @@
 
 ## P0 — 高优先级
 
-- [x] **dedup_todos 路径安全**：对 `dedup_todos.py` 的传入路径做规范化并限制在 workspace 或 `personal/agenda` 子树内；或在脚本与文档中明确「仅传入约定目录下的路径」，避免路径遍历风险。已实现：脚本校验两路径均在 `WORKSPACE_ROOT`（或 cwd）之下，conventions 中已说明仅传约定目录路径。
+- [x] **dedup_todos 路径安全**：对 `dedup_todos.py` 的传入路径做规范化并限制在 workspace 内；或在脚本与文档中明确「仅传入 agenda 根目录下的路径」（可配置，默认 jw-agenda-data），避免路径遍历风险。已实现：脚本校验两路径均在 `WORKSPACE_ROOT`（或 cwd）之下，conventions 中已说明仅传 agenda 根目录下的路径。
 - [ ] **脚本多副本同步**：在 jw-agenda CONTRIBUTING 或 CI 中强化「修改 _common 后必须执行 sync-common-to-skills.sh」的检查（如 CI 检查 _common 与各 skill assets 是否一致），降低多副本不同步风险。
 - [x] 🆕 **sync-common-to-skills.sh Glob 不安全**：已改为 `for f in ...; do [ -f "$f" ] && cp ...; done` 及 LICENSE 单独复制，避免无 .py 时 glob 字面展开导致静默失败。
 
@@ -18,7 +18,7 @@
 - [x] **dedup_todos.py 单元测试**：已在 `jw-agenda/tests/test_dedup_todos.py` 增加 pytest 测试（normalize、extract_items、main 去重结果与路径校验），与 date_utils 同目录。
 - [ ] **CI**：添加 GitHub Actions（或等价 CI）：运行上述 Python 单元测试；可选检查 SKILL.md 含 name/version、conventions 与 SKILL 中路径关键词一致。
 - [ ] **文档：Python 与运行环境**：在 jw-agenda README 或 CONTRIBUTING 中注明 Python 版本（如 3.9+）、已在 Cursor/Claude 下验证的版本或环境，便于用户和贡献者对齐。
-- [ ] **路径假设文档化**：在 jw-agenda README 或 conventions 中明确「workspace 根目录即包含 personal/agenda 的目录」及选错时的表现，减少用户困惑。
+- [x] **路径假设文档化**：jw-agenda 根目录可配置（默认 jw-agenda-data），已在 README 与 conventions 中说明 workspace 根、`.jw-agenda.json` 配置及默认行为，减少用户困惑。
 - [ ] 🆕 **dedup_todos.py 正则可靠性**：`re.sub(r"\*\(.*?\)\*", ...)` 非贪婪匹配在多标记同行时可能异常；未处理任务名本身含星号的情况。建议增加转义处理或改用更精确的匹配模式。
 - [ ] 🆕 **date_utils.py 输入验证**：当前仅接受 ISO 格式（`date.fromisoformat()`），非 ISO 输入（如 "2026/02/05"）报错不清晰。建议增加友好的错误提示或格式转换。
 

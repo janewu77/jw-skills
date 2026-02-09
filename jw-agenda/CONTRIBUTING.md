@@ -32,7 +32,29 @@ pytest tests/ -v
 
 脚本会把 `_common/` 的内容同步到每个 skill 的 `assets/`（conventions.md、schedule-config.example.md、scripts/）。提交时请同时包含 `_common/` 与各 skill 的 `assets/` 变更。
 
+## 打包与发布（生成 zip）
+
+需要以 zip 形式分发或发布技能组时，在 **jw-agenda 目录下**执行：
+
+```bash
+./package-skills.sh
+```
+
+脚本会在 `output/` 下为每个 skill 生成一个 zip。执行前请确保已运行 `./scripts/sync-common-to-skills.sh`，使各 skill 的 `assets/` 与 `_common/` 一致。
+
 ## 版本与维护
 
 - **命名与路径**：以各 Skill 的 `assets/conventions.md`（或本仓库 `_common/conventions.md`）为准：月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。若某 Skill 内路径描述与 conventions 不一致，以 conventions 为准。
 - **Skill 版本**：各 Skill 的 SKILL.md 中含 `author: Jing Wu`、`version`、`updated`。版本号格式 `0.M.P`：单 skill 更新时第三位 +0.0.1（如 0.0.1→0.0.2）；**配合版本升级**时，所有 skill 的第二位（0.X）对齐升级（如统一升为 0.1.0），便于整组协同发布。
+
+## 递交前必须执行
+
+在本目录（jw-agenda）下执行：
+
+```bash
+pytest tests/ -v
+./scripts/sync-common-to-skills.sh
+```
+
+确保测试通过且 `_common/` 的变更已同步到所有 skill 的 `assets/` 后再提交。
+

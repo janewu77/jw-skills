@@ -3,8 +3,8 @@ name: jw-agenda-daily-log
 description: "Daily log generator: summarize yesterday or accept today's progress (casual or single-sentence), generate dated log file, update today's todo checkboxes, transfer incomplete to today. Triggers: '整理昨天的日志', '总结昨天', '汇报今天', '记录一下今天', '我完成了 X', '作业做完了', 'daily log', '运行 daily-log'."
 metadata:
   author: Jing Wu
-  version: "0.0.1"
-  updated: "2026-02-06"
+  version: "0.0.2"
+  updated: "2026-02-09"
 ---
 
 # Daily Log（日志与汇报）
@@ -18,7 +18,8 @@ metadata:
 
 ## 安装前提
 
-本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md` 用于自定义作息。约定与脚本已随本 Skill 安装，无需用户另行复制。
+本 Skill 仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks；可选 jw-agenda 根目录下的 `schedule-config.md` 用于自定义作息。
+先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -44,11 +45,11 @@ metadata:
 
 使用 `assets/log-template.md` 模板，填充变量后写入：
 
-**路径**：`personal/agenda/daily/{目标日期}-log.md`
+**路径**：jw-agenda 根目录下的 `daily/{目标日期}-log.md`（即 `{agendaRoot}/daily/{目标日期}-log.md`）
 
 **模板变量**：`{{DATE}}`、`{{COMPLETED_TASKS}}`、`{{TIME_ALLOCATION}}`、`{{LEARNING_OUTPUT}}`、`{{INCOMPLETE_TASKS}}`、`{{SUMMARY}}`、`{{NOTES_AND_THOUGHTS}}`（想法/随口记，无则写「无」）、`{{TIMESTAMP}}`。
 
-若 `personal/agenda/daily/` 目录不存在则创建。
+若 jw-agenda 根目录下的 `daily/` 不存在则创建。
 
 ### Step 3: 同步今日 Todo 与转移未完成
 

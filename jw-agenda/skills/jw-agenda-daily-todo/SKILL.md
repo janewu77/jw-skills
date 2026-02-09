@@ -3,21 +3,21 @@ name: jw-agenda-daily-todo
 description: "Daily todo manager: generate today's plan, reschedule items, add ad-hoc tasks. Triggers: '生成今天的计划', 'today plan', '把X移到周三', '加一项', '明天要', '运行 daily-todo'. (Marking completion is handled by daily-log.)"
 metadata:
   author: Jing Wu
-  version: "0.0.1"
-  updated: "2026-02-06"
+  version: "0.0.2"
+  updated: "2026-02-09"
 ---
 
 # Daily Todo（处理当天）
 
 管理今日 todo 的全生命周期：生成、调整。
 
-**时间表**：今日时间表用来安排每天要做的事项。**优先**读取用户工作区的 `personal/agenda/schedule-config.md` 的「时段定义」表；若该文件不存在，则使用本 Skill 的 `assets/schedule-config.example.md`。固定活动（如出门、晚餐）不覆盖，仅「（填入当日任务）」的时段填入具体事项。
+**时间表**：今日时间表用来安排每天要做的事项。**优先**读取用户工作区 jw-agenda 根目录下的 `schedule-config.md`（即 `{agendaRoot}/schedule-config.md`）的「时段定义」表；若该文件不存在，则使用本 Skill 的 `assets/schedule-config.example.md`。固定活动（如出门、晚餐）不覆盖，仅「（填入当日任务）」的时段填入具体事项。
 
 **汇报规则**：每次新增或更新 todo 后，**必须告诉用户修改了哪些文件的实际路径**。
 
 ## 安装前提
 
-本 Skill 仅依赖用户 workspace 下存在 `personal/agenda/` 及子目录（monthly、weekly、daily、tasks）；可选 `personal/agenda/schedule-config.md` 用于自定义作息。约定与脚本已随本 Skill 安装，无需用户另行复制。
+本 Skill 仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks；可选 jw-agenda 根目录下的 `schedule-config.md` 用于自定义作息。约定与脚本已随本 Skill 安装，无需用户另行复制。先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -47,10 +47,10 @@ metadata:
 
 按顺序读取（缺失则跳过）：
 
-1. **当月规划**：`personal/agenda/monthly/YYYY-MM-plan.md`（当前年月，如 2026-02-plan.md，可用 date_utils 推算），提取本月目标与本周重点
-2. **当周规划**：`personal/agenda/weekly/Week{W}-plan.md`，提取「今天」对应的建议任务
-3. **昨天未完成**：从 `personal/agenda/daily/{昨天日期}-log.md` 或 `{昨天日期}-todo.md` 中未勾选项
-4. **tasks 目录下以 todo 开头的文件**（可选）：如 `personal/agenda/tasks/TODO.md`、`todo-readinglist.md`、`todo-*.md`。读取其中未勾选项，酌情纳入今日计划（如 1–2 项低优先级或按清单性质分配），并标记 `*(来自 tasks 清单)*` 或 `*(来自阅读清单)*`（若来自 todo-readinglist.md）
+1. **当月规划**：`{agendaRoot}/monthly/YYYY-MM-plan.md`（当前年月，如 2026-02-plan.md，可用 date_utils 推算），提取本月目标与本周重点
+2. **当周规划**：`{agendaRoot}/weekly/Week{W}-plan.md`，提取「今天」对应的建议任务
+3. **昨天未完成**：从 `{agendaRoot}/daily/{昨天日期}-log.md` 或 `{昨天日期}-todo.md` 中未勾选项
+4. **tasks 目录下以 todo 开头的文件**（可选）：如 `{agendaRoot}/tasks/TODO.md`、`todo-readinglist.md`、`todo-*.md`。读取其中未勾选项，酌情纳入今日计划（如 1–2 项低优先级或按清单性质分配），并标记 `*(来自 tasks 清单)*` 或 `*(来自阅读清单)*`（若来自 todo-readinglist.md）
 
 ### Step 3: 合并、去重、排优先级
 
@@ -62,11 +62,11 @@ metadata:
 
 ### Step 4: 写入文件
 
-**路径**：`personal/agenda/daily/{今天日期}-todo.md`
+**路径**：`{agendaRoot}/daily/{今天日期}-todo.md`
 
 使用 `assets/todo-template.md` 模板，**必须包含**：
 
-1. **今日时间表**：优先从 `personal/agenda/schedule-config.md` 读取时段配置；若不存在则从本 Skill 的 `assets/schedule-config.example.md` 读取。把当日任务填入各时段「安排」列。优先从周规划中「今天」的时段提取；若无，则按优先级合理分配。每个时段写具体事项。
+1. **今日时间表**：优先从 `{agendaRoot}/schedule-config.md` 读取时段配置；若不存在则从本 Skill 的 `assets/schedule-config.example.md` 读取。把当日任务填入各时段「安排」列。优先从周规划中「今天」的时段提取；若无，则按优先级合理分配。每个时段写具体事项。
 2. **高/中/低优先级**：任务列表，与时间表一致，带来源标记，供逐项勾选。
 
 若文件已存在，仅追加不重复的新条目；时间表若已存在则保留不覆盖。
@@ -109,7 +109,7 @@ metadata:
 
 - `assets/todo-template.md`：每日 todo 输出模板
 - `assets/conventions.md`：约定
-- `assets/schedule-config.example.md`：默认作息模板（用户可选 `personal/agenda/schedule-config.md` 覆盖）
+- `assets/schedule-config.example.md`：默认作息模板（用户可选 jw-agenda 根目录下的 `schedule-config.md` 覆盖）
 - `assets/scripts/date_utils.py`：日期处理工具
 - `assets/scripts/dedup_todos.py`：去重工具
 - `references/mode-c-reschedule.md`：模式 C 调整日程详细流程
