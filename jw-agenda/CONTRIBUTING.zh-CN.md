@@ -15,11 +15,99 @@ pytest jw-agenda/tests/ -v   # 或：cd jw-agenda && pytest tests/ -v
 
 ## 保持 5 个 Skill 一致
 
-> **⚠️** 唯一来源是 `_common/`。修改 `_common/` 后必须执行 `./scripts/sync-common-to-skills.sh`，并同时提交 `_common/` 与各 skill 的 `assets/`。未同步会导致 CI 失败。
+> **⚠️** 唯一来源是 `_common/`。修改 `_common/` 后必须同步到所有 skill 的 `assets/` 目录。
+>
+> **🔄 自动同步**：推送到 `main` 或 `dev` 时，GitHub Actions 会在需要时自动同步并提交更改。对于 Pull Request，必须在推送前手动同步。
+
+### 工作流程：修改 `_common/` 文件
+
+当你修改 `_common/` 下的文件（如 `conventions.md`、`schedule-config.example.md` 或脚本文件）时，请遵循以下流程：
+
+#### 步骤 1：提交前 — 检查同步状态
+
+首先，检查是否存在已有的同步问题：
 
 ```bash
-./scripts/sync-common-to-skills.sh   # 将 _common 同步到各 skill assets/
-./scripts/check-common-sync.sh       # 校验（CI 也会执行）
+cd jw-agenda
+./scripts/check-common-sync.sh
+```
+
+- ✅ **如果通过**：所有 skill 已同步，可以继续修改 `_common/` 文件。
+- ❌ **如果失败**：先修复现有的同步问题，再进行新的修改。
+
+#### 步骤 2：进行修改
+
+根据需要编辑 `_common/` 下的文件：
+- `_common/conventions.md`
+- `_common/schedule-config.example.md`
+- `_common/scripts/*.py`
+- `_common/scripts/LICENSE`
+
+#### 步骤 3：同步更改到所有 skill
+
+修改 `_common/` 后，将更改同步到所有 5 个 skill：
+
+```bash
+cd jw-agenda
+./scripts/sync-common-to-skills.sh
+```
+
+此命令会将 `_common/` 中的更新文件复制到每个 skill 的 `assets/` 目录。
+
+> **注意**：如果直接推送到 `main` 或 `dev`，即使忘记同步，GitHub Actions 也会自动同步并提交。但建议在推送前本地同步，以保持提交历史清晰。
+
+#### 步骤 4：验证同步（提交前）
+
+再次运行检查脚本，确保所有内容已同步：
+
+```bash
+./scripts/check-common-sync.sh
+```
+
+预期输出：`✓ All skills are in sync with _common/`
+
+#### 步骤 5：提交所有更改
+
+同时提交 `_common/` 的更改和同步后的 `skills/*/assets/` 文件：
+
+```bash
+git add jw-agenda/_common/
+git add jw-agenda/skills/*/assets/
+git commit -m "你的提交信息"
+git push
+```
+
+#### 步骤 6：推送后 — 验证 CI 状态
+
+推送后，检查 GitHub Actions 确保 CI 检查通过：
+
+1. **通过 GitHub 网页界面**：
+   - 访问：`https://github.com/janewu77/jw-skills/actions`
+   - 找到最新的 "Check Common Sync" workflow 运行记录
+   - 确认显示 ✅（绿色对勾）
+   - 如果推送到 `main`/`dev` 时未同步，workflow 会自动同步并创建提交
+
+2. **通过 GitHub CLI**（如果已安装）：
+   ```bash
+   gh run list --workflow=check-sync.yml --limit 5
+   gh run view <run-id>  # 查看特定运行的详情
+   ```
+
+**自动同步行为**：
+- ✅ **推送到 `main`/`dev`**：如果需要同步，GitHub Actions 会自动同步并提交
+- ❌ **Pull Request**：必须手动同步；如果未同步，CI 会失败（便于审查）
+
+### 快速参考
+
+```bash
+# 检查同步状态
+./scripts/check-common-sync.sh
+
+# 同步 _common → 各 skill assets/
+./scripts/sync-common-to-skills.sh
+
+# 提交前再次验证
+./scripts/check-common-sync.sh
 ```
 
 ## 打包（zip）

@@ -2,7 +2,7 @@
 
 daily-todo reads this file to get time slot configuration when generating schedules. Modify this file to adjust all future generated schedules.
 
-daily-todo 生成时间表时读取本文件获取时段配置。修改本文件即可调整所有未来生成的时间表。
+daily-todo 生成时间表时会读取本文件获取时段配置。修改本文件即可调整所有未来生成的时间表。
 
 ## Time Slots / 时段定义
 

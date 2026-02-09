@@ -13,6 +13,9 @@ on:
       - 'jw-agenda/_common/**'
       - 'jw-agenda/skills/**/assets/**'
 
+permissions:
+  contents: write  # Required for auto-sync on push
+
 jobs:
   check-sync:
     runs-on: ubuntu-latest
@@ -23,6 +26,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Check if _common/ has changes
         id: check_common
@@ -35,18 +40,40 @@ jobs:
         continue-on-error: true
       
       - name: Verify sync status
+        id: check_sync
         run: |
           chmod +x ./scripts/check-common-sync.sh
-          ./scripts/check-common-sync.sh
+          ./scripts/check-common-sync.sh || echo "sync_needed=true" >> $GITHUB_OUTPUT
+        continue-on-error: true
       
-      - name: Show sync instructions if failed
-        if: failure()
+      - name: Auto-sync if needed (push only)
+        if: steps.check_sync.outputs.sync_needed == 'true' && github.event_name == 'push'
+        run: |
+          echo "::notice::Auto-syncing _common/ changes to all skill assets/"
+          chmod +x ./scripts/sync-common-to-skills.sh
+          ./scripts/sync-common-to-skills.sh
+          
+          # Check if there are changes to commit
+          if [ -n "$(git status --porcelain jw-agenda/skills/)" ]; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add jw-agenda/skills/*/assets/
+            git commit -m "chore: auto-sync _common/ changes to skill assets/"
+            git push
+            echo "::notice::Successfully auto-synced and committed changes"
+          else
+            echo "::notice::No changes to sync"
+          fi
+      
+      - name: Show sync instructions if failed (PR)
+        if: steps.check_sync.outputs.sync_needed == 'true' && github.event_name == 'pull_request'
         run: |
           echo "::error::Found inconsistencies between _common/ and skill assets/"
-          echo "::error::Please run './scripts/sync-common-to-skills.sh' to sync changes"
+          echo "::error::Please run './scripts/sync-common-to-skills.sh' locally and commit the changes"
           echo ""
           echo "To fix this locally:"
           echo "  cd jw-agenda"
           echo "  ./scripts/sync-common-to-skills.sh"
           echo "  git add skills/*/assets/"
-          echo "  git commit --amend --no-edit  # or create a new commit"
+          echo "  git commit -m 'chore: sync _common/ changes to skill assets/'"
+          exit 1
