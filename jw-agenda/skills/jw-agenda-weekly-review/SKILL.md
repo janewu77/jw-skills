@@ -3,7 +3,7 @@ name: jw-agenda-weekly-review
 description: "Weekly review: aggregate daily logs, compute completion rate and time allocation, generate summary, list carry-over items. Triggers: '周总结', '本周回顾', 'weekly review', '运行 weekly-review'."
 metadata:
   author: Jing Wu
-  version: "0.1.1"
+  version: "0.1.2"
   updated: "2026-02-09"
 ---
 
