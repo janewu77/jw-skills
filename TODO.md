@@ -27,7 +27,7 @@
 - [x] **CODE_OF_CONDUCT**：已在仓库根添加 Contributor Covenant 2.1 行为准则，明确投诉方式（通过 GitHub Security Policy 或联系维护者）和处理流程。
 - [x] **Issue / PR 模板**：已添加 `.github/ISSUE_TEMPLATE/`（包含 bug_report.md、feature_request.md、config.yml）和 `.github/pull_request_template.md`，规范贡献者提 issue/PR。
 - [x] **徽章**：已在根 README 和 README.zh-CN 顶部添加徽章（License Apache 2.0、CC-BY-4.0、Python 3.9+、Version 0.1.0），提升信息密度。
-- [ ] **跨平台说明**：在根 CONTRIBUTING 或 README 中注明：sync/package 脚本需 bash（Windows 建议 WSL 或 Git Bash）；Python 脚本可在 Windows 单独运行。
+- [x] **跨平台说明**：已在根 CONTRIBUTING 和 CONTRIBUTING.zh-CN 中添加「跨平台兼容性」章节，说明 Bash 脚本需 WSL/Git Bash，Python 脚本可独立运行，以及各平台的开发环境要求。
 - [ ] **依赖/许可证扫描**：若将来引入第三方依赖，增加 Dependabot 或依赖扫描、许可证合规检查。
 - [ ] **NOTICE**：若引入第三方代码或需专利声明，在仓库根增加 NOTICE 文件并随分发保留。
 

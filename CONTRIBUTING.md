@@ -10,6 +10,21 @@ This repository contains multiple Agent Skills. Before submitting code or docume
 - **Commit messages**: Use English for commit messages.
 - **Per-skill notes**: If a skill has its own maintenance or development conventions, read that skill’s `CONTRIBUTING.md` first.
 
+## Cross-platform compatibility
+
+### Scripts
+
+- **Bash scripts** (`sync-common-to-skills.sh`, `package-skills.sh`): Require Bash shell. On Windows, use **WSL** (Windows Subsystem for Linux) or **Git Bash**. These scripts are primarily for maintainers and are not required for end users.
+- **Python scripts** (`date_utils.py`, `dedup_todos.py`): Can run independently on Windows, macOS, and Linux. Require Python 3.9+.
+
+### Development environment
+
+- **Linux/macOS**: Native Bash support; scripts run directly.
+- **Windows**: 
+  - Use WSL or Git Bash for running Bash scripts
+  - Python scripts can run directly via `python` or `python3` command
+  - CI workflows run on Linux runners, so Windows-specific issues may need testing in WSL
+
 ## Per-skill contributing
 
 | Skill | Notes |

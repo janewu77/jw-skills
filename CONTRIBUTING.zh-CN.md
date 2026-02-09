@@ -6,6 +6,21 @@
 - **提交信息**：Commit message 请使用英文。
 - **各 Skill 特有说明**：若某个 skill 有单独的维护或开发约定，请先阅读该 skill 目录下的 `CONTRIBUTING.md`。
 
+## 跨平台兼容性
+
+### 脚本
+
+- **Bash 脚本**（`sync-common-to-skills.sh`、`package-skills.sh`）：需要 Bash 环境。在 Windows 上，请使用 **WSL**（Windows Subsystem for Linux）或 **Git Bash**。这些脚本主要用于维护者，最终用户无需运行。
+- **Python 脚本**（`date_utils.py`、`dedup_todos.py`）：可在 Windows、macOS、Linux 上独立运行。需要 Python 3.9+。
+
+### 开发环境
+
+- **Linux/macOS**：原生支持 Bash，脚本可直接运行。
+- **Windows**：
+  - 运行 Bash 脚本时使用 WSL 或 Git Bash
+  - Python 脚本可通过 `python` 或 `python3` 命令直接运行
+  - CI 工作流在 Linux runner 上运行，Windows 特定问题可能需要在 WSL 中测试
+
 ## 各 Skill 的贡献说明
 
 | Skill | 说明 |
