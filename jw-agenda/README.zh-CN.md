@@ -131,6 +131,27 @@
 - Claude Desktop（最新版本）
 - Python 3.9、3.10、3.11、3.12 在 Linux、macOS、Windows（WSL/Git Bash）上
 
+### 快速开始（一键安装）
+
+**Cursor 用户**：在你的 workspace 根目录运行以下命令，创建数据目录并安装全部 5 个 Skill：
+
+```bash
+# 第 1 步：创建数据目录
+mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
+
+# 第 2 步：安装 Skill（选择一种方式）
+
+# 方式 A：从 zip 文件安装（如果当前目录有 5 个 zip 文件）
+for zip in jw-agenda-*.zip; do unzip -q "$zip" -d ~/.cursor/skills/; done
+
+# 方式 B：从源码安装（如果已克隆本仓库）
+cd jw-agenda && for skill in skills/jw-agenda-*/; do cp -r "$skill" ~/.cursor/skills/; done && cd ..
+```
+
+**注意**：如需项目级安装，将 `~/.cursor/skills/` 替换为 `.cursor/skills/`，或根据你的 Cursor 配置调整路径。
+
+运行上述命令后，在 Cursor 中打开你的 workspace 即可开始使用。详细说明和自定义选项见下方「安装步骤」。
+
 ### 产品目录结构
 
 ```

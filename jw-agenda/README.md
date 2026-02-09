@@ -131,6 +131,27 @@ For **Cursor**, see [Agent Skills (install and skill directory)](https://cursor.
 - Claude Desktop (latest versions)
 - Python 3.9, 3.10, 3.11, 3.12 on Linux, macOS, Windows (WSL/Git Bash)
 
+### Quick Start (One-Command Setup)
+
+**For Cursor users**: Run this in your workspace root to create the data directory and install all 5 Skills from zip files:
+
+```bash
+# Step 1: Create data directory
+mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
+
+# Step 2: Install Skills (choose one method)
+
+# Method A: From zip files (if you have the 5 zip files in current directory)
+for zip in jw-agenda-*.zip; do unzip -q "$zip" -d ~/.cursor/skills/; done
+
+# Method B: From source (if you cloned this repo)
+cd jw-agenda && for skill in skills/jw-agenda-*/; do cp -r "$skill" ~/.cursor/skills/; done && cd ..
+```
+
+**Note**: Replace `~/.cursor/skills/` with `.cursor/skills/` for project-level installation, or adjust the path per your Cursor setup.
+
+After running the above, open your workspace in Cursor and start using the Skills. See "Install steps" below for details and customization options.
+
 ### Repo layout (jw-agenda)
 
 ```
