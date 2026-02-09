@@ -28,10 +28,10 @@
 
 - [x] **完整示例 workspace**：在 jw-agenda 下提供 `examples/` 或 `sample-workspace/`，包含至少一份月规划、周规划、日 todo 示例，README 可引用为「复制即用」。已实现：`examples/sample-workspace/`（英文）和 `examples/sample-workspace-zh/`（中文），包含完整的月/周/日示例文件。
 - [x] **1～2 个完整对话示例**：在 jw-agenda 文档中补充 1～2 个从用户话到产出的完整对话示例（或链接到示例），便于新用户理解用法。已实现：`examples/conversations.md`（英文）和 `examples/conversations.zh-CN.md`（中文），包含 6 个完整对话示例。
-- [ ] 🆕 **weekly-plan SKILL.md 分配策略**：当前 Step 4 仅说「合理分配」，缺乏具体准则（按优先级？按时间可用性？按领域均衡？）。建议在 SKILL.md 中细化分配逻辑。
-- [ ] 🆕 **planning-sync SKILL.md 匹配规则**：Step 2 的「内容对齐」检查未明确匹配方式（精确匹配 / 关键词匹配 / 模糊匹配），建议文档化具体比对策略。
-- [ ] 🆕 **冲突裁决策略**：当多数据源出现矛盾时（如 daily-log 记录完成但 weekly-plan 仍显示进行中），缺乏优先级裁决规则。建议在 conventions 或 planning-sync 中定义冲突处理原则。
-- [ ] 🆕 **package-skills.sh 健壮性**：不检查 SKILLS_DIR 是否存在、旧 zip 不清理直接覆盖、`-q` 标志使错误难以排查。建议增加前置校验和日志输出。
+- [x] 🆕 **weekly-plan SKILL.md 分配策略**：Step 4 已细化分配原则（优先级→周初/中周/周末、依赖链、拆分与平衡），见 SKILL.md。
+- [x] 🆕 **planning-sync SKILL.md 匹配规则**：Step 2 已文档化「归一化后关键词匹配」与完成状态以日执行为准的比对策略。
+- [x] 🆕 **冲突裁决策略**：已在 conventions 中定义「日 > 周 > 月」的优先级及「以已发生事实为准」原则。
+- [x] 🆕 **package-skills.sh 健壮性**：已增加 SKILLS_DIR 存在性检查、起止日志输出，并去掉 zip -q 便于排查错误。
 
 ---
 
