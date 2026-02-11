@@ -8,6 +8,8 @@
 
 {{TIME_ALLOCATION}}
 
+**实际工作/学习时长**：{{ACTUAL_WORK_TIME}}
+
 ## 学习/产出
 
 {{LEARNING_OUTPUT}}
