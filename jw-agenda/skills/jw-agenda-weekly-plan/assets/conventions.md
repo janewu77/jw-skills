@@ -20,6 +20,8 @@
 | 周规划、周总结 | `{agendaRoot}/weekly/` |
 | 日 Todo、日日志 | `{agendaRoot}/daily/` |
 | 其他任务与清单（含阅读清单、采购清单等） | `{agendaRoot}/tasks/` |
+
+**daily 目录归档规则**：当日及近期（约 2 周内）的 todo、log 放在 `daily/` 根下。**二周以前**的文件移入按年月命名的子目录（如 `202601/`、`202602/`，格式 `YYYYMM`）。之后如需归档某月文件，在 `daily/` 下新建对应 `YYYYMM/` 子目录，并将超过两周的该月文件移入其中。
 | 用户作息配置（可选） | 单文件 `{agendaRoot}/schedule-config.md`，见下方文件命名。 |
 
 ## 文件命名规则

@@ -1,10 +1,10 @@
 ---
 name: jw-agenda-weekly-review
-description: "Weekly review: aggregate daily logs, compute completion rate and time allocation, generate summary, list carry-over items. Triggers: '周总结', '本周回顾', 'weekly review', '运行 weekly-review'."
+description: "Weekly review: aggregate daily logs, compute completion rate and time allocation, generate summary, list carry-over items; archive daily files older than 2 weeks into YYYYMM subdirs. Triggers: '周总结', '本周回顾', 'weekly review', '运行 weekly-review'."
 metadata:
   author: Jing Wu
-  version: "0.1.2"
-  updated: "2026-02-09"
+  version: "0.1.3"
+  updated: "2026-02-13"
 ---
 
 # Weekly Review（周回顾）
@@ -57,9 +57,18 @@ metadata:
 
 **内容**：整体概览（完成率、主要成就）、分类统计、未完成/待处理、**转入下周**清单。
 
-### Step 5: 汇报
+### Step 5: 归档 daily 目录（二周以前）
 
-说明：周总结文件路径、完成率、时间分配要点、转入下周事项数量。
+按 `conventions.md` 中的 **daily 目录归档规则** 执行：
+
+- 扫描 `{agendaRoot}/daily/` 根下的 `YYYY-MM-DD-todo.md`、`YYYY-MM-DD-log.md` 文件
+- 若文件日期早于「今天 − 14 天」，则移入 `{agendaRoot}/daily/YYYYMM/` 子目录（如 `202601/`、`202602/`）
+- 若子目录不存在则创建；同一月的文件归入同一子目录
+- 归档后向用户说明移入了多少文件、目标子目录
+
+### Step 6: 汇报
+
+说明：周总结文件路径、完成率、时间分配要点、转入下周事项数量、归档文件数（若有）。
 
 ## Error Handling
 
