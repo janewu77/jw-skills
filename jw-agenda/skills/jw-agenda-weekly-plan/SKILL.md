@@ -3,8 +3,8 @@ name: jw-agenda-weekly-plan
 description: "Weekly plan generator: create day-by-day breakdown from monthly goals and last week's carry-over. Triggers: '生成本周计划', '周规划', 'weekly plan', '运行 weekly-plan'."
 metadata:
   author: Jing Wu
-  version: "0.1.2"
-  updated: "2026-02-09"
+  version: "0.2.0"
+  updated: "2026-02-23"
 ---
 
 # Weekly Plan（周规划生成器）
@@ -12,6 +12,15 @@ metadata:
 基于月规划目标和上周延续任务，生成本周按天拆解的规划。
 
 **注意**：本 Skill 生成的是规划草稿。用户可在生成后调整每日安排。daily-todo 会读取本文件作为当日计划的来源之一。
+
+**级联更新原则**：生成或调整周规划时，**必须从上往下逐层检查并同步更新**，确保各层规划一致：
+
+1. **tasks/TODO.md**（总待办）→ 已纳入本周规划的任务，在总待办中标记已规划或移除
+2. **月规划**（monthly/YYYY-MM-plan.md）→ 只读参考，不修改（月规划由用户维护）
+3. **周规划**（weekly/Week{W}-plan.md）→ 本 Skill 的主要产出
+4. **日计划**（daily/YYYY-MM-DD-todo.md）→ 若本周已有日计划文件，检查是否需要追加新纳入的任务（幂等，不重复）
+
+每一层只在确实受影响时才修改，但**必须逐层检查**，不可跳过。
 
 ## 安装前提
 
@@ -62,9 +71,26 @@ metadata:
 
 若目录不存在则创建。
 
-### Step 6: 汇报
+### Step 6: 从上往下级联同步
 
-说明：文件路径、本周重点、延续任务数量。提示可用 daily-todo 生成每日计划。
+#### 6a: tasks/TODO.md（总待办）
+
+- 已从 `{agendaRoot}/tasks/TODO.md` 或其他 `todo-*.md` 纳入本周规划的任务 → 在总待办中标记已规划或移除
+- 避免同一任务反复被纳入后续周规划
+
+#### 6b: 月规划（只读参考）
+
+- 月规划由用户维护，本 Skill 不修改，仅在 Step 2 中读取
+
+#### 6c: 已有日计划（daily/YYYY-MM-DD-todo.md）
+
+- 检查本周已存在的日计划文件
+- 若周规划中为某天新增了任务，而该天的日计划已存在 → 幂等追加（跳过已有条目），标记 `*(来自规划)*`
+- 若日计划尚不存在则不创建（留给 daily-todo 处理）
+
+### Step 7: 汇报
+
+说明：文件路径、本周重点、延续任务数量、**已同步的所有文件路径**。提示可用 daily-todo 生成每日计划。
 
 ## Error Handling
 

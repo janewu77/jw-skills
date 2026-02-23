@@ -25,7 +25,7 @@ You talk; the assistant picks the right Skill:
 | "Add: meet advisor next week" | ➕ Writes to next week's plan file |
 | "Today I did XX, still have YY left, feeling tired" | 🧠 Parses casual report → 📝 generates log → ✅ syncs checkboxes |
 | "Summarize yesterday" | 📖 Reads yesterday's Todo → 📝 generates log → ➡️ moves incomplete to today |
-| "Sync plans" | 🔍 Checks daily/weekly/monthly consistency → 📋 lists discrepancies → ✨ fixes after confirmation |
+| "Sync plans" | 🔍 Checks consistency across all levels (tasks/yearly/monthly/weekly/daily) → 📋 lists discrepancies → ✨ fixes after confirmation |
 | "Weekly summary" | 📊 Aggregates this week's logs → 📈 completion rate and time allocation → 📄 weekly report |
 
 ### Core benefits
@@ -33,6 +33,7 @@ You talk; the assistant picks the right Skill:
 - **Local-first:** All data stays in your local Markdown files—no cloud, full control.
 - **Modular:** Five distinct skills covering the full productivity cycle; each is installable on its own.
 - **AI-native:** Designed for the "talk to AI" workflow—say what you want in plain language and the assistant picks the right skill.
+- **Cascading sync:** Planning actions (daily-todo, weekly-plan) cascade top-down (tasks/TODO → monthly → weekly → daily); logging actions (daily-log, weekly-review) cascade bottom-up with lightweight status marks. All layers stay consistent automatically.
 
 ---
 
@@ -59,7 +60,7 @@ You talk; the assistant picks the right Skill:
   ✅ daily-todo       📝 daily-log
   (plan & execute)   (record)
 
-        ↕ 🔄 planning-sync (check three layers)
+        ↕ 🔄 planning-sync (check all layers)
 ```
 
 **🌅 Daily**: Morning "generate today's plan" → during day "I finished X" → evening "today I did… feeling…"
@@ -114,13 +115,13 @@ Aggregates the week's logs and Todo into a summary and stats.
 
 ### 🔄 jw-agenda-planning-sync — Plan consistency check
 
-Checks that daily, weekly, and monthly plans are consistent.
+Checks consistency across all planning levels (tasks/TODO, yearly, monthly, weekly, daily).
 
-**✨ Features**: Compare daily Todo, weekly plan, monthly plan for task content and completion; classify discrepancies as "action needed" or "informational"; show suggested changes and apply only after user confirmation.
+**✨ Features**: Compare task content and completion status across all available levels; classify discrepancies as "action needed" or "informational"; show suggested changes and apply only after user confirmation. Acts as a post-hoc global verification to catch any inconsistencies not caught by the other skills' cascading updates.
 
 **💬 Triggers**: "Sync plans", "Check consistency", "planning sync"
 
-**🔗 With others**: Scope depends on which Skills produced which files. With only daily-todo and weekly-plan, can still compare daily vs weekly.
+**🔗 With others**: Scope depends on which Skills produced which files. Verifies that daily-todo/weekly-plan's top-down cascades and daily-log/weekly-review's bottom-up status syncs are complete.
 
 ---
 
@@ -190,6 +191,7 @@ Skills install into the product's skill directory and **do not** live inside you
 <workspace>/
 └── jw-agenda-data/             ← jw-agenda root (default)
     ├── schedule-config.md      ← Optional; copy from any skill's assets/schedule-config.example.md
+    ├── yearly/                 ← Optional (yearly plan)
     ├── monthly/
     │   └── YYYY-MM-plan.md
     ├── weekly/
@@ -322,6 +324,7 @@ See [examples/README.md](examples/README.md) for details.
 
 | 📄 Type | 📋 Format | 📁 Dir | 💡 Example |
 |------|--------|-----|---------|
+| 📆 Yearly plan (optional) | `YYYY-plan.md` | `yearly/` | `2026-plan.md` |
 | 📅 Monthly plan | `YYYY-MM-plan.md` | `monthly/` | `2026-02-plan.md` |
 | 📊 Weekly plan | `Week{N}-plan.md` | `weekly/` | `Week1-plan.md` |
 | 📈 Weekly review | `Week{N}-review.md` | `weekly/` | `Week1-review.md` |

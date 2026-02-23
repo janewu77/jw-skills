@@ -28,11 +28,35 @@
   - 移动：`*(从 M.D 移入)*`（M.D 为原日期，如 `2.5` 表示 2 月 5 日）
   - 新增：`*(临时追加)*`
 
-## Step 5: 同步规划文件
+## Step 5: 从上往下级联同步规划文件
 
-- **当周规划**：若目标日在当周，更新 `{agendaRoot}/weekly/Week{W}-plan.md` 中对应日的任务
-- **当月规划**：若涉及跨周调整，在 `{agendaRoot}/monthly/YYYY-MM-plan.md` 对应位置体现变更
+**核心原则**：每次调整任务后，**必须从上往下逐层检查**，确保各层规划保持一致。不可只改日计划而忽略上层规划文件。
+
+按以下顺序逐层检查并更新：
+
+### 5a: tasks/TODO.md（总待办）
+
+- 若任务原本来自 `{agendaRoot}/tasks/TODO.md` 或其他 `todo-*.md`，且已被安排到具体日期 → 在总待办中标记已规划或移除
+- 若任务是新增的且无明确日期 → 写入 `{agendaRoot}/tasks/TODO.md`
+- 若任务取消 → 在总待办中也相应标记
+
+### 5b: 月规划（monthly/YYYY-MM-plan.md）
+
+- 若任务涉及本月目标、跨周变动或新增本月事项 → 在 `{agendaRoot}/monthly/YYYY-MM-plan.md` 对应位置体现变更
+- 若任务从本月移出（推迟到下月或取消） → 在月规划中更新状态
+
+### 5c: 周规划（weekly/Week{W}-plan.md）
+
+- 若目标日在当周 → 更新 `{agendaRoot}/weekly/Week{W}-plan.md` 中对应日的任务
+- 若任务从本周某日移到另一日 → 更新源日和目标日在周规划中的条目
+- 若涉及跨周 → 同时更新源周和目标周的规划文件
+
+### 5d: 日计划（daily/YYYY-MM-DD-todo.md）
+
+- 已在 Step 3-4 中处理（更新源日期 todo 和目标日期 todo）
+
+**注意**：每一层只在确实受影响时才修改，但必须逐层检查，不可跳过。
 
 ## Step 6: 汇报
 
-说明操作类型（移动/新增）、目标日期、已同步的文件。**必须列出所有修改过的文件路径**（如 `{agendaRoot}/daily/{日期}-todo.md`、周/月规划路径），让用户知道改动落在哪些文件。
+说明操作类型（移动/新增）、目标日期、已同步的文件。**必须列出所有修改过的文件路径**（如 `{agendaRoot}/tasks/TODO.md`、`{agendaRoot}/monthly/...`、`{agendaRoot}/weekly/...`、`{agendaRoot}/daily/{日期}-todo.md`），让用户知道改动落在哪些文件。

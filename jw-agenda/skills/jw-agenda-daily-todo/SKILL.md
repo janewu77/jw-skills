@@ -3,8 +3,8 @@ name: jw-agenda-daily-todo
 description: "Daily todo manager: generate today's plan, reschedule items, add ad-hoc tasks. Triggers: '生成今天的计划', 'today plan', '把X移到周三', '加一项', '明天要', '运行 daily-todo'. (Marking completion is handled by daily-log.)"
 metadata:
   author: Jing Wu
-  version: "0.1.2"
-  updated: "2026-02-09"
+  version: "0.2.0"
+  updated: "2026-02-23"
 ---
 
 # Daily Todo（处理当天）
@@ -14,6 +14,15 @@ metadata:
 **时间表**：今日时间表用来安排每天要做的事项。**优先**读取用户工作区 jw-agenda 根目录下的 `schedule-config.md`（即 `{agendaRoot}/schedule-config.md`）的「时段定义」表；若该文件不存在，则使用本 Skill 的 `assets/schedule-config.example.md`。固定活动（如出门、晚餐）不覆盖，仅「（填入当日任务）」的时段填入具体事项。
 
 **汇报规则**：每次新增或更新 todo 后，**必须告诉用户修改了哪些文件的实际路径**。
+
+**级联更新原则**：当调整任务（添加、移动、推迟、取消等）时，**必须从上往下逐层检查并同步更新**，确保各层规划一致：
+
+1. **tasks/TODO.md**（总待办）→ 若任务需从总待办中移除或标记已规划，更新此文件
+2. **月规划**（monthly/YYYY-MM-plan.md）→ 若任务涉及本月目标或跨周变动，更新月规划
+3. **周规划**（weekly/Week{W}-plan.md）→ 若任务涉及当周，更新周规划对应日
+4. **日计划**（daily/YYYY-MM-DD-todo.md）→ 最终落到具体日期的 todo 文件
+
+每一层只在确实受影响时才修改，但**必须逐层检查**，不可跳过。
 
 ## 安装前提
 
@@ -84,7 +93,7 @@ metadata:
 
 ### B2：更新状态
 
-识别目标条目和新状态，在今日 todo 中更新：已完成 → `[x]`；进行中 → `[ ]` 加 `（进行中）`；取消 → `[x]` 加 `（取消）`；推迟无目标日 → 加 `（推迟）`；推迟有目标日 → 转入模式 C。确认并说明已更新的文件路径。
+识别目标条目和新状态，在今日 todo 中更新：已完成 → `[x]`；进行中 → `[ ]` 加 `（进行中）`；取消 → `[x]` 加 `（取消）`；推迟无目标日 → 加 `（推迟）`；推迟有目标日 → 转入「添加/移动任务」模式（见 `references/mode-add-or-move.md`）。确认并说明已更新的文件路径。
 
 ---
 
@@ -95,8 +104,8 @@ metadata:
 | 月/周/昨天来源不存在 | 跳过，用已有数据生成 |
 | 三个主来源都不存在 | 生成空框架 todo，标注"无数据来源，请手动补充" |
 | 今日 todo 已存在（模式 A） | 幂等处理：仅追加不重复的新条目 |
-| 目标日期歧义（模式 C/D） | 推算后向用户确认具体日期 |
-| 临时追加目标文件不存在（模式 D） | 可创建最小框架再追加，或告知用户 |
+| 目标日期歧义（添加/移动任务） | 推算后向用户确认具体日期 |
+| 临时追加目标文件不存在（添加/移动任务） | 可创建最小框架再追加，或告知用户 |
 
 ## 与其他 Skill 的配合（可选）
 

@@ -1,15 +1,17 @@
 ---
 name: jw-agenda-planning-sync
-description: "Planning sync: check consistency between daily/weekly/monthly plans, list discrepancies, batch update after user confirmation. Triggers: '同步规划', '检查一致性', 'planning sync', '运行 planning-sync'."
+description: "Planning sync: check consistency across all planning levels (tasks/TODO, yearly, monthly, weekly, daily), list discrepancies, batch update after user confirmation. Triggers: '同步规划', '检查一致性', 'planning sync', '运行 planning-sync'."
 metadata:
   author: Jing Wu
-  version: "0.1.2"
-  updated: "2026-02-09"
+  version: "0.2.0"
+  updated: "2026-02-23"
 ---
 
 # Planning Sync（规划同步助手）
 
-检查日 todo、周规划、月规划之间的一致性，发现偏差后生成同步建议，**仅在用户确认后**批量更新。
+检查 tasks 总待办、年规划、月规划、周规划、日计划之间的一致性，发现偏差后生成同步建议，**仅在用户确认后**批量更新。
+
+**全层级检查原则**：本 Skill 覆盖规划体系的所有层级（tasks/TODO → 年 → 月 → 周 → 日），确保各层之间的任务内容对齐和完成状态同步。其他 Skill 在运行时会做各自方向的级联更新（daily-todo/weekly-plan 从上往下，daily-log/weekly-review 从下往上），本 Skill 作为**事后全局一致性检查**，捕捉遗漏的偏差。
 
 建议运行时机见**本 Skill 的 `assets/conventions.md`** 的「Planning Sync 建议时机」。
 
@@ -31,23 +33,33 @@ metadata:
 
 ### Step 1: 确定检查范围
 
-使用本 Skill 的 `assets/scripts/date_utils.py` 计算日期和周数，然后读取：
+使用本 Skill 的 `assets/scripts/date_utils.py` 计算日期和周数，然后按层级从上到下读取：
 
-- **日**：`{agendaRoot}/daily/{今天日期}-todo.md`（可选：最近 3–7 天的 todo）
-- **周**：`{agendaRoot}/weekly/Week{W}-plan.md`
+- **tasks 总待办**：`{agendaRoot}/tasks/TODO.md` 及其他 `todo-*.md`
+- **年规划**（若存在）：`{agendaRoot}/yearly/YYYY-plan.md` 或类似路径
 - **月**：`{agendaRoot}/monthly/YYYY-MM-plan.md`（当前月，如 2026-02-plan.md）
+- **周**：`{agendaRoot}/weekly/Week{W}-plan.md`
+- **日**：`{agendaRoot}/daily/{今天日期}-todo.md`（可选：最近 3–7 天的 todo 和 log）
 
 缺失的层级跳过，向用户说明（见 Error Handling）。
 
 ### Step 2: 对比分析
 
-从三个维度检查一致性：
+从三个维度、跨所有可用层级检查一致性：
 
-**维度 1 — 任务内容对齐**：日 todo 中的项是否在周/月规划中有对应？反向：周/月规划中「今日/本周」的项是否出现在日 todo 中？
+**维度 1 — 任务内容对齐（从上到下）**：
+- tasks/TODO 中已标记「已规划」的任务，是否确实出现在月/周/日规划中？
+- 月规划中本周/本日的任务，是否出现在周规划和日 todo 中？
+- 周规划中今日的任务，是否出现在日 todo 中？
+- 反向：日 todo / 周规划中的任务，是否在上层规划中有来源或已补入？
 
-**维度 2 — 完成状态同步**：日 todo 中已完成（`[x]`）的任务，周规划中是否也已标记完成？反向同理。
+**维度 2 — 完成状态同步（从下到上）**：
+- 日 todo / 日志中已完成（`[x]`）的任务，周规划中是否也已标记完成？
+- 周规划中已完成的任务，月规划中对应条目是否已标记？
+- 月规划中已完成的目标，年规划（若有）中是否已标记进展？
+- 以**日执行为准**向上同步（见 conventions 中的冲突裁决策略）
 
-**维度 3 — 新增/变更追踪**：日执行中新增的任务是否需补入周/月规划？取消/推迟的任务是否需修正？
+**维度 3 — 新增/变更追踪**：日执行中新增的任务是否需补入周/月规划？取消/推迟的任务是否在各层级都已同步修正？
 
 **内容对齐的比对策略**（维度 1 与 2 的判定方式）：
 - **任务内容对齐**：采用**归一化后关键词匹配**。提取条目正文（去掉 `- [ ]` / `- [x]`、来源标记如 `*(来自规划)*` 等）后，对前后空格与换行做规范化；若两条目的核心描述一致（去掉标记后文本相同或一方包含另一方关键词子串），则视为「同一任务」。不要求精确逐字匹配，以便容忍用户微调措辞。
@@ -78,15 +90,17 @@ metadata:
 | 情况 | 处理 |
 |------|------|
 | 某层级文件不存在 | 跳过该层级，仅检查可用的层级 |
+| tasks/TODO.md 不存在 | 跳过总待办检查 |
+| 年规划不存在 | 跳过年规划检查（年规划为可选） |
 | 仅有一个层级存在 | 无法做跨层对比，告知用户并建议先生成缺失的规划 |
-| 无偏差 | 汇报「三层规划一致，无需同步」 |
+| 无偏差 | 汇报「各层规划一致，无需同步」 |
 | 用户不确认任何建议 | 汇报「未做任何修改」，不执行任何写操作 |
 
 ## 与其他 Skill 的配合（可选）
 
 - 检查范围取决于用户数据目录中已有的文件。本 Skill 不依赖其他 Skill，但其他 Skill 产出的文件越多，检查越全面。
-- 若安装了 **daily-todo**：其模式 C 会同步更新周/月规划；本 Skill 做的是事后一致性检查，两者互补。
-- 若安装了 **weekly-plan / weekly-review**：它们产出的规划和总结文件会被纳入检查范围。
+- 若安装了 **daily-todo / weekly-plan**：它们在调整任务时会从上往下级联更新（tasks/TODO → 月 → 周 → 日）；本 Skill 做的是事后全局一致性检查，捕捉遗漏的偏差。
+- 若安装了 **daily-log / weekly-review**：它们在记录日志/回顾时会从下往上级联同步完成状态（日 → 周 → 月 → 年）；本 Skill 验证这些同步是否完整。
 
 ## Resources
 
