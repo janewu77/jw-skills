@@ -3,8 +3,8 @@ name: jw-agenda-v2
 description: "日程管理全套工具：生成今日计划、整理每日日志、生成本周规划、生成周总结回顾、检查规划一致性。触发词：'生成今天的计划'、'today plan'、'加一项'、'把X移到周三'、'明天要'、'整理昨天的日志'、'总结昨天'、'汇报今天'、'记录一下今天'、'我完成了X'、'作业做完了'、'daily log'、'生成本周计划'、'周规划'、'weekly plan'、'周总结'、'本周回顾'、'上周回顾'、'weekly review'、'同步规划'、'检查一致性'、'planning sync'、'运行 daily-todo'、'运行 daily-log'、'运行 weekly-plan'、'运行 weekly-review'、'运行 planning-sync'。"
 metadata:
   author: Jing Wu
-  version: "1.0.0"
-  updated: "2026-03-19"
+  version: "1.1.0"
+  updated: "2026-03-23"
 ---
 
 # jw-agenda-v2

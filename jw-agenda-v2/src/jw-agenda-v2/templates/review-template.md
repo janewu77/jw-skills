@@ -22,7 +22,10 @@
 
 ## 学习与产出
 
-{{LEARNING_OUTPUT}}
+{{#each SUMMARY_CATEGORIES}}
+### {{this.name}}
+{{this.content}}
+{{/each}}
 
 ## 转入下周
 

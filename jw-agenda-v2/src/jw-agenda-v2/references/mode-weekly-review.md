@@ -13,7 +13,7 @@
 
 ## 安装前提
 
-本模式仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks。先按 conventions 解析 jw-agenda 根目录。
+本模式仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks；可选 `summary-categories.md` 用于自定义总结分类。先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -37,6 +37,8 @@
 **可选来源**：
 - `{agendaRoot}/weekly/Week{W}-plan.md`：对比计划 vs 实际
 
+**总结分类配置**：读取 `{agendaRoot}/summary-categories.md`（若不存在则使用本 Skill 的 `assets/summary-categories.example.md`），获取分类列表，用于 Step 3 和 Step 4 按分类维度汇总产出。
+
 记录哪些天有数据、哪些天缺失。
 
 ## Step 3: 统计分析
@@ -45,7 +47,7 @@
 
 **时间分配**：从每日日志的「时间分配」部分提取，按类别汇总。
 
-**产出汇总**：从每日日志的「学习/产出」部分汇总为列表。
+**产出汇总**：从每日日志的「学习/产出」部分，按总结分类配置中的分类维度进行汇总。每个分类生成一个子段落（`### 分类名`），汇总本周在该维度的所有活动与产出。若某分类本周无内容，可省略或写「无」（参见 conventions 中的空分类处理规则）。
 
 ## Step 4: 生成周总结
 

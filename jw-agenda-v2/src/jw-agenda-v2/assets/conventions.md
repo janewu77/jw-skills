@@ -2,7 +2,7 @@
 
 ## 路径查找
 
-本约定位于**本 Skill 的 `assets/conventions.md`**。所有 Skill 在运行前应读取此文件（相对于本 Skill 的安装目录），以获取下方约定。用户工作区中仅存放**数据**与**可选的用户作息配置**，见「jw-agenda 根目录」与「目录路径」、「文件命名规则」。
+本约定位于**本 Skill 的 `assets/conventions.md`**。所有 Skill 在运行前应读取此文件（相对于本 Skill 的安装目录），以获取下方约定。用户工作区中仅存放**数据**与**可选的用户配置**（作息配置、总结分类配置），见「jw-agenda 根目录」与「目录路径」、「文件命名规则」。
 
 ## jw-agenda 根目录（可配置）
 
@@ -38,12 +38,23 @@
 | 阅读清单 | `todo-readinglist.md` | `{agendaRoot}/tasks/todo-readinglist.md` |
 | 未定日期 / 待办池 | `TODO.md` | `{agendaRoot}/tasks/TODO.md` |
 | 作息时间配置（可选） | `schedule-config.md` | `{agendaRoot}/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
+| 总结分类配置（可选） | `summary-categories.md` | `{agendaRoot}/summary-categories.md`（若不存在，使用本 Skill 的 `assets/summary-categories.example.md`） |
 
 上述示例中的路径均相对于 jw-agenda 根目录；默认 `agendaRoot` 为 `jw-agenda-data`，实际以当前解析到的配置为准。
 
 **tasks 目录下以 `todo` 开头的文件**（如 `TODO.md`、`todo-readinglist.md`、`todo-xxx.md`）均视为待办/清单。生成周规划或日计划时，应将上述文件中的未勾选项作为可选来源纳入考虑。
 
 **日志中的「今日想法/随口记」**：用户口语化汇报进度时，想法、感受、碎碎念记入该区块，原意保留，便于日后回顾。
+
+## 总结分类配置
+
+daily-log 和 weekly-review 的「学习/产出」模块按**可配置的分类维度**进行总结。
+
+**配置来源**：优先读取 `{agendaRoot}/summary-categories.md`；若不存在，使用本 Skill 的 `assets/summary-categories.example.md`。
+
+**配置格式**：`## Categories / 分类列表` 下以 `- ` 开头的每行即为一个分类。Agent 在生成日志或周总结时，从该文件解析分类列表，在「学习/产出」区块下按顺序为每个分类生成子段落（`- **分类名**：内容`）。
+
+**空分类处理**：当天/当周若某分类无相关内容，该分类行显示「无」或直接省略，由 Agent 根据数据丰富度决定——若大部分分类有内容则保留「无」以保持结构一致，若仅少数分类有内容则省略空分类以减少噪音。
 
 ## 周数计算规则
 

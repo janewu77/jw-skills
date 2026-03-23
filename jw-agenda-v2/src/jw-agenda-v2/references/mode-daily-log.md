@@ -17,7 +17,7 @@
 
 ## 安装前提
 
-本模式仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks；可选 jw-agenda 根目录下的 `schedule-config.md` 用于自定义作息。先按 conventions 解析 jw-agenda 根目录。
+本模式仅依赖用户 workspace 下存在 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 workspace 根目录的 `.jw-agenda.json` 或 `jw-agenda.json` 配置）及子目录 monthly、weekly、daily、tasks；可选 jw-agenda 根目录下的 `schedule-config.md` 用于自定义作息，`summary-categories.md` 用于自定义总结分类。先按 conventions 解析 jw-agenda 根目录。
 
 ## 约定
 
@@ -34,8 +34,9 @@
 
 ## Step 1: 确定日期与数据来源
 
-- **若用户要「总结昨天」**：计算昨天日期（推荐使用本 Skill 的 `scripts/date_utils.py`）；读取 `{昨天日期}-todo.md`、`{昨天日期}-log.md`（若有）；从数据中识别已完成 / 未完成 / 时间分配 / 学习产出。
+- **若用户要「总结昨天」**：计算昨天日期（推荐使用本 Skill 的 `scripts/date_utils.py`）；读取 `{昨天日期}-todo.md`、`{昨天日期}-log.md`（若有）；从数据中识别已完成 / 未完成 / 时间分配 / 按总结分类维度归纳学习产出。
 - **若用户「汇报今天」（口语化）**：计算今天日期；从用户输入中解析完成的事、未完成、时间或顺序、想法/感受/碎碎念。
+- **读取总结分类配置**：读取 `{agendaRoot}/summary-categories.md`（若不存在则使用本 Skill 的 `assets/summary-categories.example.md`），获取分类列表，用于 Step 2 填充「学习/产出」区块。
 
 ## Step 2: 生成日志文件
 
@@ -43,7 +44,9 @@
 
 **路径**：jw-agenda 根目录下的 `daily/{目标日期}-log.md`（即 `{agendaRoot}/daily/{目标日期}-log.md`）
 
-**模板变量**：`{{DATE}}`、`{{COMPLETED_TASKS}}`、`{{TIME_ALLOCATION}}`、`{{ACTUAL_WORK_TIME}}`（实际工作/学习时长汇总，如「约 6h50（德语约 50min + jw-agenda skills 约 6h）」）、`{{LEARNING_OUTPUT}}`、`{{INCOMPLETE_TASKS}}`、`{{SUMMARY}}`、`{{NOTES_AND_THOUGHTS}}`（想法/随口记，无则写「无」）、`{{TIMESTAMP}}`。
+**模板变量**：`{{DATE}}`、`{{COMPLETED_TASKS}}`、`{{TIME_ALLOCATION}}`、`{{ACTUAL_WORK_TIME}}`（实际工作/学习时长汇总，如「约 6h50（德语约 50min + jw-agenda skills 约 6h）」）、`{{SUMMARY_CATEGORIES}}`（按总结分类配置生成，见下方说明）、`{{INCOMPLETE_TASKS}}`、`{{SUMMARY}}`、`{{NOTES_AND_THOUGHTS}}`（想法/随口记，无则写「无」）、`{{TIMESTAMP}}`。
+
+**总结分类**：生成日志前，读取 `{agendaRoot}/summary-categories.md`（若不存在则使用本 Skill 的 `assets/summary-categories.example.md`），解析 `## Categories / 分类列表` 下的分类列表。在「学习/产出」区块中，按分类顺序逐项总结当天在该维度的活动与产出。格式为 `- **分类名**：内容摘要`。若某分类当天无内容，可省略或写「无」（参见 conventions 中的空分类处理规则）。
 
 若 jw-agenda 根目录下的 `daily/` 不存在则创建。
 

@@ -12,7 +12,9 @@
 
 ## 学习/产出
 
-{{LEARNING_OUTPUT}}
+{{#each SUMMARY_CATEGORIES}}
+- **{{this.name}}**：{{this.content}}
+{{/each}}
 
 ## 未完成任务
 
