@@ -21,3 +21,4 @@ jw-agenda/output
 _tmp/*
 .claude
 .pytest_cache
+
