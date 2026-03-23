@@ -1,5 +1,9 @@
 # Schedule Configuration / 作息时间配置
 
+> **📋 这是示例文件** — 请复制到 `{agendaRoot}/schedule-config.md` 并根据自己的作息调整时段。
+>
+> **📋 This is an EXAMPLE file** — Copy to `{agendaRoot}/schedule-config.md` and adjust time slots to match your schedule.
+
 daily-todo reads this file to get time slot configuration when generating schedules. Modify this file to adjust all future generated schedules.
 
 daily-todo 生成时间表时会读取本文件获取时段配置。修改本文件即可调整所有未来生成的时间表。

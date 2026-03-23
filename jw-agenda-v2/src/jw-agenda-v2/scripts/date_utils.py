@@ -5,7 +5,11 @@
     python3 date_utils.py                  # 输出今天的所有日期信息
     python3 date_utils.py 2026-02-05       # 输出指定日期的信息
     python3 date_utils.py --yesterday      # 输出昨天的信息
+    python3 date_utils.py --tomorrow       # 输出明天的信息
     python3 date_utils.py --week-range     # 输出本周一至周日的日期范围
+    python3 date_utils.py --next-week      # 输出下周一至周日的日期范围
+    python3 date_utils.py --prev-week      # 输出上周一至周日的日期范围
+    python3 date_utils.py --month-range    # 输出本月每天的日期范围
 
 测试时可设环境变量 DATE_UTILS_TODAY（ISO 日期）固定「今天」。
 """
@@ -80,19 +84,59 @@ def get_date_info(d: date) -> dict:
     }
 
 
+def _get_week_range(reference_date: date, week_offset: int = 0) -> list:
+    """获取指定周的日期范围（周一至周日）。
+
+    Args:
+        reference_date: 参考日期
+        week_offset: 周偏移量（0=本周，1=下周，-1=上周）
+    """
+    monday = reference_date - timedelta(days=reference_date.weekday())
+    monday = monday + timedelta(weeks=week_offset)
+    days = []
+    for i in range(7):
+        d = monday + timedelta(days=i)
+        days.append(get_date_info(d))
+    return days
+
+
+def _get_month_range(reference_date: date) -> list:
+    """获取指定月份的所有日期。"""
+    from calendar import monthrange
+
+    year, month = reference_date.year, reference_date.month
+    _, last_day = monthrange(year, month)
+
+    days = []
+    for day in range(1, last_day + 1):
+        d = date(year, month, day)
+        days.append(get_date_info(d))
+    return days
+
+
 def main():
     args = sys.argv[1:]
+    today = _today()
 
     if "--yesterday" in args:
-        target = _today() - timedelta(days=1)
+        target = today - timedelta(days=1)
+    elif "--tomorrow" in args:
+        target = today + timedelta(days=1)
     elif "--week-range" in args:
-        today = _today()
-        monday = today - timedelta(days=today.weekday())
-        days = []
-        for i in range(7):
-            d = monday + timedelta(days=i)
-            days.append(get_date_info(d))
+        days = _get_week_range(today, week_offset=0)
         print(json.dumps({"week_range": days}, ensure_ascii=False, indent=2))
+        return
+    elif "--next-week" in args:
+        days = _get_week_range(today, week_offset=1)
+        print(json.dumps({"week_range": days}, ensure_ascii=False, indent=2))
+        return
+    elif "--prev-week" in args:
+        days = _get_week_range(today, week_offset=-1)
+        print(json.dumps({"week_range": days}, ensure_ascii=False, indent=2))
+        return
+    elif "--month-range" in args:
+        days = _get_month_range(today)
+        print(json.dumps({"month_range": days}, ensure_ascii=False, indent=2))
         return
     elif args and not args[0].startswith("--"):
         try:
@@ -101,7 +145,7 @@ def main():
             print(f"date_utils: {e}", file=sys.stderr)
             sys.exit(1)
     else:
-        target = _today()
+        target = today
 
     info = get_date_info(target)
 

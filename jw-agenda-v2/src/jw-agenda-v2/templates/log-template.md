@@ -12,9 +12,13 @@
 
 ## 学习/产出
 
-{{#each SUMMARY_CATEGORIES}}
-- **{{this.name}}**：{{this.content}}
-{{/each}}
+{{SUMMARY_CATEGORIES}}
+
+<!-- 按 summary-categories.md 中的分类逐项生成，格式示例：
+- **投递**：内容摘要
+- **英文训练**：内容摘要
+- **德语学习**：无
+若某分类无内容可省略或写「无」 -->
 
 ## 未完成任务
 

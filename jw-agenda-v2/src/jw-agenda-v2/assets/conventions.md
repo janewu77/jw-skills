@@ -21,9 +21,21 @@
 | 周规划、周总结 | `{agendaRoot}/weekly/` |
 | 日 Todo、日日志 | `{agendaRoot}/daily/` |
 | 其他任务与清单（含阅读清单、采购清单等） | `{agendaRoot}/tasks/` |
+| 用户作息配置（可选） | `{agendaRoot}/schedule-config.md` |
+| 总结分类配置（可选） | `{agendaRoot}/summary-categories.md` |
 
-**daily 目录归档规则**：当日及近期（约 2 周内）的 todo、log 放在 `daily/` 根下。**二周以前**的文件移入按年月命名的子目录（如 `202601/`、`202602/`，格式 `YYYYMM`）。之后如需归档某月文件，在 `daily/` 下新建对应 `YYYYMM/` 子目录，并将超过两周的该月文件移入其中。
-| 用户作息配置（可选） | 单文件 `{agendaRoot}/schedule-config.md`，见下方文件命名。 |
+**daily 目录归档规则**：当日及近期的 todo、log 放在 `daily/` 根下。超过归档阈值的文件移入按年月命名的子目录（如 `202601/`、`202602/`，格式 `YYYYMM`）。
+
+**归档阈值配置**：默认 14 天（2 周）。可在 `.jw-agenda.json` 中通过 `archiveAfterDays` 字段自定义：
+
+```json
+{
+  "agendaRoot": "jw-agenda-data",
+  "archiveAfterDays": 14
+}
+```
+
+设为 `0` 或负数则禁用自动归档。
 
 ## 文件命名规则
 
@@ -35,6 +47,7 @@
 | 日 Todo | `YYYY-MM-DD-todo.md` | `2026-02-05-todo.md` |
 | 日志 | `YYYY-MM-DD-log.md` | `2026-02-05-log.md` |
 | 周总结 | `Week{N}-review.md`（N = 年内周号，与周规划一致） | `Week6-review.md` |
+| 月总结 | `YYYY-MM-review.md` | `2026-02-review.md` |
 | 阅读清单 | `todo-readinglist.md` | `{agendaRoot}/tasks/todo-readinglist.md` |
 | 未定日期 / 待办池 | `TODO.md` | `{agendaRoot}/tasks/TODO.md` |
 | 作息时间配置（可选） | `schedule-config.md` | `{agendaRoot}/schedule-config.md`（若不存在，daily-todo 使用本 Skill 的 `assets/schedule-config.example.md`） |
@@ -64,6 +77,8 @@ daily-log 和 weekly-review 的「学习/产出」模块按**可配置的分类�
 
 **计算示例**：2026-02-05（周四）所在周为 2026 年第 6 周 → 周规划 `Week6-plan.md`，周总结 `Week6-review.md`。
 
+**跨年周说明**：ISO 周以周四所在年份为准。例如 2025-12-29（周一）至 2026-01-04（周日）这一周，周四为 2026-01-01，故属于 **2026 年 Week1**。同理，若某年 12 月 31 日是周一至周三，则该日属于下一年的 Week1；若是周四至周日，则属于当年最后一周。
+
 **推荐**：使用**本 Skill 的** `assets/scripts/date_utils.py` 计算日期和周数，避免手算错误。`assets/scripts/dedup_todos.py` 供合并 todo 时去重（如 daily-todo 模式 A 幂等合并）；可选，Skill 也可在逻辑内自行去重。**调用 dedup_todos.py 时仅传入 jw-agenda 根目录下的路径**（即已按用户配置解析后的路径），脚本会校验路径位于 workspace 内，避免路径遍历。
 
 ## 临时追加的归属
@@ -90,6 +105,15 @@ daily-log 和 weekly-review 的「学习/产出」模块按**可配置的分类�
 | 来自阅读清单 | `*(来自阅读清单)*` |
 | 来自 tasks 清单（含上述及其他 todo 开头文件） | `*(来自 tasks 清单)*` |
 | 临时追加（通过 daily-todo 添加/移动任务模式添加） | `*(临时追加)*` |
+
+**来源标记优先级**：当任务同时满足多个来源条件时，按以下顺序选择第一个匹配的标记（不叠加）：
+1. `*(从昨天转移)*` — 昨日未完成优先级最高，即使任务也在规划中
+2. `*(从 M.D 移入)*` — 从其他日期显式移入
+3. `*(来自规划)*` — 纯粹来自周/月规划
+4. `*(来自阅读清单)*` / `*(来自 tasks 清单)*` — 来自清单
+5. `*(临时追加)*` — 当次对话中新增
+
+**原则**：优先标记「已发生的事实」（昨日遗留），其次是「显式操作」（移入），最后是「来源出处」（规划/清单）。
 
 ## 状态标记（daily-todo 更新状态时使用）
 
@@ -153,3 +177,24 @@ daily-log 和 weekly-review 的「学习/产出」模块按**可配置的分类�
 | 所有来源都缺失 | 生成最小框架（仅标题和空白区块），标注"无数据来源，请手动补充" |
 | 文件已存在（幂等性） | 先读取现有内容，仅追加不重复的新条目，保留用户已有的勾选和备注 |
 | 日期歧义（如"下周"） | 推算具体日期后向用户确认 |
+
+## 模板变量命名约定
+
+模板文件（`templates/*.md`）中的占位符统一使用 `{{UPPER_SNAKE_CASE}}` 格式：
+
+| 类别 | 示例 | 说明 |
+|------|------|------|
+| 日期 | `{{DATE}}`、`{{START_DATE}}`、`{{END_DATE}}` | 日期相关 |
+| 周/月 | `{{WEEK_NUM}}`、`{{YEAR_MONTH}}` | 周号或年月 |
+| 任务列表 | `{{COMPLETED_TASKS}}`、`{{INCOMPLETE_TASKS}}`、`{{CARRY_OVER_ITEMS}}` | 任务列表（复数） |
+| 单个任务 | `{{TASK}}` | 占位符，表示此处填入具体任务 |
+| 时间 | `{{TIMESTAMP}}`、`{{TIME_ALLOCATION}}`、`{{ACTUAL_WORK_TIME}}` | 时间戳或时间分配 |
+| 统计计数 | `{{COMPLETED_COUNT}}`、`{{TOTAL_COUNT}}`、`{{ACTION_COUNT}}` | 数量统计（以 `_COUNT` 结尾） |
+| 统计比率 | `{{COMPLETION_RATE}}` | 比率统计（以 `_RATE` 结尾） |
+
+**命名规则**：
+- 全大写，单词间用下划线分隔
+- 使用完整单词而非缩写（如 `{{WEEK_NUM}}` 而非 `{{W}}`）
+- 列表用 `_S`、`_ITEMS` 或 `_LIST` 后缀（如 `{{COMPLETED_TASKS}}`）
+- 数量用 `_COUNT` 后缀（如 `{{COMPLETED_COUNT}}`）
+- 比率用 `_RATE` 后缀（如 `{{COMPLETION_RATE}}`）
