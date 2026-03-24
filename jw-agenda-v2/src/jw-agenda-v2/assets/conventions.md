@@ -93,6 +93,11 @@ daily-log 和 weekly-review 的「学习/产出」模块按**可配置的分类�
 
 详见 `assets/conventions-cascade.md`（daily-log、weekly-review、monthly-review、weekly-plan、add-or-move、planning-sync 在开始前加载）。
 
+## 通用执行规则
+
+- **汇报义务**：每次操作后必须告知用户所有修改过的文件路径。
+- **级联方向**：各模式的级联方向与路径见 `assets/conventions-cascade.md` 中的方向表，模式文件不再重复声明。
+
 ## 错误处理默认策略
 
 | 情况 | 处理方式 |

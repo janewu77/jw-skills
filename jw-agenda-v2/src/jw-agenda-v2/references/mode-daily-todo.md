@@ -2,9 +2,7 @@
 
 管理今日 todo 的全生命周期：生成、调整。
 
-> **前置条件**：开始前读取 `assets/conventions.md`（路径、命名等基础约定）+ `assets/conventions-marks.md`（来源/状态/优先级标记）。
-> **级联方向**：从上往下（tasks→月→周→日）；添加/移动任务时读取 `assets/conventions-cascade.md`。
-> **汇报规则**：每次操作后必须告知用户修改了哪些文件路径。
+> **额外加载**：`assets/conventions-marks.md`；子模式 C 另需 `assets/conventions-cascade.md`。
 
 **时间表配置**：优先读取 `{agendaRoot}/schedule-config.md`；若不存在则使用 `assets/schedule-config.example.md`。固定活动不覆盖，仅空白时段填入任务。
 
@@ -89,8 +87,4 @@
 
 | 情况 | 处理 |
 |------|------|
-| 月/周/昨天来源不存在 | 跳过，用已有数据生成 |
-| 三个主来源都不存在 | 生成空框架 todo，标注"无数据来源，请手动补充" |
-| 今日 todo 已存在（子模式 A） | 幂等处理：仅追加不重复的新条目 |
-| 目标日期歧义（添加/移动任务） | 推算后向用户确认具体日期 |
 | 临时追加目标文件不存在（添加/移动任务） | 可创建最小框架再追加，或告知用户 |
