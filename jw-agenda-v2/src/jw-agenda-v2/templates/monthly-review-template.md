@@ -6,6 +6,7 @@
 - **数据覆盖**：{{WEEKS_WITH_DATA}}/{{TOTAL_WEEKS}} 周有总结记录
 - **本月亮点**：{{HIGHLIGHTS}}
 
+<!-- OPTIONAL: 仅在存在月规划（YYYY-MM-plan.md）时生成，否则省略整个段落 -->
 ## 目标达成情况
 
 {{GOAL_STATUS}}
@@ -28,6 +29,7 @@
 
 {{SUMMARY_CATEGORIES}}
 
+<!-- OPTIONAL: 仅在有转入事项时生成，否则省略整个段落 -->
 ## 转入下月
 
 {{CARRY_OVER_ITEMS}}

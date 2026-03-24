@@ -10,6 +10,8 @@
     python3 date_utils.py --next-week      # 输出下周一至周日的日期范围
     python3 date_utils.py --prev-week      # 输出上周一至周日的日期范围
     python3 date_utils.py --month-range    # 输出本月每天的日期范围
+    python3 date_utils.py --prev-month     # 输出上月每天的日期范围
+    python3 date_utils.py --next-month     # 输出下月每天的日期范围
 
 测试时可设环境变量 DATE_UTILS_TODAY（ISO 日期）固定「今天」。
 """
@@ -136,6 +138,18 @@ def main():
         return
     elif "--month-range" in args:
         days = _get_month_range(today)
+        print(json.dumps({"month_range": days}, ensure_ascii=False, indent=2))
+        return
+    elif "--prev-month" in args:
+        prev_month = today.replace(day=1) - timedelta(days=1)  # last day of prev month
+        days = _get_month_range(prev_month)
+        print(json.dumps({"month_range": days}, ensure_ascii=False, indent=2))
+        return
+    elif "--next-month" in args:
+        from calendar import monthrange
+        _, last_day = monthrange(today.year, today.month)
+        next_month = today.replace(day=last_day) + timedelta(days=1)  # first day of next month
+        days = _get_month_range(next_month)
         print(json.dumps({"month_range": days}, ensure_ascii=False, indent=2))
         return
     elif args and not args[0].startswith("--"):

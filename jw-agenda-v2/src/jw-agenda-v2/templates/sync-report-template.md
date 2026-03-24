@@ -2,9 +2,11 @@
 
 ## 检查范围
 
-- 日 Todo：{{DAILY_FILES}}
-- 周规划：{{WEEKLY_FILE}}
+- tasks/TODO.md：{{TASKS_TODO_FILE}}
+- 年规划：{{YEARLY_FILE}}
 - 月规划：{{MONTHLY_FILE}}
+- 周规划：{{WEEKLY_FILE}}
+- 日 Todo：{{DAILY_FILES}}
 
 ## 偏差汇总
 

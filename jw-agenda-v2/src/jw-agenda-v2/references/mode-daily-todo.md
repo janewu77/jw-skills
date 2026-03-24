@@ -2,8 +2,8 @@
 
 管理今日 todo 的全生命周期：生成、调整。
 
-> **前置条件**：开始前读取 `assets/conventions.md` 获取路径、命名、来源标记等约定。
-> **级联方向**：从上往下（tasks→月→周→日），详见 conventions.md「级联更新机制」。
+> **前置条件**：开始前读取 `assets/conventions.md`（路径、命名等基础约定）+ `assets/conventions-marks.md`（来源/状态/优先级标记）。
+> **级联方向**：从上往下（tasks→月→周→日）；添加/移动任务时读取 `assets/conventions-cascade.md`。
 > **汇报规则**：每次操作后必须告知用户修改了哪些文件路径。
 
 **时间表配置**：优先读取 `{agendaRoot}/schedule-config.md`；若不存在则使用 `assets/schedule-config.example.md`。固定活动不覆盖，仅空白时段填入任务。
@@ -42,7 +42,7 @@
 
 **去重规则**：从上述来源（月规划、周规划、昨天未完成、tasks 清单）中内容相同或高度相似的事项只保留一条。若某条既在昨天未完成又在规划中，以 `*(从昨天转移)*` 标记。
 
-**来源标记与优先级**：按 `conventions.md` 中的来源标记和优先级标识规则执行。
+**来源标记与优先级**：按 `assets/conventions-marks.md` 中的来源标记和优先级标识规则执行。
 
 ### Step 4: 写入文件
 

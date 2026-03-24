@@ -6,8 +6,8 @@ import sys
 import tempfile
 import unittest
 
-# 添加当前目录到路径
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+# 添加 scripts 目录到路径
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "jw-agenda-v2", "scripts"))
 
 from dedup_todos import normalize, extract_items, _path_under_root
 

@@ -37,3 +37,36 @@
 - [x] conventions.md 增加跨年周说明（如 2025-12-29 属于 2026 年 Week1） ✅
 - [x] mode-planning-sync.md Step 5 支持「仅执行 ⚠️ 需行动项」的快捷选项 ✅
 - [x] 统一模板变量命名风格 ✅（`{{W}}` → `{{WEEK_NUM}}`，添加命名约定文档）
+
+---
+
+### 第二轮审阅改进项（2026-03-23）
+
+#### 🔴 高优先级
+
+- [x] **修复 conventions.md 脚本路径** — 第 82 行 `assets/scripts/date_utils.py` 和 `assets/scripts/dedup_todos.py` 路径错误，实际应为 `scripts/date_utils.py` 和 `scripts/dedup_todos.py` ✅
+- [x] **统一模式编号** — mode-planning-sync.md 自称「模式五」、mode-monthly-review.md 自称「模式六」，与 routing.md（月总结=5、规划同步=6）矛盾，以 routing.md 为准修改两个 mode 文件标题 ✅
+- [x] **mode-add-or-move.md 增加错误处理段落** — 其他 mode 文件均有独立错误处理表，此文件缺失。至少覆盖：目标日期歧义、目标文件不存在、源任务找不到、跨月/跨年边界 ✅
+
+#### 🟡 中优先级
+
+- [x] **提取级联同步逻辑到 conventions.md** — 级联更新步骤在 5 个 mode 文件中大量重复，提取为 conventions.md「级联同步标准步骤」子章节，各 mode 改为引用 ✅
+- [x] **date_utils.py 增加 `--prev-month` / `--next-month`** — 月总结模式需要上月日期范围，当前缺少直接支持 ✅
+- [x] **新增 test_date_utils.py** — date_utils.py 无单元测试，需覆盖：跨年周、闰年、`--prev-week`/`--next-week` 边界等 ✅（30 个测试，全部通过）
+- [x] **扩充 routing.md 触发词** — 英文触发词过少，补充中英混合和口语化表达（如「帮我安排明天」「规划下周」「review this week」），可分精确匹配与模糊匹配两层 ✅
+- [x] **支持季度/自定义时间范围总结** — 在月总结模式中增加参数支持（如 `monthly-review Q1` 或 `monthly-review 2026-01 to 2026-03`） ✅
+
+#### 🟢 低优先级
+
+- [x] **添加 .gitignore** — 排除 `__pycache__/`、`.DS_Store`、`*.pyc` ✅
+- [x] **dedup_todos.py 归一化增加英文括号处理** — 当前只清理中文括号备注 `（.*?）`，英文 `(.*?)` 未处理，导致英文条目去重可能失败 ✅
+- [x] **周总结归档功能可拆分** — Step 6 归档逻辑可提取为独立触发命令（如 `归档日志` / `archive daily`），周总结中默认调用但也可单独使用 ✅
+- [x] **模板增加可选区块标记** — 用 `<!-- OPTIONAL: 仅在有数据时生成 -->` 标记可省略区块，给 Agent 明确的省略依据 ✅
+- [x] **优化 SKILL.md description 触发词** — 补充英文关键词和常见触发场景，提升跨语言触发准确性 ✅
+
+#### 📝 小改进
+
+- [x] conventions.md「临时追加的归属」表格标注写入顺序（「依次写入」或「同时写入」） ✅
+- [x] sync-report-template.md 检查范围补充 `tasks/TODO.md` 和年规划字段，与 mode-planning-sync.md 实际检查范围对齐 ✅
+- [x] week-template.md 总览表增加「来源」列（来自规划/从上周转移） ✅
+- [x] conventions.md 增加版本号或变更日志段落 ✅
