@@ -2,10 +2,10 @@
 
 ### 原有计划
 
--1 [ ] 写 jw-agenda-v2 的文档（skill 介绍、与 jw-agenda 的关系）
--2 [ ] 是否要写成英文的 prompt？
--3 [ ] 更新上一层的文档（先列出有哪些要更新改的）
--4 [ ] **考虑增加月总结模式** — 当前只有 weekly-review，可增加 mode-monthly-review.md（或明确说明由用户手动维护）
+- #1 [ ] 写 jw-agenda-v2 的文档（skill 介绍、与 jw-agenda 的关系）
+- #2 [ ] 是否要写成英文的 prompt？
+- #3 [ ] 更新上一层的文档（先列出有哪些要更新改的）
+- #4 [ ] **考虑增加月总结模式** — 当前只有 weekly-review，可增加 mode-monthly-review.md（或明确说明由用户手动维护）
 
 ---
 
@@ -70,3 +70,35 @@
 - [x] sync-report-template.md 检查范围补充 `tasks/TODO.md` 和年规划字段，与 mode-planning-sync.md 实际检查范围对齐 ✅
 - [x] week-template.md 总览表增加「来源」列（来自规划/从上周转移） ✅
 - [x] conventions.md 增加版本号或变更日志段落 ✅
+
+---
+
+### 第三轮审阅改进项（2026-03-27）
+
+> 基于 [jw-agenda-v2-review.md](../jw-agenda-v2-review.md)
+
+#### 🔴 P0 — 必须修复
+
+- #5 [ ] **统一状态标记体系** — `week-template.md` 用 emoji（✅⬜❌），`daily-todo-template.md` 用 checkbox（`[x]`/`[ ]`），在 `conventions-marks.md` 中明确各层级使用哪种标记
+- #6 [ ] **明确去重算法** — 在 `conventions.md` 新增 "Deduplication" 一节，定义标准流程：去除标记 → trim → 大小写不敏感 → 子串匹配
+- #7 [ ] **收紧 Planning Sync 匹配逻辑** — `mode-planning-sync.md:48` 的 "key substring" 匹配太宽松，改为"去标记后文本完全相同 OR 用户确认"
+
+#### 🟡 P1 — 应该修复
+
+- #8 [ ] **补全 `{{SCHEDULE_TABLE}}` 结构** — 在 `daily-todo-template.md` 中展示期望的表结构（Time | Activity | Notes）
+- #9 [ ] **补全 sync report 示例** — 在 `sync-report-template.md` 中为 `{{ACTION_ITEMS}}` / `{{INFO_ITEMS}}` 加 2-3 行 example block
+- #10 [ ] **补全 source legend** — `daily-todo-template.md` 只列了 2 个标记，补全为 6 个或注明"完整列表见 conventions-marks.md"
+- #11 [ ] **统一 Carry Over 可选逻辑** — `review-template.md` 标注 optional 但 `mode-weekly-review.md` 总是包含 → 统一为"无 carry-over 项时省略该节"
+- #12 [ ] **统一 Goal Achievement 处理** — `monthly-review-template.md` 说跳过，`mode-monthly-review.md` 说问用户生成骨架 → 选一个策略
+- #13 [ ] **消除日期格式歧义** — 在 `conventions-marks.md` 明确 `*(moved from M.D)*` 中 M.D = 月.日简写，仅用于标记
+- #14 [ ] **区分同名模板变量** — monthly review 模板中 `{{ACTUAL_WORK_TIME}}` 改为 `{{TOTAL_WORK_TIME}}`，避免与 daily log 同名变量混淆
+
+#### 🟢 P2 — 可以优化
+
+- #15 [ ] **归档独立化** — 将 `mode-weekly-review.md` Step 6 (Archive) 提取为独立文件 `references/mode-archive.md`，SKILL.md 触发表指向新文件
+- #16 [ ] **量化"大任务"定义** — `mode-weekly-plan.md:36` 加标准，如"预计耗时 > 4 小时视为大任务"
+- #17 [ ] **改善 Add/Move 子模式入口** — `mode-daily-todo.md` Sub-mode C 增加一句话概述再跳转到 `mode-add-or-move.md`
+- #18 [ ] **拆分 Quarter 流程** — `mode-monthly-review.md:13-28` 的季度逻辑从 Step 1 中拆出，改为 Step 1a（标准月度）和 Step 1b（季度/多月）
+- #19 [ ] **清理脚本引用** — `conventions.md:76` 引用了不存在的 `scripts/date_utils.py` → 去掉或创建
+- #20 [ ] **修正模板命名规则矛盾** — `template-conventions.md` 规定 "full words, not abbreviations" 但用了 `{{WEEK_NUM}}` → 改规则或改变量名
+- #21 [ ] **调整 schedule 示例** — `schedule-config.example.md` 午餐 30min / 晚餐 2h 不合理 → 调整或注明仅为示意
