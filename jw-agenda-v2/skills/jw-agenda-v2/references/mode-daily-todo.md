@@ -31,16 +31,18 @@ Read in order (skip if missing):
 
 1. **Current month plan**: `{agendaRoot}/monthly/YYYY-MM-plan.md` (current year-month, e.g., 2026-02-plan.md; use date_utils to compute), extract this month's goals and this week's focus
 2. **Current week plan**: `{agendaRoot}/weekly/Week{W}-plan.md`, extract suggested tasks for "today"
-3. **Yesterday's incomplete**: From `{agendaRoot}/daily/{yesterday's date}-log.md` or `{yesterday's date}-todo.md`, unchecked items
-4. **Todo-prefixed files in tasks directory** (optional): e.g., `{agendaRoot}/tasks/TODO.md`, `todo-readinglist.md`, `todo-*.md`. Read unchecked items, selectively include in today's plan (e.g., 1–2 low-priority items or allocated by list type), marked `*(from tasks list)*` or `*(from reading list)*` (if from todo-readinglist.md)
+3. **Yesterday's incomplete**: From `{agendaRoot}/daily/{yesterday's date}-log.md` or `{yesterday's date}-todo.md`, unchecked items — **deferrable only** (see `assets/conventions.md` "Deferrable vs Non-Deferrable Tasks"). Drop non-deferrable items (daily v2, missed 投递日 batches, fixed events, etc.). For deferrable items still relevant in this week's plan, mark `*(结转)*`.
+4. **Todo-prefixed files in tasks directory** (optional): e.g., `{agendaRoot}/tasks/TODO.md`, `todo-readinglist.md`, `todo-*.md`. Read unchecked items, selectively include in today's plan (e.g., 1–2 low-priority items). No source mark in output.
 
 ### Step 3: Merge, Deduplicate, Prioritize
 
 **Idempotency check**: If today's todo already exists, read existing entries, normalize for comparison (ignoring checkmarks, source marks, leading/trailing whitespace); existing entries are not re-appended.
 
-**Dedup rules**: Items with identical or highly similar content across sources (monthly plan, weekly plan, yesterday's incomplete, tasks lists) are kept only once. If an item appears in both yesterday's incomplete and a plan, mark it `*(carried over from yesterday)*`.
+**Dedup rules**: Items with identical or highly similar content across sources (monthly plan, weekly plan, yesterday's incomplete, tasks lists) are kept only once. If a deferrable item appears in both yesterday's incomplete and this week's plan, keep once and mark `*(结转)*`.
 
-**Source marks and priority**: Follow the source mark and priority label rules in `assets/conventions-marks.md`.
+**Non-deferrable filter**: Do not carry forward daily discipline, missed 投递 batches, or fixed events from yesterday. Today's plan defines only what belongs today.
+
+**Source marks and priority**: Follow `assets/conventions-marks.md` — default no mark; only `*(结转)*` / `*(moved from M.D)*` when applicable. Follow writing-style rules (no 遗留/补做, no low-priority hedging).
 
 ### Step 4: Write File
 
@@ -48,8 +50,9 @@ Read in order (skip if missing):
 
 Use the `templates/daily-todo-template.md` template. **Must include**:
 
-1. **Today's schedule**: Preferentially read time slot config from `{agendaRoot}/schedule-config.md`; if absent, from this Skill's `assets/schedule-config.example.md`. Fill today's tasks into each time slot's "Activity" column. Preferentially extract from the weekly plan's "today" time slots; if unavailable, allocate by priority. Each time slot should have a specific task.
-2. **High/Medium/Low priority**: Task lists consistent with the schedule, with source marks, for checking off.
+0. **Theme line** (`{{THEME}}`, optional): A one-line focus for the day, drawn from this week's plan focus (e.g., "v2 收尾 + 投递"). Omit the line entirely if there is no clear theme.
+1. **Today's schedule**: Preferentially read time slot config from `{agendaRoot}/schedule-config.md`; if absent, from this Skill's `assets/schedule-config.example.md`. Fill each time slot into one `| Time | Activity |` row (`{{SCHEDULE_ROWS}}`), taking today's tasks for the "Activity" column. Preferentially extract from the weekly plan's "today" time slots; if unavailable, allocate by priority. Each time slot should have a specific task.
+2. **High/Medium/Low priority**: Task lists consistent with the schedule, for checking off. Source marks only for exceptions (`*(结转)*`, `*(moved from M.D)*`).
 
 If the file already exists, only append non-duplicate new entries; if the schedule already exists, preserve it without overwriting.
 

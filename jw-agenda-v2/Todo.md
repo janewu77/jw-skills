@@ -7,6 +7,10 @@
 - #3 [ ] 更新上一层的文档（先列出有哪些要更新改的）
 - #4 [ ] **考虑增加月总结模式** — 当前只有 weekly-review，可增加 mode-monthly-review.md（或明确说明由用户手动维护）
 
+
+
+把release 关掉。（相关文档去掉更新。）
+
 ---
 
 ### 代码审阅改进项（2026-03-23）
@@ -79,15 +83,15 @@
 
 #### 🔴 P0 — 必须修复
 
-- #5 [ ] **统一状态标记体系** — `week-template.md` 用 emoji（✅⬜❌），`daily-todo-template.md` 用 checkbox（`[x]`/`[ ]`），在 `conventions-marks.md` 中明确各层级使用哪种标记
-- #6 [ ] **明确去重算法** — 在 `conventions.md` 新增 "Deduplication" 一节，定义标准流程：去除标记 → trim → 大小写不敏感 → 子串匹配
-- #7 [ ] **收紧 Planning Sync 匹配逻辑** — `mode-planning-sync.md:48` 的 "key substring" 匹配太宽松，改为"去标记后文本完全相同 OR 用户确认"
+- #5 [x] **统一状态标记体系** — `week-template.md` 用 emoji（✅⬜❌），`daily-todo-template.md` 用 checkbox（`[x]`/`[ ]`），在 `conventions-marks.md` 中明确各层级使用哪种标记 ✅
+- #6 [x] **明确去重算法** — 在 `conventions.md` 新增 "Deduplication" 一节，定义标准流程：去除标记 → trim → 大小写不敏感 → **精确匹配**（刻意不用子串匹配，避免误判） ✅
+- #7 [x] **收紧 Planning Sync 匹配逻辑** — `mode-planning-sync.md:48` 的 "key substring" 匹配太宽松，改为"去标记后文本完全相同 OR 用户确认" ✅
 
 #### 🟡 P1 — 应该修复
 
-- #8 [ ] **补全 `{{SCHEDULE_TABLE}}` 结构** — 在 `daily-todo-template.md` 中展示期望的表结构（Time | Activity | Notes）
+- #8 [x] **补全 `{{SCHEDULE_TABLE}}` 结构** — 结转/写作风格改造中改为显式 `| Time | Activity |` 表（`{{SCHEDULE_ROWS}}`），移除黑盒占位符 ✅
 - #9 [ ] **补全 sync report 示例** — 在 `sync-report-template.md` 中为 `{{ACTION_ITEMS}}` / `{{INFO_ITEMS}}` 加 2-3 行 example block
-- #10 [ ] **补全 source legend** — `daily-todo-template.md` 只列了 2 个标记，补全为 6 个或注明"完整列表见 conventions-marks.md"
+- #10 [x] **补全 source legend** — 随写作风格改造重新定位：daily todo 默认不打标记，legend footer 直接移除，完整标记列表见 `conventions-marks.md` ✅
 - #11 [ ] **统一 Carry Over 可选逻辑** — `review-template.md` 标注 optional 但 `mode-weekly-review.md` 总是包含 → 统一为"无 carry-over 项时省略该节"
 - #12 [ ] **统一 Goal Achievement 处理** — `monthly-review-template.md` 说跳过，`mode-monthly-review.md` 说问用户生成骨架 → 选一个策略
 - #13 [ ] **消除日期格式歧义** — 在 `conventions-marks.md` 明确 `*(moved from M.D)*` 中 M.D = 月.日简写，仅用于标记

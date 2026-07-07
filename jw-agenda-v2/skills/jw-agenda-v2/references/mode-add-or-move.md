@@ -35,9 +35,9 @@ If this is a move, delete the entry from today's todo.
 
 - If the target day's todo exists: Idempotency check then append
 - If it does not exist: Create a file containing only this item (recommended to create immediately for consistency)
-- **Marks**:
+- **Marks** (see `assets/conventions-marks.md`; mark only exceptions):
   - Move: `*(moved from M.D)*` (M.D is the original date, e.g., `2.5` for February 5)
-  - New addition: `*(ad-hoc addition)*`
+  - New addition: no mark by default; add one only if clarity truly requires it
 
 ## Step 5: Top-down Cascade Sync Planning Files
 

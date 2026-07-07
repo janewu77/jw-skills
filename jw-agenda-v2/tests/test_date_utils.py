@@ -7,7 +7,7 @@ import sys
 import unittest
 from datetime import date
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "src", "jw-agenda-v2", "scripts"))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "skills", "jw-agenda-v2", "scripts"))
 
 from date_utils import get_date_info, _get_week_range, _get_month_range, _parse_date
 

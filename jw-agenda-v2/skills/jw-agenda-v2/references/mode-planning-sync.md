@@ -45,7 +45,7 @@ Check consistency across all available levels along three dimensions:
 **Dimension 3 — Addition/Change Tracking**: Do newly added tasks in daily execution need to be backfilled into weekly/monthly plans? Are cancelled/postponed tasks synced across all levels?
 
 **Content alignment comparison strategy** (for Dimensions 1 and 2):
-- **Task content alignment**: Uses **normalized keyword matching**. Extract the entry body (strip `- [ ]` / `- [x]`, source marks like `*(from plan)*`, etc.), then normalize whitespace and line breaks. If two entries' core descriptions match (post-stripping text is identical, or one contains the other's key substring), they are considered the "same task". Exact character-by-character match is not required, to tolerate user wording tweaks.
+- **Task content alignment**: Uses the **standard deduplication flow** defined in `assets/conventions.md` § Deduplication. Extract the entry body (strip checkbox prefix, source marks, parenthesized annotations), trim, and lowercase. Two entries are considered the "same task" **only if their normalized text is identical**. If normalized text differs but looks similar, the task is flagged as a potential match and **presented to the user for confirmation** rather than auto-matched — this avoids false positives from loose substring matching.
 - **Completion status sync**: Given the "same task", compare checkmark status (`[x]` vs `[ ]`) between daily todo and weekly/monthly plans. If daily is checked but weekly is not, or vice versa, it's recorded as a discrepancy; the recommendation is to sync using **daily execution as authoritative** (see conflict resolution strategy in conventions).
 
 ## Step 3: Discrepancy Classification

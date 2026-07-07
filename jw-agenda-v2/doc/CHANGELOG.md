@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+- **Deferrable vs non-deferrable tasks** (`conventions.md`): daily discipline / fixed events cannot be 结转 or 补做; only flexible tasks carry forward
+- **Daily todo output marks** (`conventions-marks.md`): default no mark; only `*(结转)*` / `*(moved from M.D)*` for exceptions; no 遗留/补做 framing; no low-priority hedging
+- **mode-daily-todo / mode-daily-log / mode-weekly-plan / mode-add-or-move**: aligned with new carry-over and writing-style rules (ad-hoc additions no longer force `*(ad-hoc addition)*`)
+- **Deduplication** (`conventions.md`): standard normalize→trim→lowercase→exact-match flow defined; substring matching dropped; `mode-planning-sync` matching tightened to exact-or-confirm (P0 #5–#7)
+- **daily-todo-template**: simplified — `{{SCHEDULE_TABLE}}`→`| Time | Activity |` rows (`{{SCHEDULE_ROWS}}`), optional `{{THEME}}` line added, source legend + timestamp footer removed
+
 ## v1.2.0 — 2026-03-23
 
 - 增加级联同步标准步骤（从下往上/从上往下），各 mode 文件改为引用

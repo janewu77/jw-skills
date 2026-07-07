@@ -1,6 +1,6 @@
 # Tests
 
-单元测试覆盖 `src/jw-agenda-v2/scripts/` 下的两个工具脚本。
+单元测试覆盖 `skills/jw-agenda-v2/scripts/` 下的两个工具脚本。
 
 ## 测试文件
 

@@ -42,7 +42,7 @@ Check and update layer by layer in the following order:
 ### 3a: Daily Plan (daily/YYYY-MM-DD-todo.md)
 
 - **If this is "report today"**: In `{today's date}-todo.md`, check `[x]` for completed items, mark `(in progress)` for in-progress items; if today's todo does not exist, only write the log.
-- **If this is "summarize yesterday"**: In `{yesterday's date}-todo.md`, check completed items; if there are incomplete items, append them to `{today's date}-todo.md` marked `*(carried over from yesterday)*`, skipping existing entries.
+- **If this is "summarize yesterday"**: In `{yesterday's date}-todo.md`, check completed items; for incomplete **deferrable** items (see `assets/conventions.md`), append to `{today's date}-todo.md` marked `*(结转)*`, skipping existing entries and non-deferrable items.
 
 ### 3b–3d: Weekly Plan → Monthly Plan → Yearly Plan
 

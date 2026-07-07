@@ -35,7 +35,7 @@ Use the `templates/week-template.md` template structure.
 - **Dependencies**: Identify dependency chains (e.g., research → prepare → submit); prerequisite tasks come first, dependent tasks after, with possible 1-day gap.
 - **Splitting and balancing**: Large tasks are split into 2–3 day sub-tasks; daily recurring tasks are marked "Daily" in the overview table's "Scheduled Day" column; target 2–4 items per day; time-sensitive items placed near their deadlines.
 
-**Operation**: Extract tasks from the monthly plan and carry-over list, identify priorities and dependencies → assign to days per above principles → fill the "📋 Weekly Task Overview" table and daily sections (`- [ ] ...`), with source marks: `*(from plan)*` / `*(carried over from last week)*`.
+**Operation**: Extract tasks from the monthly plan and carry-over list, identify priorities and dependencies → assign to days per above principles → fill the "📋 Weekly Task Overview" table and daily sections (`- [ ] ...`). Mark deferrable carry-over from last week as `*(结转)*`; omit default plan-origin marks unless needed for clarity.
 
 **If `Week{W}-plan.md` already exists**: Incremental update. Preserve completed items (`- [x]`), user additions, and manual adjustments; only append new tasks that are non-duplicate after normalization; do not overwrite the user's modifications to dates, priorities, or status.
 
@@ -51,7 +51,7 @@ Follow the "Top-down Cascade Sync Standard Steps" in conventions-cascade.md. Mod
 
 - **tasks/TODO.md**: Tasks included in this week's plan are marked as planned or removed from the master backlog, preventing the same task from being repeatedly pulled into future weekly plans
 - **Monthly plan (read-only)**: Maintained by the user; this mode does not modify it, only reads it in Step 2
-- **Existing daily plans**: If a day's plan already exists, idempotent append (marked `*(from plan)*`); if it does not exist, do not create it (leave for Mode 1 to handle)
+- **Existing daily plans**: If a day's plan already exists, idempotent append (no default source mark); if it does not exist, do not create it (leave for Mode 1 to handle)
 
 ## Step 7: Report
 
