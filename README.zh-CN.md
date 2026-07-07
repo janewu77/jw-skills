@@ -36,10 +36,10 @@ jw-agenda-v2 是一个含六种模式的 Agent Skill，用自然语言完成从�
 
 | 技能组 | 说明 |
 |--------|------|
-| [jw-agenda](jw-agenda/) | 📅 个人日程管理，**5 个模块化 skill**：月规划 → 周拆解 → 日执行 → 日志 → 周回顾。详见 [jw-agenda/README.md](jw-agenda/README.md)。 |
+| [jw-agenda](jw-agenda/) | 📅 个人日程管理，**5 个模块化 skill**：月规划 → 周拆解 → 日执行 → 日志 → 周回顾。详见 [jw-agenda/README.zh-CN.md](jw-agenda/README.zh-CN.md)。 |
 | [jw-agenda-v2](jw-agenda-v2/) | 📅 同一套闭环的**单 skill、6 模式**版（新增月总结）。一次安装、中央路由。详见 [jw-agenda-v2/README.zh-CN.md](jw-agenda-v2/README.zh-CN.md)。 |
 
-### 🚀 jw-agenda：完整的个人生产力系统
+### 🚀 jw-agenda —— 5 个模块化 skill
 
 **5 个互补的技能** 🤝，共同协作以自动化你的规划和执行工作流程：
 
@@ -49,34 +49,16 @@ jw-agenda-v2 是一个含六种模式的 Agent Skill，用自然语言完成从�
 - 📈 **jw-agenda-weekly-review**：汇总周日志、计算完成率、追踪时间分配，并识别需要延续的事项。
 - 🔄 **jw-agenda-planning-sync**：检查日/周/月计划的一致性，检测偏差，并在你确认后同步。
 
-### 📦 jw-agenda-v2：同一闭环，单个 skill
+📖 安装、示例与完整功能列表详见 **[jw-agenda/README.zh-CN.md](jw-agenda/README.zh-CN.md)**。
+
+### 📦 jw-agenda-v2 —— 同一闭环，单个 skill
 
 `jw-agenda-v2` 把上述工作流合并进**一个含六种模式的 Skill**，配中央路由表，并新增**月总结**模式（支持季度/自定义范围）。它与 `jw-agenda` 使用**相同的数据格式和配置**，因此 `jw-agenda-data/` 两边通用。
 
 - 想要细粒度、模块化安装（只挑需要的 skill）→ 选 **jw-agenda**。
 - 想一次装好、覆盖含月总结的完整闭环 → 选 **jw-agenda-v2**。
 
-模式、安装与数据布局详见 [jw-agenda-v2/README.zh-CN.md](jw-agenda-v2/README.zh-CN.md)。
-
-**✨ 核心优势**：
-- 💬 **自然语言**：只需与 AI 助手对话——无需复杂的命令或语法
-- 🔒 **本地存储**：所有数据以 Markdown 文件形式存储在您的工作区——注重隐私且可移植
-- 🧩 **模块化设计**：只安装需要的技能；每个技能独立工作
-- 🔗 **无缝集成**：技能在可用时自动读取彼此的输出
-- 🎯 **灵活工作流**：支持结构化规划和随意的进度汇报
-
-**🎯 适合**：个人生产力、项目管理、习惯追踪、目标管理，以及任何希望通过 AI 辅助自动化规划工作流程的人。
-
-详见[详细文档](jw-agenda/README.md)了解安装、示例和完整功能列表。
-
----
-
-## 🚀 安装
-
-各技能组的安装、数据布局与自定义说明都在各自的 README 中：
-
-- **jw-agenda**（5 个模块化 skill）：见 [jw-agenda/README.zh-CN.md](jw-agenda/README.zh-CN.md)
-- **jw-agenda-v2**（单 skill、6 模式）：见 [jw-agenda-v2/README.zh-CN.md](jw-agenda-v2/README.zh-CN.md)
+📖 模式、安装与数据布局详见 **[jw-agenda-v2/README.zh-CN.md](jw-agenda-v2/README.zh-CN.md)**。
 
 ---
 

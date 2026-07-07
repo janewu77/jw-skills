@@ -39,7 +39,7 @@ Simply say things like:
 | [jw-agenda](jw-agenda/) | 📅 Personal agenda as **5 modular skills**: monthly plan → weekly breakdown → daily execution → log → weekly review. See [jw-agenda/README.md](jw-agenda/README.md). |
 | [jw-agenda-v2](jw-agenda-v2/) | 📅 The same loop as a **single skill with 6 modes** (adds Monthly Review). One install, central routing. See [jw-agenda-v2/README.md](jw-agenda-v2/README.md). |
 
-### 🚀 jw-agenda: Complete Personal Productivity System
+### 🚀 jw-agenda — 5 modular skills
 
 **5 complementary skills** 🤝 that work together to automate your planning and execution workflow:
 
@@ -49,34 +49,16 @@ Simply say things like:
 - 📈 **jw-agenda-weekly-review**: Aggregate weekly logs, calculate completion rates, track time allocation, and identify items to carry forward.
 - 🔄 **jw-agenda-planning-sync**: Check consistency across daily/weekly/monthly plans, detect discrepancies, and sync after your confirmation.
 
-### 📦 jw-agenda-v2: Same Loop, One Skill
+📖 Installation, examples, and the complete feature list: **[jw-agenda/README.md](jw-agenda/README.md)**.
+
+### 📦 jw-agenda-v2 — same loop, one skill
 
 `jw-agenda-v2` merges the workflow above into a **single Skill with six modes** and a central routing table, and adds a **Monthly Review** mode (with quarter / custom-range support). It uses the **same data format and configuration** as `jw-agenda`, so `jw-agenda-data/` is interchangeable between them.
 
 - Prefer **jw-agenda** for fine-grained, modular installs (pick only the skills you want).
 - Prefer **jw-agenda-v2** for a single install that covers the full loop, including monthly review.
 
-See [jw-agenda-v2/README.md](jw-agenda-v2/README.md) for modes, installation, and data layout.
-
-**✨ Key benefits**:
-- 💬 **Natural language**: Just talk to your AI assistant—no complex commands or syntax
-- 🔒 **Local storage**: All data stored as Markdown files in your workspace—privacy-focused and portable
-- 🧩 **Modular design**: Install only the skills you need; each works independently
-- 🔗 **Seamless integration**: Skills automatically read from each other's outputs when available
-- 🎯 **Flexible workflow**: Supports both structured planning and casual progress reporting
-
-**🎯 Perfect for**: Personal productivity, project planning, habit tracking, goal management, and anyone who wants to automate their planning workflow with AI assistance.
-
-See the [detailed documentation](jw-agenda/README.md) for installation, examples, and the complete feature list.
-
----
-
-## 🚀 Installation
-
-Each skill set has its own installation, data layout, and customization guide:
-
-- **jw-agenda** (5 modular skills): see [jw-agenda/README.md](jw-agenda/README.md)
-- **jw-agenda-v2** (single skill, 6 modes): see [jw-agenda-v2/README.md](jw-agenda-v2/README.md)
+📖 Modes, installation, and data layout: **[jw-agenda-v2/README.md](jw-agenda-v2/README.md)**.
 
 ---
 
