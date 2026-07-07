@@ -11,22 +11,24 @@
 
 ---
 
-## ⭐ 推荐：jw-agenda
+## ⭐ 推荐：jw-agenda-v2
 
 **不用切出编辑器，就能规划与执行。**
 
-jw-agenda 是一套 5 个 Agent Skill，用自然语言完成从规划到执行再到回顾的闭环。在你真正干活的地方管理日程——助手会选对 skill 并同步工作区。数据全部在本地 Markdown 中。
+jw-agenda-v2 是一个含六种模式的 Agent Skill，用自然语言完成从规划到执行再到回顾的闭环。在你真正干活的地方管理日程——skill 会路由到对应模式并同步工作区。数据全部在本地 Markdown 中。
 
-**🔄 完整循环**：📅 月规划 → 📊 周拆解 → ✅ 日执行 → 📝 日志 → 📈 周回顾
+**🔄 完整循环**：📅 月规划 → 📊 周拆解 → ✅ 日执行 → 📝 日志 → 📈 周回顾 → 🗓️ 月总结
 
 只需说：
 - 💬「生成本周计划」→ 从月目标拆出按天计划
 - 💬「生成今天的计划」→ 按周计划与昨日未完成生成今日待办
 - 💬「我完成了简历更新」→ 写日志并自动勾选
 - 💬「把申请移到周三」→ 改期并同步各规划文件
-- 💬「周总结」→ 汇总日志、完成率与待延续事项
+- 💬「周总结」/「月总结」→ 汇总日志、完成率与待延续事项
 
-**核心特点**：本地优先（无云、你掌控）· 模块化（5 个 skill，可只装部分）· AI 原生（说人话即可，助手选对 skill）
+**核心特点**：本地优先（无云、你掌控）· 一次安装（单个 skill、六种模式）· AI 原生（说人话即可，路由表选对模式）
+
+> 想要细粒度、模块化安装？原版 **[jw-agenda](jw-agenda/)** 把同一套工作流做成 5 个可独立安装的 skill。
 
 ---
 
@@ -65,26 +67,16 @@ jw-agenda 是一套 5 个 Agent Skill，用自然语言完成从规划到执行�
 
 **🎯 适合**：个人生产力、项目管理、习惯追踪、目标管理，以及任何希望通过 AI 辅助自动化规划工作流程的人。
 
-详见[详细文档](jw-agenda/README.md)了解安装、示例和完整功能列表。安装方式：克隆本仓库，把 `jw-agenda/skills/` 下的 skill 文件夹复制到你产品的 skills 目录。
+详见[详细文档](jw-agenda/README.md)了解安装、示例和完整功能列表。
 
 ---
 
-## 🚀 快速开始
+## 🚀 安装
 
-### jw-agenda
+各技能组的安装、数据布局与自定义说明都在各自的 README 中：
 
-1. 📁 **创建数据目录**：
-   ```bash
-   mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
-   ```
-
-2. 📦 **安装技能**：克隆本仓库，把 `jw-agenda/skills/` 下的技能文件夹复制到 Cursor 技能目录（如 `~/.cursor/skills/`）。
-
-3. 📅 **创建第一个月度计划**：在 `jw-agenda-data/monthly/` 中添加 `YYYY-MM-plan.md`（如 `2026-02-plan.md`）。
-
-4. 🎉 **开始使用**：在 Cursor 中打开工作区，说"生成本周计划"或"生成今天的计划"。
-
-详细的安装说明、示例和自定义选项，请参阅 [jw-agenda/README.md](jw-agenda/README.md)。
+- **jw-agenda**（5 个模块化 skill）：见 [jw-agenda/README.zh-CN.md](jw-agenda/README.zh-CN.md)
+- **jw-agenda-v2**（单 skill、6 模式）：见 [jw-agenda-v2/README.zh-CN.md](jw-agenda-v2/README.zh-CN.md)
 
 ---
 

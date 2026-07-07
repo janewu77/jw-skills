@@ -11,22 +11,24 @@ A collection of skills for use in Cursor, Claude, and similar environments. Main
 
 ---
 
-## ⭐ Featured: jw-agenda
+## ⭐ Featured: jw-agenda-v2
 
 **Plan and execute without leaving your editor.**
 
-jw-agenda is a set of 5 Agent Skills that close the loop from planning to execution to review—all through natural language. Manage your life where you actually work; the assistant picks the right skill and keeps your workspace in sync. All data stays in local Markdown files.
+jw-agenda-v2 is a single Agent Skill with six modes that close the loop from planning to execution to review—all through natural language. Manage your life where you actually work; the skill routes to the right mode and keeps your workspace in sync. All data stays in local Markdown files.
 
-**🔄 The complete loop**: 📅 Monthly plan → 📊 Weekly breakdown → ✅ Daily execution → 📝 Log → 📈 Weekly review
+**🔄 The complete loop**: 📅 Monthly plan → 📊 Weekly breakdown → ✅ Daily execution → 📝 Log → 📈 Weekly review → 🗓️ Monthly review
 
 Simply say things like:
 - 💬 "Generate this week's plan" → Breaks down monthly goals into a day-by-day plan
 - 💬 "Generate today's plan" → Builds today's todo from weekly plan and yesterday's incomplete
 - 💬 "I finished the resume update" → Logs progress and updates checkboxes automatically
 - 💬 "Move applications to Wednesday" → Reschedules and syncs across plan files
-- 💬 "Weekly summary" → Aggregates logs, completion rate, and carry-over items
+- 💬 "Weekly summary" / "Monthly review" → Aggregates logs, completion rate, and carry-over items
 
-**Core benefits:** Local-first (no cloud, full control) · Modular (5 skills, install any subset) · AI-native (talk in plain language, assistant picks the right skill)
+**Core benefits:** Local-first (no cloud, full control) · One install (a single skill, six modes) · AI-native (talk in plain language, the routing table picks the mode)
+
+> Prefer fine-grained, modular installs? The original **[jw-agenda](jw-agenda/)** ships the same workflow as 5 independently installable skills.
 
 ---
 
@@ -65,26 +67,16 @@ See [jw-agenda-v2/README.md](jw-agenda-v2/README.md) for modes, installation, an
 
 **🎯 Perfect for**: Personal productivity, project planning, habit tracking, goal management, and anyone who wants to automate their planning workflow with AI assistance.
 
-See the [detailed documentation](jw-agenda/README.md) for installation, examples, and complete feature list. To install, clone this repo and copy the skill folders from `jw-agenda/skills/` into your product's skills directory.
+See the [detailed documentation](jw-agenda/README.md) for installation, examples, and the complete feature list.
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Installation
 
-### For jw-agenda
+Each skill set has its own installation, data layout, and customization guide:
 
-1. 📁 **Create data directory**:
-   ```bash
-   mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
-   ```
-
-2. 📦 **Install skills**: Clone this repo and copy the skill folders from `jw-agenda/skills/` into your Cursor skills directory (e.g., `~/.cursor/skills/`).
-
-3. 📅 **Create your first monthly plan**: Add `YYYY-MM-plan.md` in `jw-agenda-data/monthly/` (e.g., `2026-02-plan.md`).
-
-4. 🎉 **Start using**: Open your workspace in Cursor and say "Generate this week's plan" or "Generate today's plan".
-
-For detailed installation instructions, examples, and customization options, see [jw-agenda/README.md](jw-agenda/README.md).
+- **jw-agenda** (5 modular skills): see [jw-agenda/README.md](jw-agenda/README.md)
+- **jw-agenda-v2** (single skill, 6 modes): see [jw-agenda-v2/README.md](jw-agenda-v2/README.md)
 
 ---
 
