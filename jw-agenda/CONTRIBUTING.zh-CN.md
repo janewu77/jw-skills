@@ -160,8 +160,12 @@ git push
 
 ## 版本与命名
 
-- **路径**：以 `assets/conventions.md` 为准 — 月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`。与 conventions 冲突时以 conventions 为准。
-- **SKILL.md**：版本号 `0.M.P` — 单 skill 改 patch；整组发布改 minor（如 0.1.0）。
+**jw-agenda** 组作为一个整体独立版本，与仓库里其他技能组互不牵连（见仓库级 [../CONTRIBUTING.zh-CN.md](../CONTRIBUTING.zh-CN.md) 的「版本号约定」）。
+
+- **组版本**：5 个 skill 共用一个版本，`SKILL.md` 的 `version` 一起升。单 skill 修复走 patch，跨 skill 的协同改动走 minor。
+- **CHANGELOG**：变更记录在 [CHANGELOG.md](CHANGELOG.md)（本组自己的 CHANGELOG）。
+- **tag**：发布打 `jw-agenda-vX.Y.Z`。
+- **路径 / 约定**：命名以 `assets/conventions.md` 为准（月规划 `YYYY-MM-plan.md`，周规划 `Week{N}-plan.md`，周总结 `Week{N}-review.md`）。与 conventions 冲突时以 conventions 为准。
 
 ## 递交前
 

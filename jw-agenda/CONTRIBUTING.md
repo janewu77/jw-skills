@@ -160,8 +160,12 @@ Output: one zip per skill under `output/`.
 
 ## Versioning
 
-- **Paths**: `assets/conventions.md` — monthly `YYYY-MM-plan.md`, weekly `Week{N}-plan.md`, `Week{N}-review.md`. Conventions win over skill docs.
-- **SKILL.md**: `version` format `0.M.P` — patch for single-skill change; minor for coordinated release (e.g. 0.1.0).
+The **jw-agenda** set is versioned as a unit, independently from other skill sets in the repo (see the repo-level [../CONTRIBUTING.md](../CONTRIBUTING.md) → *Versioning*).
+
+- **Set version**: All 5 skills share one version; their `SKILL.md` `version` fields are bumped together. Patch for a single-skill fix, minor for a coordinated change across skills.
+- **Changelog**: Record changes in [CHANGELOG.md](CHANGELOG.md) (this set's own changelog).
+- **Tag**: Tag releases as `jw-agenda-vX.Y.Z`.
+- **Paths / conventions**: Naming lives in `assets/conventions.md` (monthly `YYYY-MM-plan.md`, weekly `Week{N}-plan.md`, `Week{N}-review.md`). Conventions win over skill docs.
 
 ## Before you commit
 

@@ -15,7 +15,7 @@
 ### P1 — 中优先级
 
 - [x] **CHANGELOG**：在仓库根新增 `CHANGELOG.md`，随版本记录变更；可与 Git tag / GitHub Release 对应。已创建 `CHANGELOG.md`，记录版本历史和功能。
-- [x] **发布流程与版本号约定**：已在根 CONTRIBUTING 和 CONTRIBUTING.zh-CN 中添加发布流程与版本号约定章节，说明版本对齐规则、Release 流程和示例命令。
+- [x] **发布流程与版本号约定**：根 CONTRIBUTING（中英）已有版本号约定章节。_2026-07 修订：改为按技能组独立版本（scoped tag、各组 CHANGELOG），取消仓库级统一版本与 GitHub Release；jw-agenda 历史迁至 `jw-agenda/CHANGELOG.md`。_
 - [x] 🆕 **.DS_Store 残留清理**：已执行清理（`git ls-files | grep '\.DS_Store$' | xargs git rm --cached`）。当前无被跟踪的 `.DS_Store`，`.gitignore` 已有规则可防再次误提交。
 
 ### P2 — 中低优先级

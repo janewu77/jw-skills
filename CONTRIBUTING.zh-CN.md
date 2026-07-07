@@ -31,41 +31,41 @@
 
 ## 版本号约定与打 tag
 
-### 版本号规则
+本仓库是一个**按技能组各自独立版本的 monorepo**。**没有仓库级统一版本号**——每个技能组有自己的版本、自己的 CHANGELOG、自己的 Git tag。这样 `jw-agenda` 和 `jw-agenda-v2` 可以各自按节奏演进（目前两者版本号就不同）。
 
-本仓库遵循[语义化版本](https://semver.org/lang/zh-CN/)（MAJOR.MINOR.PATCH）：
+每个技能组遵循[语义化版本](https://semver.org/lang/zh-CN/)（MAJOR.MINOR.PATCH）：
 
-- **仓库级版本**：记录在 `CHANGELOG.md` 中（如 `0.1.0`）
-- **技能组版本**：如 `jw-agenda` 技能组，版本与仓库版本一致
-- **单个 Skill 版本**：每个 skill 的 `SKILL.md` metadata 中包含 `version` 字段（如 `version: "0.1.0"`）
+| 技能组 | 版本来源 | CHANGELOG | tag 前缀 |
+|--------|----------|-----------|----------|
+| **jw-agenda**（5 个 skill） | 5 个 `SKILL.md` 共用一个**组版本** | [jw-agenda/CHANGELOG.md](jw-agenda/CHANGELOG.md) | `jw-agenda-vX.Y.Z` |
+| **jw-agenda-v2**（1 个 skill） | 该 skill 自己的 `SKILL.md` `version` | [jw-agenda-v2/doc/CHANGELOG.md](jw-agenda-v2/doc/CHANGELOG.md) | `jw-agenda-v2-vX.Y.Z` |
 
-**版本对齐**：发布新版本时：
-1. 更新 `CHANGELOG.md` 中的版本号和变更内容
-2. 更新所有 skill 的 `SKILL.md` metadata 中的 `version` 字段，使其与仓库版本一致
-3. 更新技能组级版本（如适用）使其与仓库版本一致
+对 **jw-agenda**：5 个 skill 共用一个组版本，一起升。对 **jw-agenda-v2**（单个 skill）：它的 `SKILL.md` 版本就是组版本。根 [CHANGELOG.md](CHANGELOG.md) 只是索引 + 仓库级基建说明，本身不带版本号。
 
-### 打 tag 流程
+本仓库**不使用 GitHub Release**——分发采用源码方式（克隆仓库、复制 skill 文件夹，见各 README 的安装章节）。
 
-本仓库**不使用 GitHub Release**。分发采用源码方式：用户克隆仓库并复制 skill 文件夹（见各 README 的安装章节）。版本通过 `CHANGELOG.md`、各 skill 的 `SKILL.md` metadata，以及 Git tag 记录。
+### 发布新版本
 
-发布新版本时：
+**一次只处理一个技能组**：
 
-1. **CHANGELOG**：更新 `CHANGELOG.md` 中的版本号和变更内容。
-2. **skill 版本**：把所有受影响 skill 的 `SKILL.md` `version` 字段升到对应版本。
-3. **提交并打 tag**：提交后创建与版本号匹配的 Git tag（如 `v0.1.0`）。
+1. **CHANGELOG**：把该组的 `## Unreleased` 内容收进新的 `## X.Y.Z — YYYY-MM-DD` 小节（写在**该组自己**的 CHANGELOG 里）。
+2. **skill 版本**：升该组 `SKILL.md` 的 `version`——jw-agenda 是全部 5 个，jw-agenda-v2 是那一个。
+3. **提交并打 tag**：提交后为该组创建带前缀的 Git tag。
 
-### 打 tag 流程示例
+**示例 —— 发布 jw-agenda-v2 1.4.0：**
 
 ```bash
-# 1. 更新 CHANGELOG.md 中的新版本
-# 2. 更新所有受影响 skill 的 SKILL.md version 字段
-# 3. 提交更改
-git add CHANGELOG.md jw-agenda/skills/*/SKILL.md
-git commit -m "chore: bump version to 0.2.0"
+# 1. 在 jw-agenda-v2/doc/CHANGELOG.md 里把 "## Unreleased" 改为 "## 1.4.0 — 2026-07-08"
+# 2. 把 jw-agenda-v2/skills/jw-agenda-v2/SKILL.md 的 version 升到 "1.4.0"
+# 3. 提交
+git add jw-agenda-v2/doc/CHANGELOG.md jw-agenda-v2/skills/jw-agenda-v2/SKILL.md
+git commit -m "release(jw-agenda-v2): 1.4.0"
 
-# 4. 创建并推送 tag
-git tag -a v0.2.0 -m "v0.2.0"
-git push origin v0.2.0
+# 4. 打 tag（注意技能组前缀）
+git tag -a jw-agenda-v2-v1.4.0 -m "jw-agenda-v2 1.4.0"
+git push origin jw-agenda-v2-v1.4.0
 ```
+
+**示例 —— 发布 jw-agenda 0.3.0：** 步骤相同，但改 `jw-agenda/CHANGELOG.md`、升**全部 5 个** `jw-agenda/skills/*/SKILL.md`、tag 打 `jw-agenda-v0.3.0`。
 
 *（可选：若想把技能打成单个包发给别人、而非直接给仓库，可运行 `./jw-agenda/package-skills.sh` 在 `jw-agenda/output/` 生成本地 zip。）*

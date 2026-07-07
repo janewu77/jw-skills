@@ -33,43 +33,43 @@ This repository contains multiple Agent Skills. Before submitting code or docume
 
 When adding new skills that require special attention from contributors, extend this table and point to each skill’s `CONTRIBUTING.md`.
 
-## Release process and versioning
+## Versioning
 
-### Version numbering
+This is a **monorepo of independently versioned skill sets**. There is **no repo-wide version** — each skill set has its own version, its own changelog, and its own Git tags. This lets `jw-agenda` and `jw-agenda-v2` evolve at their own pace (they currently sit at different versions).
 
-This repository follows [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH):
+Each skill set follows [Semantic Versioning](https://semver.org/) (MAJOR.MINOR.PATCH):
 
-- **Repository-level version**: Tracked in `CHANGELOG.md` (e.g., `0.1.0`)
-- **Skill set version**: For skill sets like `jw-agenda`, the version matches the repository version
-- **Individual skill version**: Each skill’s `SKILL.md` metadata includes a `version` field (e.g., `version: "0.1.0"`)
+| Skill set | Version source | Changelog | Tag prefix |
+|-----------|----------------|-----------|------------|
+| **jw-agenda** (5 skills) | one shared **set version** across all 5 `SKILL.md` files | [jw-agenda/CHANGELOG.md](jw-agenda/CHANGELOG.md) | `jw-agenda-vX.Y.Z` |
+| **jw-agenda-v2** (1 skill) | the skill's own `SKILL.md` `version` | [jw-agenda-v2/doc/CHANGELOG.md](jw-agenda-v2/doc/CHANGELOG.md) | `jw-agenda-v2-vX.Y.Z` |
 
-**Version alignment**: When releasing a new version:
-1. Update `CHANGELOG.md` with the new version and changes
-2. Update all skill `SKILL.md` metadata `version` fields to match
-3. Update skill set-level version (if applicable) to match
+For **jw-agenda**, the 5 skills share one set version and are bumped together. For **jw-agenda-v2** (a single skill), its `SKILL.md` version *is* the set version. The root [CHANGELOG.md](CHANGELOG.md) is only an index plus repo-level infrastructure notes; it carries no version number.
 
-### Versioning & tagging
+We do **not** use GitHub Releases — distribution is source-based (clone the repo, copy the skill folder; see each README's install section).
 
-This repo does **not** use GitHub Releases. Distribution is source-based: users clone the repo and copy the skill folders (see each README's install section). Versions are tracked in `CHANGELOG.md`, in each skill's `SKILL.md` metadata, and with Git tags.
+### Publishing a new version
 
-To publish a new version:
+Work on **one skill set at a time**:
 
-1. **CHANGELOG**: Update `CHANGELOG.md` with the new version and changes.
-2. **Skill versions**: Bump the `version` field in every affected skill's `SKILL.md` metadata to match.
-3. **Commit & tag**: Commit, then create a Git tag matching the version (e.g., `v0.1.0`).
+1. **Changelog**: Move that set's `## Unreleased` entries into a new `## X.Y.Z — YYYY-MM-DD` section in *its* changelog.
+2. **Skill version(s)**: Bump the `version` field in that set's `SKILL.md`(s) — all 5 for jw-agenda, or the one file for jw-agenda-v2.
+3. **Commit & tag**: Commit, then create a prefixed Git tag for that set.
 
-### Example versioning workflow
+**Example — releasing jw-agenda-v2 1.4.0:**
 
 ```bash
-# 1. Update CHANGELOG.md with the new version
-# 2. Update all affected skill SKILL.md version fields
-# 3. Commit changes
-git add CHANGELOG.md jw-agenda/skills/*/SKILL.md
-git commit -m "chore: bump version to 0.2.0"
+# 1. In jw-agenda-v2/doc/CHANGELOG.md, turn "## Unreleased" into "## 1.4.0 — 2026-07-08"
+# 2. Bump version in jw-agenda-v2/skills/jw-agenda-v2/SKILL.md to "1.4.0"
+# 3. Commit
+git add jw-agenda-v2/doc/CHANGELOG.md jw-agenda-v2/skills/jw-agenda-v2/SKILL.md
+git commit -m "release(jw-agenda-v2): 1.4.0"
 
-# 4. Create and push the tag
-git tag -a v0.2.0 -m "v0.2.0"
-git push origin v0.2.0
+# 4. Tag (note the skill-set prefix)
+git tag -a jw-agenda-v2-v1.4.0 -m "jw-agenda-v2 1.4.0"
+git push origin jw-agenda-v2-v1.4.0
 ```
+
+**Example — releasing jw-agenda 0.3.0:** same steps, but update `jw-agenda/CHANGELOG.md`, bump **all 5** `jw-agenda/skills/*/SKILL.md`, and tag `jw-agenda-v0.3.0`.
 
 *(Optional: to hand someone a single bundle instead of the repo, run `./jw-agenda/package-skills.sh` to build local zips under `jw-agenda/output/`.)*
