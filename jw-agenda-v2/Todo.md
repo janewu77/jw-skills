@@ -2,14 +2,11 @@
 
 ### 原有计划
 
-- #1 [ ] 写 jw-agenda-v2 的文档（skill 介绍、与 jw-agenda 的关系）
+- #1 [x] 写 jw-agenda-v2 的文档（skill 介绍、与 jw-agenda 的关系）✅ 已建 README.md（英文权威）+ README.zh-CN.md
 - #2 [ ] 是否要写成英文的 prompt？
-- #3 [ ] 更新上一层的文档（先列出有哪些要更新改的）
+- #3 [x] 更新上一层的文档 ✅ 根 README.md / README.zh-CN.md 已加 v2 条目 + 对比说明
 - #4 [ ] **考虑增加月总结模式** — 当前只有 weekly-review，可增加 mode-monthly-review.md（或明确说明由用户手动维护）
-
-
-
-把release 关掉。（相关文档去掉更新。）
+- #22[ ]github上把release 关掉，这个不适合用release。相关文档要更新。（中/英）
 
 ---
 

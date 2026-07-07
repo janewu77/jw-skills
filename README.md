@@ -34,7 +34,8 @@ Simply say things like:
 
 | Skill set | Description |
 |-----------|-------------|
-| [jw-agenda](jw-agenda/) | 📅 Personal agenda: monthly plan → weekly breakdown → daily execution → log → weekly review. See [jw-agenda/README.md](jw-agenda/README.md). |
+| [jw-agenda](jw-agenda/) | 📅 Personal agenda as **5 modular skills**: monthly plan → weekly breakdown → daily execution → log → weekly review. See [jw-agenda/README.md](jw-agenda/README.md). |
+| [jw-agenda-v2](jw-agenda-v2/) | 📅 The same loop as a **single skill with 6 modes** (adds Monthly Review). One install, central routing. See [jw-agenda-v2/README.md](jw-agenda-v2/README.md). |
 
 ### 🚀 jw-agenda: Complete Personal Productivity System
 
@@ -45,6 +46,15 @@ Simply say things like:
 - 📊 **jw-agenda-weekly-plan**: Break down monthly goals into day-by-day weekly plans. Merges carry-over tasks from last week automatically.
 - 📈 **jw-agenda-weekly-review**: Aggregate weekly logs, calculate completion rates, track time allocation, and identify items to carry forward.
 - 🔄 **jw-agenda-planning-sync**: Check consistency across daily/weekly/monthly plans, detect discrepancies, and sync after your confirmation.
+
+### 📦 jw-agenda-v2: Same Loop, One Skill
+
+`jw-agenda-v2` merges the workflow above into a **single Skill with six modes** and a central routing table, and adds a **Monthly Review** mode (with quarter / custom-range support). It uses the **same data format and configuration** as `jw-agenda`, so `jw-agenda-data/` is interchangeable between them.
+
+- Prefer **jw-agenda** for fine-grained, modular installs (pick only the skills you want).
+- Prefer **jw-agenda-v2** for a single install that covers the full loop, including monthly review.
+
+See [jw-agenda-v2/README.md](jw-agenda-v2/README.md) for modes, installation, and data layout.
 
 **✨ Key benefits**:
 - 💬 **Natural language**: Just talk to your AI assistant—no complex commands or syntax
