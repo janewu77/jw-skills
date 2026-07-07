@@ -76,7 +76,7 @@
 
 ### 第三轮审阅改进项（2026-03-27）
 
-> 基于 [jw-agenda-v2-review.md](../jw-agenda-v2-review.md)
+> 基于 [jw-agenda-v2-review.md](doc/jw-agenda-v2-review.md)
 
 #### 🔴 P0 — 必须修复
 
