@@ -10,7 +10,7 @@ Template files (`templates/*.md`) use `{{UPPER_SNAKE_CASE}}` placeholders:
 | Week/Month | `{{WEEK_NUM}}`, `{{YEAR_MONTH}}` | Week number or year-month |
 | Task lists | `{{COMPLETED_TASKS}}`, `{{INCOMPLETE_TASKS}}`, `{{CARRY_OVER_ITEMS}}` | Task lists (plural) |
 | Single task | `{{TASK}}` | Placeholder for a specific task |
-| Time | `{{TIMESTAMP}}`, `{{TIME_ALLOCATION}}`, `{{ACTUAL_WORK_TIME}}` | Timestamps or time allocation |
+| Time | `{{TIMESTAMP}}`, `{{TIME_ALLOCATION}}`, `{{ACTUAL_WORK_TIME}}` (daily log — one day), `{{TOTAL_WORK_TIME}}` (monthly review — month total) | Timestamps or time allocation; keep daily vs. monthly totals distinct |
 | Count stats | `{{COMPLETED_COUNT}}`, `{{TOTAL_COUNT}}`, `{{ACTION_COUNT}}` | Quantity statistics (suffix `_COUNT`) |
 | Rate stats | `{{COMPLETION_RATE}}` | Rate statistics (suffix `_RATE`) |
 

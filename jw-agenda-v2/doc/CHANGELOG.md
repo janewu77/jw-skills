@@ -7,6 +7,7 @@
 - **mode-daily-todo / mode-daily-log / mode-weekly-plan / mode-add-or-move**: aligned with new carry-over and writing-style rules (ad-hoc additions no longer force `*(ad-hoc addition)*`)
 - **Deduplication** (`conventions.md`): standard normalize→trim→lowercase→exact-match flow defined; substring matching dropped; `mode-planning-sync` matching tightened to exact-or-confirm (P0 #5–#7)
 - **daily-todo-template**: simplified — `{{SCHEDULE_TABLE}}`→`| Time | Activity |` rows (`{{SCHEDULE_ROWS}}`), optional `{{THEME}}` line added, source legend + timestamp footer removed
+- **Template consistency (P1 #9, #11–#14)**: sync-report gains ACTION/INFO example blocks; weekly-review Carry Over explicitly omit-if-empty; monthly Goal Achievement wording aligned with mode error table; monthly `{{ACTUAL_WORK_TIME}}`→`{{TOTAL_WORK_TIME}}` (distinct from daily); `M.D` shorthand defined in conventions-marks
 
 ## v1.2.0 — 2026-03-23
 

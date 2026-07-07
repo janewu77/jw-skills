@@ -90,12 +90,12 @@
 #### 🟡 P1 — 应该修复
 
 - #8 [x] **补全 `{{SCHEDULE_TABLE}}` 结构** — 结转/写作风格改造中改为显式 `| Time | Activity |` 表（`{{SCHEDULE_ROWS}}`），移除黑盒占位符 ✅
-- #9 [ ] **补全 sync report 示例** — 在 `sync-report-template.md` 中为 `{{ACTION_ITEMS}}` / `{{INFO_ITEMS}}` 加 2-3 行 example block
+- #9 [x] **补全 sync report 示例** — `sync-report-template.md` 为 `{{ACTION_ITEMS}}` / `{{INFO_ITEMS}}` 各加 EXAMPLE 注释块 ✅
 - #10 [x] **补全 source legend** — 随写作风格改造重新定位：daily todo 默认不打标记，legend footer 直接移除，完整标记列表见 `conventions-marks.md` ✅
-- #11 [ ] **统一 Carry Over 可选逻辑** — `review-template.md` 标注 optional 但 `mode-weekly-review.md` 总是包含 → 统一为"无 carry-over 项时省略该节"
-- #12 [ ] **统一 Goal Achievement 处理** — `monthly-review-template.md` 说跳过，`mode-monthly-review.md` 说问用户生成骨架 → 选一个策略
-- #13 [ ] **消除日期格式歧义** — 在 `conventions-marks.md` 明确 `*(moved from M.D)*` 中 M.D = 月.日简写，仅用于标记
-- #14 [ ] **区分同名模板变量** — monthly review 模板中 `{{ACTUAL_WORK_TIME}}` 改为 `{{TOTAL_WORK_TIME}}`，避免与 daily log 同名变量混淆
+- #11 [x] **统一 Carry Over 可选逻辑** — `mode-weekly-review.md` 内容描述补上「无 carry-over 项时省略该节」，与模板 OPTIONAL 标记一致 ✅
+- #12 [x] **统一 Goal Achievement 处理** — 确认模板与 `mode-monthly-review.md` 错误表本就一致（无月计划则跳过分析、省略该节），模板注释措辞对齐消除表面矛盾 ✅
+- #13 [x] **消除日期格式歧义** — `conventions-marks.md` 加注：`M.D`=月.日简写仅用于标记，文件名恒用 `YYYY-MM-DD` ✅
+- #14 [x] **区分同名模板变量** — monthly review 模板 `{{ACTUAL_WORK_TIME}}`→`{{TOTAL_WORK_TIME}}`，并在 `template-conventions.md` 标注日/月区分 ✅
 
 #### 🟢 P2 — 可以优化
 
@@ -103,6 +103,6 @@
 - #16 [ ] **量化"大任务"定义** — `mode-weekly-plan.md:36` 加标准，如"预计耗时 > 4 小时视为大任务"
 - #17 [ ] **改善 Add/Move 子模式入口** — `mode-daily-todo.md` Sub-mode C 增加一句话概述再跳转到 `mode-add-or-move.md`
 - #18 [ ] **拆分 Quarter 流程** — `mode-monthly-review.md:13-28` 的季度逻辑从 Step 1 中拆出，改为 Step 1a（标准月度）和 Step 1b（季度/多月）
-- #19 [ ] **清理脚本引用** — `conventions.md:76` 引用了不存在的 `scripts/date_utils.py` → 去掉或创建
-- #20 [ ] **修正模板命名规则矛盾** — `template-conventions.md` 规定 "full words, not abbreviations" 但用了 `{{WEEK_NUM}}` → 改规则或改变量名
+- #19 [x] **清理脚本引用** — 已过时：`scripts/date_utils.py` 与 `dedup_todos.py` 现均存在，引用不再是坏链 ✅
+- #20 [x] **修正模板命名规则矛盾** — 已过时：`template-conventions.md` 规则已改为允许 `{{WEEK_NUM}}`（明示 "not `{{W}}`"），无矛盾 ✅
 - #21 [ ] **调整 schedule 示例** — `schedule-config.example.md` 午餐 30min / 晚餐 2h 不合理 → 调整或注明仅为示意

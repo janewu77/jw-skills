@@ -40,7 +40,7 @@ Use `templates/review-template.md` template, fill and write:
 
 **Path**: `{agendaRoot}/weekly/Week{W}-review.md` (W = ISO week number, 1–52, matching weekly plan naming)
 
-**Content**: Overall overview (completion rate, key achievements), category statistics, incomplete/pending items, **carry over to next week** list.
+**Content**: Overall overview (completion rate, key achievements), category statistics, incomplete/pending items, **carry over to next week** list. Per `review-template.md`, the Carry Over section is optional — **omit it entirely when there are no carry-over items** (do not emit an empty section).
 
 ## Step 5: Bottom-up Cascade Status Sync
 

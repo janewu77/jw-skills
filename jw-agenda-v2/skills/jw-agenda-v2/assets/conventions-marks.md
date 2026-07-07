@@ -14,6 +14,8 @@
 | Explicitly moved in from another date | `*(moved from M.D)*` |
 | Ad-hoc addition in the current conversation | optional; omit unless clarity needed |
 
+> **`M.D` = month.day shorthand** (e.g., `2.5` = February 5), used **only inside marks**. File names always use the full `YYYY-MM-DD` format — never `M.D`.
+
 **Do not write in daily todo output:**
 - `*(from plan)*` — default origin; redundant
 - `*(from tasks list)*` / `*(from reading list)*` — default origin; redundant

@@ -6,7 +6,7 @@
 - **Data coverage**: {{WEEKS_WITH_DATA}}/{{TOTAL_WEEKS}} weeks with review records
 - **Monthly highlights**: {{HIGHLIGHTS}}
 
-<!-- OPTIONAL: Only generate when monthly plan (YYYY-MM-plan.md) exists; otherwise omit this entire section -->
+<!-- OPTIONAL: Only generate when monthly plan (YYYY-MM-plan.md) exists. If absent, skip goal-achievement analysis and omit this entire section, reporting execution data only (see mode-monthly-review.md error table). -->
 ## Goal Achievement
 
 {{GOAL_STATUS}}
@@ -23,7 +23,7 @@
 
 {{TIME_ALLOCATION}}
 
-**Total actual work/study time this month**: {{ACTUAL_WORK_TIME}}
+**Total actual work/study time this month**: {{TOTAL_WORK_TIME}}
 
 ## Learning & Output
 
