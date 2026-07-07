@@ -65,7 +65,7 @@ jw-agenda 是一套 5 个 Agent Skill，用自然语言完成从规划到执行�
 
 **🎯 适合**：个人生产力、项目管理、习惯追踪、目标管理，以及任何希望通过 AI 辅助自动化规划工作流程的人。
 
-详见[详细文档](jw-agenda/README.md)了解安装、示例和完整功能列表。**预打包 zip** 可在 [Releases](https://github.com/janewu77/jw-skills/releases) 下载。
+详见[详细文档](jw-agenda/README.md)了解安装、示例和完整功能列表。安装方式：克隆本仓库，把 `jw-agenda/skills/` 下的 skill 文件夹复制到你产品的 skills 目录。
 
 ---
 
@@ -78,7 +78,7 @@ jw-agenda 是一套 5 个 Agent Skill，用自然语言完成从规划到执行�
    mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
    ```
 
-2. 📦 **安装技能**：从 [Releases](https://github.com/janewu77/jw-skills/releases) 下载 5 个技能的 zip，分别解压到 Cursor 技能目录（如 `~/.cursor/skills/`）。若本地已有仓库，也可直接复制 `jw-agenda/skills/` 下的文件夹。
+2. 📦 **安装技能**：克隆本仓库，把 `jw-agenda/skills/` 下的技能文件夹复制到 Cursor 技能目录（如 `~/.cursor/skills/`）。
 
 3. 📅 **创建第一个月度计划**：在 `jw-agenda-data/monthly/` 中添加 `YYYY-MM-plan.md`（如 `2026-02-plan.md`）。
 

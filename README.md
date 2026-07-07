@@ -65,7 +65,7 @@ See [jw-agenda-v2/README.md](jw-agenda-v2/README.md) for modes, installation, an
 
 **🎯 Perfect for**: Personal productivity, project planning, habit tracking, goal management, and anyone who wants to automate their planning workflow with AI assistance.
 
-See the [detailed documentation](jw-agenda/README.md) for installation, examples, and complete feature list. **Pre-built zips** for all 5 skills are available in [Releases](https://github.com/janewu77/jw-skills/releases).
+See the [detailed documentation](jw-agenda/README.md) for installation, examples, and complete feature list. To install, clone this repo and copy the skill folders from `jw-agenda/skills/` into your product's skills directory.
 
 ---
 
@@ -78,7 +78,7 @@ See the [detailed documentation](jw-agenda/README.md) for installation, examples
    mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
    ```
 
-2. 📦 **Install skills**: Download the 5 skill zips from [Releases](https://github.com/janewu77/jw-skills/releases), unzip each into your Cursor skills directory (e.g., `~/.cursor/skills/`). Or copy the folders from `jw-agenda/skills/` if you have the repo locally.
+2. 📦 **Install skills**: Clone this repo and copy the skill folders from `jw-agenda/skills/` into your Cursor skills directory (e.g., `~/.cursor/skills/`).
 
 3. 📅 **Create your first monthly plan**: Add `YYYY-MM-plan.md` in `jw-agenda-data/monthly/` (e.g., `2026-02-plan.md`).
 

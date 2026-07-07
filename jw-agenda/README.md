@@ -142,24 +142,19 @@ For **Cursor**, see [Agent Skills (install and skill directory)](https://cursor.
 
 ### ⚡ Quick Start (One-Command Setup)
 
-**For Cursor users**: Run this in your workspace root to create the data directory and install all 5 Skills from zip files. **Pre-built zips** are available in [Releases](https://github.com/janewu77/jw-skills/releases):
+**For Cursor users**: Clone this repo, then run this in your workspace root to create the data directory and install all 5 Skills by copying the skill folders:
 
 ```bash
 # Step 1: Create data directory
 mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
 
-# Step 2: Install Skills (choose one method)
-
-# Method A: From zip files (if you have the 5 zip files in current directory)
-for zip in jw-agenda-*.zip; do unzip -q "$zip" -d ~/.cursor/skills/; done
-
-# Method B: From source (if you cloned this repo)
+# Step 2: Install Skills — copy the skill folders from the cloned repo
 cd jw-agenda && for skill in skills/jw-agenda-*/; do cp -r "$skill" ~/.cursor/skills/; done && cd ..
 ```
 
 **Note**: Replace `~/.cursor/skills/` with `.cursor/skills/` for project-level installation, or adjust the path per your Cursor setup.
 
-**Shell**: These are Bash commands (Linux, macOS, Git Bash, WSL). They do **not** run in Windows **cmd**; use **Git Bash** or **WSL**, or unzip each zip manually into Cursor’s skills directory.
+**Shell**: These are Bash commands (Linux, macOS, Git Bash, WSL). They do **not** run in Windows **cmd**; use **Git Bash** or **WSL**, or copy each skill folder manually into Cursor’s skills directory.
 
 After running the above, open your workspace in Cursor and start using the Skills. See "Install steps" below for details and customization options.
 
@@ -228,13 +223,13 @@ Edit the file. **Without it**, daily-todo uses the built-in default template.
 
 **Step 3: Install Skills**
 
-- **📦 Zip install (recommended)**: Download the 5 skill zips from [Releases](https://github.com/janewu77/jw-skills/releases) (or run `./package-skills.sh` in `jw-agenda/` to generate under `output/`). **Unzip each into Cursor's skills directory** (user: `~/.cursor/skills/`; project: `.cursor/skills/`). Conventions and scripts are inside the zip; no extra copy to user dir. See [Cursor: Agent Skills](https://cursor.com/docs/context/skills).
+- **📦 Copy from source (recommended)**: Clone this repo and copy the needed skill folders from `jw-agenda/skills/` into your product's skills directory (user: `~/.cursor/skills/`; project: `.cursor/skills/`). Conventions and scripts live inside each skill folder; no extra copy to the user dir. See [Cursor: Agent Skills](https://cursor.com/docs/context/skills).
   ```bash
-  unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
-  unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
+  cp -r jw-agenda/skills/jw-agenda-daily-log ~/.cursor/skills/
+  cp -r jw-agenda/skills/jw-agenda-daily-todo ~/.cursor/skills/
   # same for the other 3 skills
   ```
-- **From source**: Copy the needed skill folders from this repo's `jw-agenda/skills/` to the product's skill directory (e.g. `~/.cursor/skills/`). See [Cursor docs](https://cursor.com/docs/context/skills) or your product's docs.
+- **Optional — build local zips**: If you want a single bundle to hand to someone, run `./package-skills.sh` in `jw-agenda/` to generate zips under `output/`; the recipient unzips each into their skills directory.
 
 **Step 4 (recommended): Create monthly plan**
 
@@ -361,16 +356,14 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development guidelines.
 
 ## 📦 Distributing
 
-This repo provides **5 separate zips** (one per Skill) for distribution. Download from [Releases](https://github.com/janewu77/jw-skills/releases).
+Skills are distributed **from source**: clone or download this repo and copy the skill folders from `jw-agenda/skills/` into the product's skills directory. Each skill folder is self-contained (conventions and scripts included), so there is nothing extra to copy. Recipients then create the **jw-agenda root** (default `jw-agenda-data`, or via `.jw-agenda.json` / `jw-agenda.json`) with subdirs monthly, weekly, daily, tasks; optionally copy any skill's `assets/schedule-config.example.md` to the jw-agenda root as `schedule-config.md` to customize the schedule.
 
-**🔨 Build zips**: In the **jw-agenda directory**:
+**🔨 Optional — local zip bundle**: If you'd rather hand someone a single bundle instead of the repo, run `./package-skills.sh` in the **jw-agenda directory** to generate per-skill zips under `jw-agenda/output/`; the recipient unzips each into their skills directory.
 
 ```bash
 cd jw-agenda
 ./package-skills.sh
 ```
-
-Output goes to `jw-agenda/output/`. Run when you need to ship or release (e.g. new version, users who don't clone the repo). Recipients **unzip each into Cursor's skills directory** and create the **jw-agenda root** (default `jw-agenda-data`, or via `.jw-agenda.json` / `jw-agenda.json`) with subdirs monthly, weekly, daily, tasks; no need to copy conventions or scripts—they're in the zip. Optional: copy any skill's `assets/schedule-config.example.md` to the jw-agenda root as `schedule-config.md` to customize schedule.
 
 ---
 

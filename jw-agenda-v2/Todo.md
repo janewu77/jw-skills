@@ -6,7 +6,7 @@
 - #2 [ ] 是否要写成英文的 prompt？
 - #3 [x] 更新上一层的文档 ✅ 根 README.md / README.zh-CN.md 已加 v2 条目 + 对比说明
 - #4 [ ] **考虑增加月总结模式** — 当前只有 weekly-review，可增加 mode-monthly-review.md（或明确说明由用户手动维护）
-- #22[ ]github上把release 关掉，这个不适合用release。相关文档要更新。（中/英）
+- #22 [x] github上把release 关掉，这个不适合用release。相关文档要更新。（中/英）✅ 文档已全面改为「拷贝文件夹」：根 + jw-agenda README（中英）、根 CONTRIBUTING（中英）；发布流程改为「版本号+git tag」，package-skills.sh 降级为可选本地打包。**注**：GitHub 网站上关闭 Releases 功能需你手动操作（仓库 Settings）。
 
 ---
 

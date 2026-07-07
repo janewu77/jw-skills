@@ -29,7 +29,7 @@
 
 将来若有新增 skills 且需要开发者特别注意的事项，可在此表补充并对应到该 skill 的 `CONTRIBUTING.md`。
 
-## 发布流程与版本号约定
+## 版本号约定与打 tag
 
 ### 版本号规则
 
@@ -44,39 +44,28 @@
 2. 更新所有 skill 的 `SKILL.md` metadata 中的 `version` 字段，使其与仓库版本一致
 3. 更新技能组级版本（如适用）使其与仓库版本一致
 
-### 发布流程
+### 打 tag 流程
 
-创建 GitHub Release 时：
+本仓库**不使用 GitHub Release**。分发采用源码方式：用户克隆仓库并复制 skill 文件夹（见各 README 的安装章节）。版本通过 `CHANGELOG.md`、各 skill 的 `SKILL.md` metadata，以及 Git tag 记录。
 
-1. **版本标签**：创建与版本号匹配的 Git 标签（如 `v0.1.0`）
-2. **CHANGELOG 摘要**：在 Release 说明中包含 `CHANGELOG.md` 的摘要
-3. **分发文件**：附加分发文件：
-   - **方式 A（推荐）**：5 个独立的 zip 文件（每个 skill 一个），通过在 `jw-agenda/` 目录下运行 `./package-skills.sh` 生成
-   - **方式 B**：一个包含所有 skill 的捆绑 zip（如需要批量分发）
-4. **Release 说明**：包含：
-   - 变更内容（来自 CHANGELOG）
-   - 安装说明（链接到 README）
-   - 破坏性变更（如有）
+发布新版本时：
 
-### 发布流程示例
+1. **CHANGELOG**：更新 `CHANGELOG.md` 中的版本号和变更内容。
+2. **skill 版本**：把所有受影响 skill 的 `SKILL.md` `version` 字段升到对应版本。
+3. **提交并打 tag**：提交后创建与版本号匹配的 Git tag（如 `v0.1.0`）。
+
+### 打 tag 流程示例
 
 ```bash
 # 1. 更新 CHANGELOG.md 中的新版本
-# 2. 更新所有 skill 的 SKILL.md version 字段
+# 2. 更新所有受影响 skill 的 SKILL.md version 字段
 # 3. 提交更改
 git add CHANGELOG.md jw-agenda/skills/*/SKILL.md
 git commit -m "chore: bump version to 0.2.0"
 
-# 4. 创建标签
-git tag -a v0.2.0 -m "Release v0.2.0"
-
-# 5. 生成分发 zip（针对 jw-agenda）
-cd jw-agenda
-./package-skills.sh
-cd ..
-
-# 6. 推送标签
+# 4. 创建并推送 tag
+git tag -a v0.2.0 -m "v0.2.0"
 git push origin v0.2.0
-
-# 7. 通过 GitHub Web UI 创建 Release，附加 jw-agenda/output/ 下的 zip 文件
 ```
+
+*（可选：若想把技能打成单个包发给别人、而非直接给仓库，可运行 `./jw-agenda/package-skills.sh` 在 `jw-agenda/output/` 生成本地 zip。）*

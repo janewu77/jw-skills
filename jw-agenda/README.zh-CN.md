@@ -142,24 +142,19 @@
 
 ### ⚡ 快速开始（一键安装）
 
-**Cursor 用户**：在你的 workspace 根目录运行以下命令，创建数据目录并安装全部 5 个 Skill。**预打包 zip** 可在 [Releases](https://github.com/janewu77/jw-skills/releases) 下载：
+**Cursor 用户**：先克隆本仓库，然后在你的 workspace 根目录运行以下命令，创建数据目录并通过复制 skill 文件夹安装全部 5 个 Skill：
 
 ```bash
 # 第 1 步：创建数据目录
 mkdir -p jw-agenda-data/{monthly,weekly,daily,tasks}
 
-# 第 2 步：安装 Skill（选择一种方式）
-
-# 方式 A：从 zip 文件安装（如果当前目录有 5 个 zip 文件）
-for zip in jw-agenda-*.zip; do unzip -q "$zip" -d ~/.cursor/skills/; done
-
-# 方式 B：从源码安装（如果已克隆本仓库）
+# 第 2 步：安装 Skill —— 从克隆的仓库复制 skill 文件夹
 cd jw-agenda && for skill in skills/jw-agenda-*/; do cp -r "$skill" ~/.cursor/skills/; done && cd ..
 ```
 
 **注意**：如需项目级安装，将 `~/.cursor/skills/` 替换为 `.cursor/skills/`，或根据你的 Cursor 配置调整路径。
 
-**运行环境**：以上为 Bash 命令（Linux、macOS、Git Bash、WSL）。Windows 的 **cmd** 不能直接执行；请在 **Git Bash** 或 **WSL** 中运行，或手动解压每个 zip 到 Cursor 的 skills 目录。
+**运行环境**：以上为 Bash 命令（Linux、macOS、Git Bash、WSL）。Windows 的 **cmd** 不能直接执行；请在 **Git Bash** 或 **WSL** 中运行，或手动把每个 skill 文件夹复制到 Cursor 的 skills 目录。
 
 运行上述命令后，在 Cursor 中打开你的 workspace 即可开始使用。详细说明和自定义选项见下方「安装步骤」。
 
@@ -249,13 +244,13 @@ cp <path-to-any-skill>/assets/schedule-config.example.md jw-agenda-data/schedule
 
 **第 3 步：安装 Skill**
 
-- **📦 用 zip 安装（推荐，Cursor 等）**：从 [Releases](https://github.com/janewu77/jw-skills/releases) 下载 5 个独立 zip（或运行 `./package-skills.sh` 在 `output/` 下生成）。将**每个 zip 解压到 Cursor 的 skills 目录**（用户级：`~/.cursor/skills/`；项目级：`.cursor/skills/`）即可，约定与脚本已内嵌在 zip 内，**无需再复制任何文件到用户目录**。目录与从 GitHub 安装方式见 [Cursor 官方：Agent Skills](https://cursor.com/docs/context/skills)。
+- **📦 从源码复制（推荐，Cursor 等）**：克隆本仓库，把 `jw-agenda/skills/` 下需要的 skill 文件夹复制到你产品的 skills 目录（用户级：`~/.cursor/skills/`；项目级：`.cursor/skills/`）。每个 skill 文件夹自带约定与脚本，**无需再复制任何文件到用户目录**。目录与安装方式见 [Cursor 官方：Agent Skills](https://cursor.com/docs/context/skills)。
   ```bash
-  unzip jw-agenda-daily-log.zip -d ~/.cursor/skills/
-  unzip jw-agenda-daily-todo.zip -d ~/.cursor/skills/
+  cp -r jw-agenda/skills/jw-agenda-daily-log ~/.cursor/skills/
+  cp -r jw-agenda/skills/jw-agenda-daily-todo ~/.cursor/skills/
   # 其余 3 个 skill 同理
   ```
-- **从源码安装**：将本仓库 `jw-agenda/skills/` 下需要的 skill 目录复制到产品规定的技能目录（如 `~/.cursor/skills/`），具体见 [Cursor 官方文档](https://cursor.com/docs/context/skills) 或各产品文档。
+- **可选 —— 生成本地 zip**：若想把技能打成单个包发给别人，可在 `jw-agenda/` 下运行 `./package-skills.sh`，在 `output/` 生成各 skill 的 zip；对方将每个 zip 解压到自己的 skills 目录即可。
 
 **第 4 步：创建月规划（推荐）**
 
@@ -382,16 +377,14 @@ pytest jw-agenda/tests/ -v
 
 ## 📦 分发给他人使用
 
-本仓库提供 **5 个独立的 zip**（每个 Skill 一个），用于分发给他人安装。下载地址：[Releases](https://github.com/janewu77/jw-skills/releases)
+技能以**源码方式**分发：克隆或下载本仓库，把 `jw-agenda/skills/` 下的 skill 文件夹复制到产品的 skills 目录即可。每个 skill 文件夹自带约定与脚本，**无需再复制任何额外文件**。使用者随后在 workspace 下创建 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 `.jw-agenda.json` 或 `jw-agenda.json` 配置，见上方「配置 jw-agenda 根目录」）及子目录（monthly、weekly、daily、tasks）；如需自定义作息，可选：把任一 skill 的 `assets/schedule-config.example.md` 复制到 jw-agenda 根目录下并重命名为 `schedule-config.md` 后修改。
 
-**🔨 如何生成 zip**：在 **jw-agenda 目录下**执行：
+**🔨 可选 —— 生成本地 zip 包**：若想把技能打成单个包发给别人、而非直接给仓库，可在 **jw-agenda 目录下**运行 `./package-skills.sh`，在 `jw-agenda/output/` 生成各 skill 的 zip；对方将每个 zip 解压到自己的 skills 目录即可。
 
 ```bash
 cd jw-agenda
 ./package-skills.sh
 ```
-
-脚本会把 `skills/` 下每个 skill 打成一个 zip，输出到 `jw-agenda/output/`。**何时执行**：需要把技能组以 zip 形式分发或发布时（例如发布新版本、发给未克隆仓库的用户）执行一次即可。生成后，分发给他人时提供这 5 个 zip 即可。使用者将**每个 zip 解压到 Cursor 的 skills 目录**，并在 workspace 下创建 **jw-agenda 根目录**（默认 `jw-agenda-data`，可经 `.jw-agenda.json` 或 `jw-agenda.json` 配置，见上方「配置 jw-agenda 根目录」）及子目录（monthly、weekly、daily、tasks）；**无需再复制约定或脚本**，zip 内已包含。若需自定义作息，可选：从任一 zip 解压后的 skill 的 `assets/schedule-config.example.md` 复制到 jw-agenda 根目录下并重命名为 `schedule-config.md` 后修改。
 
 ---
 
