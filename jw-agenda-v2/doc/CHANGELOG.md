@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## v1.4.0 — 2026-07-08
+
 - **Deferrable vs non-deferrable tasks** (`conventions.md`): daily discipline / fixed events cannot be 结转 or 补做; only flexible tasks carry forward
 - **Daily todo output marks** (`conventions-marks.md`): default no mark; only `*(结转)*` / `*(moved from M.D)*` for exceptions; no 遗留/补做 framing; no low-priority hedging
 - **mode-daily-todo / mode-daily-log / mode-weekly-plan / mode-add-or-move**: aligned with new carry-over and writing-style rules (ad-hoc additions no longer force `*(ad-hoc addition)*`)

@@ -3,8 +3,8 @@ name: jw-agenda-v2
 description: "Agenda management / 日程管理: daily todo, daily log, weekly plan, weekly review, monthly review, planning sync. Trigger phrases: 今天计划、日报、周规划、周总结、月总结、同步规划、today plan、weekly review、monthly review"
 metadata:
   author: Jing Wu
-  version: "1.3.0"
-  updated: "2026-03-27"
+  version: "1.4.0"
+  updated: "2026-07-08"
 ---
 
 # jw-agenda-v2
